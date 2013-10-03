@@ -1,0 +1,359 @@
+NAME
+    Kavorka - function signatures with the lure of the animal
+
+SYNOPSIS
+       use Kavorka;
+   
+       fun maxnum (Num @numbers) {
+          my $max = shift @numbers;
+          for (@numbers) {
+             $max = $_ if $max < $_;
+          }
+          return $max;
+       }
+   
+       my $biggest = maxnum(42, 3.14159, 666);
+
+STATUS
+    Kavorka is still at a very early stage of development; there are likely to
+    be many bugs that still need to be shaken out. Certain syntax features are
+    a little odd and may need to be changed in incompatible ways.
+
+DESCRIPTION
+    Kavorka provides `fun` and `method` keywords for declaring functions and
+    methods. It uses Perl 5.14's keyword API, so should work more reliably
+    than source filters or Devel::Declare-based modules.
+
+  Basic Syntax
+    The syntax provided by Kavorka is largely inspired by Perl 6, though it
+    has also been greatly influenced by Method::Signatures and
+    Function::Parameters.
+
+    The anatomy of a function:
+
+    1.  The keyword introducing the function.
+
+    2.  The function name (optional).
+
+    3.  The signature (optional).
+
+    4.  The prototype (optional).
+
+    5.  The attribute list (optional).
+
+    6.  The function body.
+
+    Example:
+
+       #  (1) (2)    (3)          (4)   (5)     (6)
+          fun foobar ($foo, $bar) :($$) :cached { return $foo + $bar }
+   
+       #          (1) (6)
+          my $f = fun { return $_[0] + $_[1] };
+
+  The Keyword
+    By default this module exports the keywords `fun` and `method`. These
+    keywords are respectively implemented by Kavorka::Sub::Fun and
+    Kavorka::Sub::Method. Other keywords may be imported upon request:
+    `after`, `around`, `before`, `classmethod` and `objectmethod`.
+
+    The module implementing the keyword may alter various aspects of the
+    keyword's behaviour. For example, `fun` ensures that the function's name
+    and prototype is declared at compile time; `method` shifts the invocant
+    off @_; and `before`, `after` and `around` pass the body coderef to your
+    OO framework's method modifier installation function.
+
+    See the implementing modules' documentation for further details.
+
+  The Function Name
+    If present, it specifies the name of the function being defined. As with
+    `sub`, if a name is present, by default the whole declaration is
+    syntactically a statement and its effects are performed at compile time
+    (i.e. at runtime you can call functions whose definitions only occur later
+    in the file). If no name is present, the declaration is an expression that
+    evaluates to a reference to the function in question.
+
+  The Signature
+    The signature consists of a list of parameters for the function.
+
+    Each parameter is a variable name which will be available within the body
+    of the function. Variable names are assumed to be lexicals unless they
+    look like punctuation variables or escape-character global variables, in
+    which case they'll be implicitly localized within the function.
+
+    Parameters are separated with commas, however if one of the commas is
+    replaced by a colon, all parameters to the left are assumed to be
+    invocants and are shifted off @_. If no invocants are explicitly listed as
+    part of the signature, the module implementing the keyword may assume a
+    default invocant - for example, `method` assumes an invocant called $self
+    while `around` assumes two invocants called `${^NEXT}` and $self.
+
+   Positional parameters
+    Parameters which are not explicitly named, slurpy or invocants, are
+    positional. For example:
+
+       method foo ( $x, $y ) { ... }
+
+    Is roughly equivalent to:
+
+       sub foo {
+          my $self = shift;
+          die "Expected two parameters" unless @_ == 2;
+          my ($x, $y) = @_;
+          ...
+       }
+
+    This feature is shared with Perl 6 signatures, Function::Parameters, and
+    Method::Signatures.
+
+   Invocants
+    Invocants are a type of positional parameter, which instead of being
+    copied from the @_ array are shifted off it.
+
+    Invocants are always required, and cannot have defaults. Some keywords
+    (such as `method` and `classmethod`) provide a standard invocant for you
+    (respectively $self and $class).
+
+    You may specify invocants in the signature manually, in which case the
+    default provided by the keyword is ignored.
+
+       # The invocant is called $me instead of $self
+       method ($me: $x, $y?) { ... }
+
+    This feature is shared with Perl 6 signatures, Function::Parameters, and
+    Method::Signatures. Unique to Kavorka is the ability to specify multiple
+    invocants.
+
+   Named parameters
+    Parameters can be named by preceding them with a colon:
+
+       method foo ( :$x, :$y ) { ... }
+
+    The method would be called like this:
+
+       $object->foo( x => 1, y => 2 );
+
+    This feature is shared with Perl 6 signatures, Function::Parameters, and
+    Method::Signatures.
+
+    Positional parameters (if any) must precede named parameters.
+
+    If you have any named parameters, they will also be made available in the
+    magic global hash %_.
+
+   Long name parameters
+    Named parameters can be given a different name "inside" and "outside" the
+    function:
+
+       fun bar ( :public_house($pub) ) { ... }
+
+    The function would be called like this:
+
+       bar( public_house => "Rose & Crown" );
+
+    ... But within the function, the variable would be named $pub.
+
+    This feature is shared with Perl 6 signatures.
+
+   Optional and required parameters
+    A trailing exclamation mark makes an attribute required. A trailing
+    question mark makes an attribute optional.
+
+    This feature is shared with Perl 6 signatures and Method::Signatures.
+
+    In the absence of explicit indicators, positional parameters will be
+    required unless a default is provided for them, and named parameters will
+    be optional.
+
+    You can not use named parameters and optional positional parameters in the
+    same signature.
+
+   Slurpy parameters
+    The final parameter in the signature may be an array or hash, which will
+    consume all remaining arguments:
+
+       fun foo ( $x, $y, %z ) { ... }
+   
+       foo(1..4);  # %z is (3 => 4)
+
+    This feature is shared with Perl 6 signatures, Function::Parameters, and
+    Method::Signatures.
+
+    A slurpy array may not be used if the signature contains any named
+    parameters.
+
+    Unique to Kavorka is the ability to specify slurpy arrayrefs or hashrefs.
+
+       fun foo ( $x, $y, slurpy HashRef $z ) { ... }
+   
+       foo(1..4);  # $z is { 3 => 4 }
+
+    For slurpy references you should specify a type constraint (see "Type
+    Constraints") so that Kavorka can create the correct type of reference.
+
+   Type constraints
+    Type constraints may be specified for each parameter in the signature:
+
+       fun foo ( Int $x, HTTP::Tiny $y ) { ... }
+
+    This feature is shared with Perl 6 signatures, Function::Parameters, and
+    Method::Signatures.
+
+    Type constraints are parsed as per `dwim_type` from Type::Utils, which
+    should mostly do what you mean.
+
+    Type constraints for slurpy hashes and arrays are applied to each value in
+    the hash or each item in the array. Type constraints for slurpy references
+    are instead applied to the reference as a whole. Therefore the following
+    are roughly equivalent:
+
+       fun foo ( Str %z ) { my $z = \%z; ... }
+       fun foo ( slurpy HashRef[Str] $z ) { ... }
+
+   Value constraints
+    Value constraints can be used to further constrain values. Value
+    constraints are specified using the `where` keyword followed by a block.
+
+       fun foo ( Int $even where { $_ % 2 == 0 } )
+
+    Multiple `where` blocks may be provided:
+
+       fun foo ( Int $even where { $_ % 2 == 0 } where { $_ > 0 } )
+
+    This feature is shared with Perl 6 signatures and Method::Signatures.
+
+    The non-block form of `where` supported by Method::Signatures is not
+    supported by Kavorka, but can be emulated using match::simple:
+
+       # Method::Signatures allows this (performing smart match):
+       #
+       method foo ( Int $x where $y ) {
+          ...
+       }
+   
+       # For Kavorka, try this:
+       #
+       method foo ( Int $x where { match($_, $y) } ) {
+          ...
+       }
+
+   Defaults
+    Defaults may be provided using an equals sign:
+
+       fun foo ( $greeting = "Hello world" ) {
+          ...
+       }
+
+    This feature is shared with Perl 6 signatures, Function::Parameters, and
+    Method::Signatures.
+
+    Kavorka will use the default if the argument is not given when the
+    function is invoked. If an explicit undef is passed to the function when
+    it is called, this is accepted as the value for the parameter, and the
+    default is not used.
+
+    If instead you want the default to take effect when an explicit undef is
+    passed to the function, use `//=`:
+
+       fun foo ( $greeting //= "Hello world" ) {
+          ...
+       }
+
+    This feature is shared with Method::Signatures. Kavorka doesn't support
+    Method::Signatures' `when` keyword.
+
+    Slurpy parameters may take defaults:
+
+       fun foo ( @bar = (1, 2, 3) ) { ... }
+
+    For slurpy references, the syntax is a little unintuitive:
+
+       fun foo ( slurpy ArrayRef $bar = (1, 2, 3) ) { ... }
+
+   Traits
+    Traits may be added to each parameter using the `is` keyword:
+
+       fun foo ( $greeting is polite = "Hello world" ) { ... }
+   
+       fun bar ( $baz is quux is xyzzy ) { ... }
+
+    The keyword `does` is also available which acts as an alias for `is`.
+
+    This feature is shared with Perl 6 signatures and Method::Signatures.
+
+    You can use pretty much any word you like as a trait; Kavorka doesn't
+    check that they're "valid" or anything. Choosing random words of course
+    won't do anything, but the traits are available through the introspection
+    API.
+
+    The traits Kavorka understands natively are:
+
+    *   `optional` (yes, the `?` and `!` syntax is just a shortcut for a
+        trait)
+
+    *   `slurpy` (again, the slurpy prefix to the type constraint is just a
+        shortcut for a trait)
+
+    *   `coerce`
+
+   Type coercion
+    Coercion can be enabled for a parameter using the `coerce` constraint.
+
+       use Types::Path::Tiny qw(AbsPath);
+   
+       method print_to_file ( AbsFile $file does coerce ) { ... }
+
+  The Prototype
+    Like with the sub keyword, a prototype may be provided for functions.
+    Method dispatch ignores this, so it's only likely to be useful for `fun`,
+    and even then, rarely.
+
+    Like Function::Parameters, Kavorka uses `:(...)` to indicate a prototype.
+    This avoids ambiguity between signatures, prototypes and attributes.
+
+  The Attributes
+    Attributes are currently parsed, but ignored. Due to a limitation in
+    current versions of Parse::Keyword, there's little we can do with them.
+
+  The Function Body
+    This is more or less what you'd expect from the function body you'd write
+    with sub, however the lexical variables for parameters are pre-declared
+    and pre-populated, and invocants have been shifted off @_.
+
+  Introspection API
+    The coderef for any sub created by Kavorka can be passed to the
+    `Kavorka->info` method. This returns a blessed object that does the
+    Kavorka::Sub role.
+
+       fun foo { }
+   
+       my $info = Kavorka->info(\&foo);
+   
+       my $function_name = $info->qualified_name;
+       my @named_params  = grep $_->named, @{$info->signature->params};
+
+    See Kavorka::Sub, Kavorka::Signature and Kavorka::Signature::Parameter for
+    further details.
+
+BUGS
+    Please report any bugs to
+    <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>.
+
+SEE ALSO
+    <http://perlcabal.org/syn/S06.html>, Function::Parameters,
+    Method::Signatures.
+
+AUTHOR
+    Toby Inkster <tobyink@cpan.org>.
+
+COPYRIGHT AND LICENCE
+    This software is copyright (c) 2013 by Toby Inkster.
+
+    This is free software; you can redistribute it and/or modify it under the
+    same terms as the Perl 5 programming language system itself.
+
+DISCLAIMER OF WARRANTIES
+    THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+    WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+    MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+

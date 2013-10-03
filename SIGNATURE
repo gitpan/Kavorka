@@ -1,0 +1,54 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.70.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 294505f858f11dd062e9916e3f50d88210a9ef54 CONTRIBUTING
+SHA1 b7f71f1b9a4677c74b26ba1193f38cda0d61548e COPYRIGHT
+SHA1 6bd7b17d81be63d08d4efa6cb80106e72887842c CREDITS
+SHA1 9decf5e6ea0bf39332565abd9cf91ce64072c043 Changes
+SHA1 642accba7915d84fd2d6e679492d9e9609cb9870 INSTALL
+SHA1 ec5a7b4f3023f03ebf821b57690758f7e6f3ae2a LICENSE
+SHA1 5d333588b8ee4406cbdcc2214d23cf70cdf76051 MANIFEST
+SHA1 803d6886ce321d5b9c831a9aed2370615ea0659e META.json
+SHA1 19fc31f378b17e672eedf7a2fb25a0a7598064a5 META.yml
+SHA1 4f1a548bd19d782be4cc3e016b5f97d55793a2c0 Makefile.PL
+SHA1 1db33bff4db6e87f596ea673edcc053dba65437f README
+SHA1 39bac3db859a6ce7311a36c43c2ac9ef1da35a19 dist.ini
+SHA1 26298e731852bbd07c2c8dde0027aed067ec8e00 doap.ttl
+SHA1 7379d0eed4356935c5e9a1da220029e8c461c37d lib/Kavorka.pm
+SHA1 0ce581c32f8b93377793a5b3465af350b56daab9 lib/Kavorka/MethodModifier.pm
+SHA1 c813b3ff24ca54627dc6776b114fd5a15f5e69a9 lib/Kavorka/Signature.pm
+SHA1 3df8ef6c7faa6643e5245b583a2a4f50daefef3c lib/Kavorka/Signature/Parameter.pm
+SHA1 99b685d680d877c73aee63dc82ea47c758aa957c lib/Kavorka/Sub.pm
+SHA1 f54ff0b8a519848b49da16f4e34712b82bd9a115 lib/Kavorka/Sub/After.pm
+SHA1 81a4a8e2f6a83479477f78e02b9e02300b346aa3 lib/Kavorka/Sub/Around.pm
+SHA1 db37dfc6fd08319b3d2139c1bf0030072f37c3af lib/Kavorka/Sub/Before.pm
+SHA1 198423a7ce91bfaedbda23a6d953e305fd7658a9 lib/Kavorka/Sub/ClassMethod.pm
+SHA1 2905450efccd8a468af0484c80d3637a74445250 lib/Kavorka/Sub/Fun.pm
+SHA1 d0ef77a452aad425f71d6fa33653dd3ed6b68103 lib/Kavorka/Sub/Method.pm
+SHA1 ead99deb732aef1655fa82f0d8a96892ed604bc5 lib/Kavorka/Sub/ObjectMethod.pm
+SHA1 77f8d18ede185204fe6a1866cbce3dd858d4a98a lib/Parse/KeywordX.pm
+SHA1 d867593df17df283ef94bb819daa7341985d1b05 t/01basic.t
+SHA1 0d3319d8f2ac45a38b1bfe35e49b6c5668d5fd86 t/02named-functions.t
+SHA1 e698fe91ef75d0237e79534cb9e3e5858b6e6d36 t/03anon-functions.t
+SHA1 1f9544e892b5d3e8f62a0bd34f78a7a06c315d45 t/TODO
+SHA1 fe701d314a323fb6810db7992136f291f561b5aa t/xx-closures.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iEYEARECAAYFAlJNME4ACgkQzr+BKGoqfTk44wCZASEqkH2juiC7cb7dS0hx5JeT
+ecAAoKzbaFAp8KfHg6CMWRHRZytXBj/l
+=t1fY
+-----END PGP SIGNATURE-----

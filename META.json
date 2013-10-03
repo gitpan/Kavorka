@@ -1,0 +1,132 @@
+{
+   "abstract" : "function signatures with the lure of the animal",
+   "author" : [
+      "Toby Inkster (TOBYINK) <tobyink@cpan.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Inkt::Profile::TOBYINK version 0.013, CPAN::Meta::Converter version 2.120921",
+   "keywords" : [],
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Kavorka",
+   "no_index" : {
+      "directory" : [
+         "eg",
+         "examples",
+         "inc",
+         "t",
+         "xt"
+      ]
+   },
+   "optional_features" : {},
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.17"
+         }
+      },
+      "develop" : {
+         "recommends" : {
+            "Dist::Inkt" : "0.001"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Devel::Pragma" : "0",
+            "Exporter::Tiny" : "0.026",
+            "Module::Runtime" : "0",
+            "Moo" : "1.003001",
+            "PadWalker" : "0",
+            "Parse::Keyword" : "0.06",
+            "Sub::Name" : "0",
+            "Type::Parser" : "0.028",
+            "Type::Registry" : "0.028",
+            "Type::Utils" : "0.028",
+            "Types::Standard" : "0.028",
+            "namespace::sweep" : "0.006",
+            "perl" : "5.014"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::Fatal" : "0",
+            "Test::More" : "0.96"
+         }
+      }
+   },
+   "provides" : {
+      "Kavorka" : {
+         "file" : "lib/Kavorka.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::MethodModifier" : {
+         "file" : "lib/Kavorka/MethodModifier.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Signature" : {
+         "file" : "lib/Kavorka/Signature.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Signature::Parameter" : {
+         "file" : "lib/Kavorka/Signature/Parameter.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Sub" : {
+         "file" : "lib/Kavorka/Sub.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Sub::After" : {
+         "file" : "lib/Kavorka/Sub/After.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Sub::Around" : {
+         "file" : "lib/Kavorka/Sub/Around.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Sub::Before" : {
+         "file" : "lib/Kavorka/Sub/Before.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Sub::ClassMethod" : {
+         "file" : "lib/Kavorka/Sub/ClassMethod.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Sub::Fun" : {
+         "file" : "lib/Kavorka/Sub/Fun.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Sub::Method" : {
+         "file" : "lib/Kavorka/Sub/Method.pm",
+         "version" : "0.000_01"
+      },
+      "Kavorka::Sub::ObjectMethod" : {
+         "file" : "lib/Kavorka/Sub/ObjectMethod.pm",
+         "version" : "0.000_01"
+      },
+      "Parse::KeywordX" : {
+         "file" : "lib/Parse/KeywordX.pm",
+         "version" : "0.000_01"
+      }
+   },
+   "release_status" : "testing",
+   "resources" : {
+      "X_identifier" : "http://purl.org/NET/cpan-uri/dist/Kavorka/project",
+      "bugtracker" : {
+         "web" : "http://rt.cpan.org/Dist/Display.html?Queue=Kavorka"
+      },
+      "homepage" : "https://metacpan.org/release/Kavorka",
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ],
+      "repository" : {
+         "type" : "git",
+         "web" : "https://github.com/tobyink/p5-kavorka"
+      }
+   },
+   "version" : "0.000_01"
+}
