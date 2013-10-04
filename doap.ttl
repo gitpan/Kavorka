@@ -35,7 +35,7 @@
 	doap:maintainer      <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:name            "Kavorka";
 	doap:programming-language "Perl";
-	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>;
+	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>;
 	doap:repository      [
 		a doap:GitRepository;
 		doap:browse <https://github.com/tobyink/p5-kavorka>;
@@ -50,6 +50,29 @@
 	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_01.tar.gz>;
 	doap:revision        "0.000_01"^^xsd:string.
+
+<http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>
+	a                    cpan-uri:DeveloperRelease, doap:Version;
+	dc:identifier        "Kavorka-0.000_02"^^xsd:string;
+	dc:issued            "2013-10-04"^^xsd:date;
+	doap-changeset:changeset [
+		doap-changeset:item [
+			a doap-changeset:Bugfix;
+			rdfs:label "Fix syntax error compiling functions using non-inlinable type constraints in the signature.";
+		], [
+			a doap-changeset:Bugfix;
+			rdfs:label "Fix error finding the position to start slurping from in signatures that have a slurpy after zero positional parameters.";
+		], [
+			a doap-changeset:Tests;
+			rdfs:label "Add some rudimentary tests for type constraints.";
+		], [
+			a doap-changeset:Documentation;
+			rdfs:label "Include benchmarking script as an example.";
+		];
+	];
+	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
+	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_02.tar.gz>;
+	doap:revision        "0.000_02"^^xsd:string.
 
 <http://purl.org/NET/cpan-uri/person/tobyink>
 	a                    foaf:Person;

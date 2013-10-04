@@ -7,7 +7,7 @@ use Kavorka::Signature::Parameter ();
 package Kavorka::Signature;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.000_01';
+our $VERSION   = '0.000_02';
 
 use Parse::Keyword {};
 use Parse::KeywordX;
@@ -140,6 +140,7 @@ sub _build_last_position
 {
 	my $self = shift;
 	my ($last) = grep !$_->named && !$_->slurpy, reverse @{$self->params};
+	return -1 unless $last;
 	return $last->position;
 }
 

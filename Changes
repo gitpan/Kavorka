@@ -6,4 +6,18 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.000_02	2013-10-04
+
+ [ Bug Fixes ]
+ - Fix error finding the position to start slurping from in signatures that
+   have a slurpy after zero positional parameters.
+ - Fix syntax error compiling functions using non-inlinable type
+   constraints in the signature.
+
+ [ Documentation ]
+ - Include benchmarking script as an example.
+
+ [ Test Suite ]
+ - Add some rudimentary tests for type constraints.
+
 0.000_01	2013-10-03	Preview release

@@ -12,6 +12,7 @@ README
 SIGNATURE
 dist.ini
 doap.ttl
+examples/benchmarks.pl
 lib/Kavorka.pm
 lib/Kavorka/MethodModifier.pm
 lib/Kavorka/Signature.pm
@@ -28,5 +29,6 @@ lib/Parse/KeywordX.pm
 t/01basic.t
 t/02named-functions.t
 t/03anon-functions.t
+t/50types.t
 t/TODO
 t/xx-closures.t
