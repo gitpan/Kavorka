@@ -15,33 +15,33 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 294505f858f11dd062e9916e3f50d88210a9ef54 CONTRIBUTING
-SHA1 73ae08e37f2b63f1ca4ea8a9a0f4564168cceca5 COPYRIGHT
+SHA1 d94507b41e832d361222c636d1611e2ae9759c9e COPYRIGHT
 SHA1 6bd7b17d81be63d08d4efa6cb80106e72887842c CREDITS
-SHA1 344fc13a2ec63306ae0cb01e67681658b9bdeb22 Changes
+SHA1 36b2a74c3ac3d8dab967e958ddfb10b67bfd668a Changes
 SHA1 642accba7915d84fd2d6e679492d9e9609cb9870 INSTALL
 SHA1 ec5a7b4f3023f03ebf821b57690758f7e6f3ae2a LICENSE
-SHA1 4ba14c70d2098224783caf883d0c052427e4fe9c MANIFEST
-SHA1 90734826fcdca6971dbaad5c30328f92b678a4ae META.json
-SHA1 3cbd675eaa2cb0111d4af5ea0df219959cef6b7b META.yml
-SHA1 248b8f5556f0487d88b3de880b16834d258cfb10 Makefile.PL
+SHA1 caee8f0a375eb08c4d3a7c5f42b56147947eb25f MANIFEST
+SHA1 b9801687dd18db1669b9c16350d74dc1d701c88d META.json
+SHA1 d25b9f5e43953ac21329386f9bfec254091d7b7a META.yml
+SHA1 bb856f46a70187f9cfa962ae812c5099cf324394 Makefile.PL
 SHA1 a7b36f9b9678c3fae2f95820584011287c7857a3 README
 SHA1 aaf24942e287790e6053f84bcecd32fe185ee796 TODO
 SHA1 39bac3db859a6ce7311a36c43c2ac9ef1da35a19 dist.ini
-SHA1 9b8218078a431cb411801379bdef38194bc4a5ff doap.ttl
-SHA1 38267b3e9be74a68f8cf20316965fb3fb8b2c5c8 examples/benchmarks.pl
-SHA1 059cd993f1552e959ae5a4667c6872d7cdaeed87 lib/Kavorka.pm
-SHA1 92dcf148e4b93b64587c1babc425c033afa934b1 lib/Kavorka/MethodModifier.pm
-SHA1 a2a7b6d0fd0e043d1d4de6f5edd49dcee5a5c6e8 lib/Kavorka/Signature.pm
-SHA1 f55d5de97f4864a969b423fd31f50c6bc81b178d lib/Kavorka/Signature/Parameter.pm
-SHA1 b772f2ba86ed1d81c88fd275e6b46b22b1b41fea lib/Kavorka/Sub.pm
-SHA1 eec6d13c59cafe9c8b22e1e5c81d1aef233c4ee2 lib/Kavorka/Sub/After.pm
-SHA1 8737617d09fa5c9c8a98542a09a80ffe846170d5 lib/Kavorka/Sub/Around.pm
-SHA1 faad2e11f882e0b35091bb65fbf52320a85c7278 lib/Kavorka/Sub/Before.pm
-SHA1 269feac8f02db7a32c554578a013d9ed47143d67 lib/Kavorka/Sub/ClassMethod.pm
-SHA1 1016363dd1658570a76f56bcb52e9b5ca2b1b964 lib/Kavorka/Sub/Fun.pm
-SHA1 266093538e945e7c57fbe49ac1e1b9c07f8afb45 lib/Kavorka/Sub/Method.pm
-SHA1 05c9a14f555c3aff3528ee3901acf3894c9c3810 lib/Kavorka/Sub/ObjectMethod.pm
-SHA1 2dad0acaa719657502e8ea2a3876b8d69b4c2383 lib/Parse/KeywordX.pm
+SHA1 fa4625f69936c36a87477dfa73b4a9cb29d34088 doap.ttl
+SHA1 09327cde126d26fd216e730a09b9b555c34996cf examples/benchmarks.pl
+SHA1 f59e030a54cec8c9c361fb5c7fb05748f1caf4da lib/Kavorka.pm
+SHA1 78de19331b383fd68e7cc518508e781ec28e3d52 lib/Kavorka/MethodModifier.pm
+SHA1 24c6bd8cf7f51902b30faf2a4024e4a8a4187858 lib/Kavorka/Signature.pm
+SHA1 4552fefd9be9b83376f8e61e55f59ce61c131be4 lib/Kavorka/Signature/Parameter.pm
+SHA1 46572bfbd7f206eb023ef240c091ae2bd25d044f lib/Kavorka/Sub.pm
+SHA1 9329ff76c524813d5278c486fe707d55b0d7985d lib/Kavorka/Sub/After.pm
+SHA1 dd9e7cd5c013e0ba55f5225329b0aaff9b1c1e84 lib/Kavorka/Sub/Around.pm
+SHA1 ccff3743ed4ab969183031019a57b9cbd38f8294 lib/Kavorka/Sub/Before.pm
+SHA1 a26a628433e74bec130865101246de5784cde270 lib/Kavorka/Sub/ClassMethod.pm
+SHA1 4da3a9bb9dce0992bdbd0226342dca1497631205 lib/Kavorka/Sub/Fun.pm
+SHA1 0b08abab3be68e38a948c366c6949ed282e6de9d lib/Kavorka/Sub/Method.pm
+SHA1 830533b9b0e389fa3882e5618cc019f8b8a50d44 lib/Kavorka/Sub/ObjectMethod.pm
+SHA1 e1d92d349dbc50375cc765a9a155af94cb1067c8 lib/Parse/KeywordX.pm
 SHA1 d867593df17df283ef94bb819daa7341985d1b05 t/01basic.t
 SHA1 0d3319d8f2ac45a38b1bfe35e49b6c5668d5fd86 t/02named-functions.t
 SHA1 b3493afc8d47a42513491e757934f585b48d8d36 t/03anon-functions.t
@@ -49,13 +49,15 @@ SHA1 a79d47494a1695b8b5d9679cf404a86760c25107 t/04named-methods.t
 SHA1 d5bc3eb60a2e8dfc8cdbf08cfcd8f45f354b54b7 t/05anon-methods.t
 SHA1 90f9572e2044bb45e3cfdcfc58fc6c45ddd7d641 t/10positional.t
 SHA1 e44705649e3dfe4e40b188ff1b3a7733b65af2d5 t/11named.t
+SHA1 dec56d51644a12420786648cc31e8cf5d948ba34 t/12invocant.t
+SHA1 c15b150bc65df05353e1061603e11a1425db1690 t/13slurpy.t
 SHA1 46d0821c95df2f21f53099457dad34716d8b1c0c t/50types.t
-SHA1 6f0770a4cfecaff43c6e7cec2e51cf054c589083 t/TODO
+SHA1 b0314b7bf4c9e0e2de357e7004141616d61cb6e4 t/TODO
 SHA1 fe701d314a323fb6810db7992136f291f561b5aa t/xx-closures.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.12 (GNU/Linux)
 
-iEYEARECAAYFAlJQWcoACgkQzr+BKGoqfTm7YACgnhY2oJ/EScqCxz2/eiPH/5Jl
-wH0An0s35cgEDPl9pmd/8FScL9LeBLd6
-=B14a
+iEYEARECAAYFAlJQnCQACgkQzr+BKGoqfTlOqQCfXH34bAi3/jpOXpc80WeN5RjJ
+DGoAnjvP3ktmcM4GaNujY3zn/DgL/Mz2
+=OjSV
 -----END PGP SIGNATURE-----

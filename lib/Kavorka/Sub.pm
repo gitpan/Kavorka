@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.000_03';
+our $VERSION   = '0.000_04';
 
 use Text::Balanced qw( extract_codeblock extract_bracketed );
 use Parse::Keyword {};
@@ -55,7 +55,7 @@ sub parse
 	lex_read(1);
 	lex_stuff(sprintf("{ %s", $self->inject_signature));
 	
-#	warn lex_peek(1000) if $subname eq 'baz';;
+#	warn lex_peek(1000) if $subname eq 'quux';;
 	
 	my $code = parse_block(!!$subname) or die "cannot parse block!";
 	&Scalar::Util::set_prototype($code, $self->prototype);

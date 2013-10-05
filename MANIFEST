@@ -34,6 +34,8 @@ t/04named-methods.t
 t/05anon-methods.t
 t/10positional.t
 t/11named.t
+t/12invocant.t
+t/13slurpy.t
 t/50types.t
 t/TODO
 t/xx-closures.t

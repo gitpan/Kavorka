@@ -35,7 +35,7 @@
 	doap:maintainer      <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:name            "Kavorka";
 	doap:programming-language "Perl";
-	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>;
+	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>;
 	doap:repository      [
 		a doap:GitRepository;
 		doap:browse <https://github.com/tobyink/p5-kavorka>;
@@ -102,6 +102,32 @@
 	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_03.tar.gz>;
 	doap:revision        "0.000_03"^^xsd:string.
+
+<http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>
+	a                    cpan-uri:DeveloperRelease, doap:Version;
+	dc:identifier        "Kavorka-0.000_04"^^xsd:string;
+	dc:issued            "2013-10-06"^^xsd:date;
+	doap-changeset:changeset [
+		doap-changeset:item [
+			a doap-changeset:Change;
+			rdfs:label "Allow anonymous slurpy parameters.";
+		], [
+			a doap-changeset:Change;
+			rdfs:label "Minor speed-ups.";
+		], [
+			a doap-changeset:Change;
+			rdfs:label "Also populate the %_ hash for functions with a hash(ref) slurpy but zero named parameters.";
+		], [
+			a doap-changeset:Tests;
+			rdfs:label "Add tests for invocants.";
+		], [
+			a doap-changeset:Tests;
+			rdfs:label "Add tests for slurpy parameters.";
+		];
+	];
+	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
+	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_04.tar.gz>;
+	doap:revision        "0.000_04"^^xsd:string.
 
 <http://purl.org/NET/cpan-uri/person/tobyink>
 	a                    foaf:Person;
