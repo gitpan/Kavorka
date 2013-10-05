@@ -6,6 +6,24 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.000_03	2013-10-05
+
+ [ Bug Fixes ]
+ - Error message for unknown named parameters isn't unintentionally always
+   thrown for all named parameters except the first.
+
+ [ Documentation ]
+ - Include my TODO file.
+
+ [ Test Suite ]
+ - Add tests for named parameters.
+ - Add tests for positional parameters.
+ - Add tests for the `method` keyword.
+
+ [ Other ]
+ - The `default` attribute of Kavorka::Signature::Parameter is now a
+   coderef rather than a string.
+
 0.000_02	2013-10-04
 
  [ Bug Fixes ]

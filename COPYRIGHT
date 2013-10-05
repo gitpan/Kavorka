@@ -31,6 +31,10 @@ Files: README
  t/01basic.t
  t/02named-functions.t
  t/03anon-functions.t
+ t/04named-methods.t
+ t/05anon-methods.t
+ t/10positional.t
+ t/11named.t
  t/50types.t
 Copyright: This software is copyright (c) 2013 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
@@ -38,6 +42,7 @@ License: GPL-1.0+ or Artistic-1.0
 Files: CONTRIBUTING
  INSTALL
  LICENSE
+ TODO
  t/TODO
 Copyright: Unknown
 License: Unknown

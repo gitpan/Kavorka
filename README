@@ -155,6 +155,9 @@ DESCRIPTION
 
     This feature is shared with Perl 6 signatures.
 
+    Long named parameters will be available in %_ under their "outside" name,
+    not their "inside" name.
+
    Optional and required parameters
     A trailing exclamation mark makes an attribute required. A trailing
     question mark makes an attribute optional.

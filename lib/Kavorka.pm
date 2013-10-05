@@ -13,7 +13,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.000_02';
+our $VERSION   = '0.000_03';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -62,8 +62,13 @@ sub _exporter_expand_sub
 			$name; # close over name to prevent optimization
 			my $subroutine = shift;
 			$INFO{ $subroutine->body } = $subroutine;
-			my @r = wantarray ? $subroutine->install_sub : scalar($subroutine->install_sub);
-			Scalar::Util::weaken($subroutine->{body}) unless Scalar::Util::isweak($subroutine->{body});
+			
+			my @r = wantarray
+				? $subroutine->install_sub
+				: scalar($subroutine->install_sub);
+			
+			Scalar::Util::weaken($subroutine->{body})
+				unless Scalar::Util::isweak($subroutine->{body});
 			
 			my $closed_over = PadWalker::closed_over($subroutine->{body});
 			my $caller_vars = PadWalker::peek_my(1);
@@ -285,6 +290,9 @@ The function would be called like this:
 ... But within the function, the variable would be named C<< $pub >>.
 
 This feature is shared with Perl 6 signatures.
+
+Long named parameters will be available in C<< %_ >> under their
+"outside" name, not their "inside" name.
 
 =head3 Optional and required parameters
 

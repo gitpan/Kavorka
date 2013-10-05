@@ -35,7 +35,7 @@
 	doap:maintainer      <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:name            "Kavorka";
 	doap:programming-language "Perl";
-	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>;
+	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>;
 	doap:repository      [
 		a doap:GitRepository;
 		doap:browse <https://github.com/tobyink/p5-kavorka>;
@@ -73,6 +73,35 @@
 	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_02.tar.gz>;
 	doap:revision        "0.000_02"^^xsd:string.
+
+<http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>
+	a                    cpan-uri:DeveloperRelease, doap:Version;
+	dc:identifier        "Kavorka-0.000_03"^^xsd:string;
+	dc:issued            "2013-10-05"^^xsd:date;
+	doap-changeset:changeset [
+		doap-changeset:item [
+			a doap-changeset:Bugfix;
+			rdfs:label "Error message for unknown named parameters isn't unintentionally always thrown for all named parameters except the first.";
+		], [
+			a doap-changeset:Change;
+			rdfs:label "The `default` attribute of Kavorka::Signature::Parameter is now a coderef rather than a string.";
+		], [
+			a doap-changeset:Tests;
+			rdfs:label "Add tests for the `method` keyword.";
+		], [
+			a doap-changeset:Tests;
+			rdfs:label "Add tests for positional parameters.";
+		], [
+			a doap-changeset:Tests;
+			rdfs:label "Add tests for named parameters.";
+		], [
+			a doap-changeset:Documentation;
+			rdfs:label "Include my TODO file.";
+		];
+	];
+	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
+	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_03.tar.gz>;
+	doap:revision        "0.000_03"^^xsd:string.
 
 <http://purl.org/NET/cpan-uri/person/tobyink>
 	a                    foaf:Person;
