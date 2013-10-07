@@ -6,6 +6,17 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.000_06	2013-10-07
+
+ [ Bug Fixes ]
+ - Fix installing of method modifiers into Moo::Role roles.
+
+ [ Test Suite ]
+ - Add tests for method modifiers in Class::Tiny/Role::Tiny.
+ - Add tests for method modifiers in Moo.
+ - Add tests for method modifiers in Moose.
+ - Add tests for method modifiers in Mouse.
+
 0.000_05	2013-10-07
 
  [ Bug Fixes ]
