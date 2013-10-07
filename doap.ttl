@@ -35,7 +35,7 @@
 	doap:maintainer      <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:name            "Kavorka";
 	doap:programming-language "Perl";
-	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>;
+	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_05>;
 	doap:repository      [
 		a doap:GitRepository;
 		doap:browse <https://github.com/tobyink/p5-kavorka>;
@@ -128,6 +128,29 @@
 	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_04.tar.gz>;
 	doap:revision        "0.000_04"^^xsd:string.
+
+<http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_05>
+	a                    cpan-uri:DeveloperRelease, doap:Version;
+	dc:identifier        "Kavorka-0.000_05"^^xsd:string;
+	dc:issued            "2013-10-07"^^xsd:date;
+	doap-changeset:changeset [
+		doap-changeset:item [
+			a doap-changeset:Tests;
+			rdfs:label "Add tests for non-inlinable type constraints.";
+		], [
+			a doap-changeset:Tests;
+			rdfs:label "Add tests for type coercions.";
+		], [
+			a doap-changeset:Bugfix;
+			rdfs:label "Fix off-by-one bug failing to populate a slurpy array/arrayref if it would only have one item.";
+		], [
+			a doap-changeset:Bugfix;
+			rdfs:label "Fix warning assigning odd number of items to %_ which should have been fatal instead.";
+		];
+	];
+	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
+	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_05.tar.gz>;
+	doap:revision        "0.000_05"^^xsd:string.
 
 <http://purl.org/NET/cpan-uri/person/tobyink>
 	a                    foaf:Person;

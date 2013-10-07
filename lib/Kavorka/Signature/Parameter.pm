@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Signature::Parameter;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.000_04';
+our $VERSION   = '0.000_05';
 
 use Text::Balanced qw( extract_codeblock extract_bracketed );
 use Parse::Keyword {};
@@ -234,7 +234,7 @@ sub injection
 		{
 			die "Cannot have a slurpy array for a function with named parameters" if $sig->has_named;
 			$val = sprintf(
-				'($#_ > %d) ? @_[ %d .. $#_ ] : (%s)',
+				'($#_ >= %d) ? @_[ %d .. $#_ ] : (%s)',
 				$sig->last_position + 1,
 				$sig->last_position + 1,
 				($default // ''),

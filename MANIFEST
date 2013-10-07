@@ -37,5 +37,6 @@ t/11named.t
 t/12invocant.t
 t/13slurpy.t
 t/50types.t
+t/51coerce.t
 t/TODO
 t/xx-closures.t
