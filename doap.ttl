@@ -40,7 +40,7 @@
 	doap:maintainer      <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:name            "Kavorka";
 	doap:programming-language "Perl";
-	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_05>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_06>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_07>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_08>;
+	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_05>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_06>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_07>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_08>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_09>;
 	doap:repository      [
 		a doap:GitRepository;
 		doap:browse <https://github.com/tobyink/p5-kavorka>;
@@ -249,6 +249,29 @@
 	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_08.tar.gz>;
 	doap:revision        "0.000_08"^^xsd:string.
+
+<http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_09>
+	a                    cpan-uri:DeveloperRelease, doap:Version;
+	dc:identifier        "Kavorka-0.000_09"^^xsd:string;
+	dc:issued            "2013-10-08"^^xsd:date;
+	doap-changeset:changeset [
+		doap-changeset:item [
+			a doap-changeset:Tests;
+			rdfs:label "Tests for lvalue subs.";
+		], [
+			a doap-changeset:Change;
+			rdfs:label "Better support for subroutine attributes.";
+		], [
+			a doap-changeset:Change;
+			rdfs:label "Change parsing technique for named subs.";
+		], [
+			a doap-changeset:Documentation;
+			rdfs:label "Document the yadayada operator.";
+		];
+	];
+	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
+	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_09.tar.gz>;
+	doap:revision        "0.000_09"^^xsd:string.
 
 <http://purl.org/NET/cpan-uri/person/tobyink>
 	a                    foaf:Person;

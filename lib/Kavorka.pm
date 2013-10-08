@@ -13,7 +13,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.000_08';
+our $VERSION   = '0.000_09';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -61,6 +61,7 @@ sub _exporter_expand_sub
 		sub {
 			$name; # close over name to prevent optimization
 			my $subroutine = shift;
+			$subroutine->_post_parse();
 			$INFO{ $subroutine->body } = $subroutine;
 			
 			my @r = wantarray
@@ -100,7 +101,7 @@ __END__
 
 =encoding utf-8
 
-=for stopwords invocant invocants lexicals unintuitive
+=for stopwords invocant invocants lexicals unintuitive yada
 
 =head1 NAME
 
@@ -520,6 +521,28 @@ Coercion can be enabled for a parameter using the C<coerce> constraint.
       $file->spew(@lines);
    }
 
+=head3 The Yada Yada
+
+Normally passing additional parameters to a function declared with a
+signature will throw an exception:
+
+   fun foo ($x) {
+      return $x;
+   }
+   
+   foo(1, 2);    # error - too many arguments
+
+Adding the yada yada operator to the end of the signature allows the
+function to accept extra trailing parameters:
+
+   fun foo ($x, ...) {
+      return $x;
+   }
+   
+   foo(1, 2);    # ok
+
+See also L<http://en.wikipedia.org/wiki/The_Yada_Yada>.
+
 =head2 The Prototype
 
 Like with the L<sub|perlsub> keyword, a prototype may be provided for
@@ -532,9 +555,11 @@ attributes.
 
 =head2 The Attributes
 
-Attributes are currently parsed, but ignored. Due to a limitation in
-current versions of L<Parse::Keyword>, there's little we can do with
-them.
+Attributes are parsed as per L<perlsub/Subroutine Attributes>.
+
+For anonymous functions, some attributes (e.g. C<:lvalue>) may be
+applied too late to take effect. Attributes should mostly work for
+named functions though.
 
 =head2 The Function Body
 
@@ -571,6 +596,12 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>.
 L<http://perlcabal.org/syn/S06.html>,
 L<Function::Parameters>,
 L<Method::Signatures>.
+
+L<Kavorka::Sub>,
+L<Kavorka::Signature>,
+L<Kavorka::Signature::Parameter>.
+
+L<http://en.wikipedia.org/wiki/The_Conversion_(Seinfeld)>.
 
 =head1 AUTHOR
 

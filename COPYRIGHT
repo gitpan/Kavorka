@@ -28,6 +28,7 @@ Files: README
  t/61ro.t
  t/62locked.t
  t/70introspection.t
+ t/91lvalue.t
 Copyright: This software is copyright (c) 2013 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 

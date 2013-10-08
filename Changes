@@ -6,6 +6,18 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.000_09	2013-10-08
+
+ [ Documentation ]
+ - Document the yadayada operator.
+
+ [ Test Suite ]
+ - Tests for lvalue subs.
+
+ [ Other ]
+ - Better support for subroutine attributes.
+ - Change parsing technique for named subs.
+
 0.000_08	2013-10-08
 
  [ Documentation ]

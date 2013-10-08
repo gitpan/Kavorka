@@ -355,6 +355,27 @@ DESCRIPTION
           $file->spew(@lines);
        }
 
+   The Yada Yada
+    Normally passing additional parameters to a function declared with a
+    signature will throw an exception:
+
+       fun foo ($x) {
+          return $x;
+       }
+   
+       foo(1, 2);    # error - too many arguments
+
+    Adding the yada yada operator to the end of the signature allows the
+    function to accept extra trailing parameters:
+
+       fun foo ($x, ...) {
+          return $x;
+       }
+   
+       foo(1, 2);    # ok
+
+    See also <http://en.wikipedia.org/wiki/The_Yada_Yada>.
+
   The Prototype
     Like with the sub keyword, a prototype may be provided for functions.
     Method dispatch ignores this, so it's only likely to be useful for `fun`,
@@ -364,8 +385,11 @@ DESCRIPTION
     This avoids ambiguity between signatures, prototypes and attributes.
 
   The Attributes
-    Attributes are currently parsed, but ignored. Due to a limitation in
-    current versions of Parse::Keyword, there's little we can do with them.
+    Attributes are parsed as per "Subroutine Attributes" in perlsub.
+
+    For anonymous functions, some attributes (e.g. `:lvalue`) may be applied
+    too late to take effect. Attributes should mostly work for named functions
+    though.
 
   The Function Body
     This is more or less what you'd expect from the function body you'd write
@@ -396,6 +420,10 @@ BUGS
 SEE ALSO
     <http://perlcabal.org/syn/S06.html>, Function::Parameters,
     Method::Signatures.
+
+    Kavorka::Sub, Kavorka::Signature, Kavorka::Signature::Parameter.
+
+    <http://en.wikipedia.org/wiki/The_Conversion_(Seinfeld)>.
 
 AUTHOR
     Toby Inkster <tobyink@cpan.org>.

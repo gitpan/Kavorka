@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.000_08';
+our $VERSION   = '0.000_09';
 
 use Text::Balanced qw( extract_codeblock extract_bracketed );
 use Parse::Keyword {};
@@ -54,28 +54,62 @@ sub parse
 	lex_peek(1) eq '{' or die "expected block!";
 	lex_read(1);
 	
-	lex_stuff(sprintf("{ %s", $self->signature->injection));
-	$self->_set_signature(undef) if $sig->_is_dummy;
-	
-#	warn lex_peek(1000) if $subname eq 'bar';;
-	
-	my $code = parse_block(!!$subname) or die "cannot parse block!";
-	&Scalar::Util::set_prototype($code, $self->prototype);
-	if (@$attrs)
+	if ($subname)
 	{
-		require attributes;
-		no warnings;
-		attributes->import(
-			compiling_package,
-			$code,
-			map($_->[0], @$attrs),
+		state $i = 0;
+		lex_stuff(
+			sprintf(
+				"sub Kavorka::Temp::f%d %s { %s",
+				++$i,
+				$self->inject_attributes,
+				$self->signature->injection,
+			)
 		);
+		$self->{argh} = "Kavorka::Temp::f$i";
 	}
-	
-	$self->_set_body($code);
+	else
+	{
+		lex_stuff(sprintf("{ %s", $self->signature->injection));
+		
+		my $code = parse_block(!!$subname) or die "cannot parse block!";
+		&Scalar::Util::set_prototype($code, $self->prototype);
+		$code = Sub::Name::subname(
+			$self->declared_name ? $self->qualified_name : join('::', $self->package, '__ANON__'),
+			$code,
+		);
+		if (@$attrs)
+		{
+			require attributes;
+			no warnings;
+			attributes->import(
+				$self->package,
+				$code,
+				map($_->[0], @$attrs),
+			);
+		}
+		$self->_set_body($code);
+	}
+
 	$self->forward_declare_sub if !!$subname;
-	
+	$self->_set_signature(undef) if $sig->_is_dummy;
 	return $self;
+}
+
+sub _post_parse
+{
+	my $self = shift;
+	
+	if ($self->{argh})
+	{
+		no strict 'refs';
+		my $code = \&{ delete $self->{argh} };
+		Sub::Name::subname(
+			$self->declared_name ? $self->qualified_name : join('::', $self->package, '__ANON__'),
+			$code,
+		);
+		&Scalar::Util::set_prototype($code, $self->prototype);
+		$self->_set_body($code);
+	}
 }
 
 sub default_attributes
@@ -104,12 +138,12 @@ sub install_sub
 	return $code;
 }
 
-#sub inject_attributes
-#{
-#	my $self = shift;
-#	join(' ', map sprintf($_->[1] ? ':%s(%s)' : ':%s', @$_), @{ $self->attributes }),
-#}
-#
+sub inject_attributes
+{
+	my $self = shift;
+	join(' ', map sprintf($_->[1] ? ':%s(%s)' : ':%s', @$_), @{ $self->attributes }),
+}
+
 #sub inject_prototype
 #{
 #	my $self  = shift;

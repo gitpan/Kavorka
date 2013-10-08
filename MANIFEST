@@ -47,3 +47,4 @@ t/61ro.t
 t/62locked.t
 t/70introspection.t
 t/90closures.t
+t/91lvalue.t
