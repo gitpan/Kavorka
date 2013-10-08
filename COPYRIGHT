@@ -3,28 +3,6 @@ Upstream-Name: Kavorka
 Upstream-Contact: Toby Inkster (TOBYINK) <tobyink@cpan.org>
 Source: https://metacpan.org/release/Kavorka
 
-Files: Changes
- META.json
- META.yml
- Makefile.PL
- dist.ini
- doap.ttl
- lib/Kavorka/MethodModifier.pm
- lib/Kavorka/Signature.pm
- lib/Kavorka/Signature/Parameter.pm
- lib/Kavorka/Sub.pm
- lib/Kavorka/Sub/After.pm
- lib/Kavorka/Sub/Around.pm
- lib/Kavorka/Sub/Before.pm
- lib/Kavorka/Sub/ClassMethod.pm
- lib/Kavorka/Sub/Fun.pm
- lib/Kavorka/Sub/Method.pm
- lib/Kavorka/Sub/ObjectMethod.pm
- lib/Parse/KeywordX.pm
- t/xx-closures.t
-Copyright: Copyright 2013 Toby Inkster.
-License: GPL-1.0+ or Artistic-1.0
-
 Files: README
  examples/benchmarks.pl
  lib/Kavorka.pm
@@ -43,14 +21,38 @@ Files: README
  t/23modifiers-tiny.t
  t/50types.t
  t/51coerce.t
+ t/60alias.t
+ t/61ro.t
+ t/62locked.t
 Copyright: This software is copyright (c) 2013 by Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
+
+Files: Changes
+ META.json
+ META.yml
+ Makefile.PL
+ dist.ini
+ doap.ttl
+ lib/Kavorka/MethodModifier.pm
+ lib/Kavorka/Signature.pm
+ lib/Kavorka/Signature/Parameter.pm
+ lib/Kavorka/Sub.pm
+ lib/Kavorka/Sub/After.pm
+ lib/Kavorka/Sub/Around.pm
+ lib/Kavorka/Sub/Before.pm
+ lib/Kavorka/Sub/ClassMethod.pm
+ lib/Kavorka/Sub/Fun.pm
+ lib/Kavorka/Sub/Method.pm
+ lib/Kavorka/Sub/ObjectMethod.pm
+ lib/Parse/KeywordX.pm
+ t/90closures.t
+Copyright: Copyright 2013 Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
 Files: CONTRIBUTING
  INSTALL
  LICENSE
  TODO
- t/TODO
 Copyright: Unknown
 License: Unknown
 

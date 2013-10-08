@@ -291,20 +291,69 @@ DESCRIPTION
 
     The traits Kavorka understands natively are:
 
-    *   `optional` (yes, the `?` and `!` syntax is just a shortcut for a
-        trait)
+    *   `alias` - makes your lexical variable into an alias for an item within
+        the @_ array.
 
-    *   `slurpy` (again, the slurpy prefix to the type constraint is just a
-        shortcut for a trait)
+           fun increment (Int $i) { ++$i }
+   
+           my $count = 0;
+           increment($count);
+           increment($count);
+           increment($count);
+           say $count;          # says 3
 
-    *   `coerce`
+        But please don't use this for parameters with coercions!
+
+    *   `coerce` - see "Type coercion" below.
+
+    *   `locked` - locks hash(ref) keys - see Hash::Util. For references this
+        trait has the unfortunate side-effect of leaving the hashref locked
+        *outside* the function too!
+
+        This trait has special support for the `Dict` type constraint from
+        Types::Standard, including optional keys in the list of allowed keys.
+
+           fun foo (HashRef $x is locked) {
+              $x->{foo} = 1;
+           }
+   
+           my $var1 = { foo => 42 };
+           foo($var1);
+           say $var1->{foo};           # says 1
+   
+           my $var2 = { bar => 42 };
+           foo($var2);                 # dies
+
+    *   `optional` - yes, the `?` and `!` syntax is just a shortcut for a
+        trait.
+
+           fun foo ($x is optional) { ... }            # These two declarations
+           fun foo ($x?) { ... }                       # are equivalent.
+
+    *   `ro` - makes the parameter a (shallow) read-only variable.
+
+           fun foo ($x is ro) { $x++ }
+   
+           foo(42);   # dies
+
+    *   `rw` - this is the default, so is a no-op, but if you have a mixture
+        of read-only and read-write variables, it may aid clarity to
+        explicitly add `is rw` to the read-write ones.
+
+    *   `slurpy` - the slurpy prefix to the type constraint is just a shortcut
+        for a trait.
+
+           fun foo ( ArrayRef $bar is slurpy ) { ... } # These two declarations
+           fun foo ( slurpy ArrayRef $bar ) { ... }    # are equivalant
 
    Type coercion
     Coercion can be enabled for a parameter using the `coerce` constraint.
 
        use Types::Path::Tiny qw(AbsPath);
    
-       method print_to_file ( AbsFile $file does coerce ) { ... }
+       method print_to_file ( AbsFile $file does coerce, @lines ) {
+          $file->spew(@lines);
+       }
 
   The Prototype
     Like with the sub keyword, a prototype may be provided for functions.

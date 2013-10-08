@@ -42,5 +42,7 @@ t/22modifiers-mouse.t
 t/23modifiers-tiny.t
 t/50types.t
 t/51coerce.t
-t/TODO
-t/xx-closures.t
+t/60alias.t
+t/61ro.t
+t/62locked.t
+t/90closures.t

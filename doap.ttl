@@ -14,17 +14,17 @@
 	a                    doap:Project;
 	dc:contributor       <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap-deps:develop-recommendation [ doap-deps:on "Dist::Inkt 0.001"^^doap-deps:CpanId ];
-	doap-deps:runtime-requirement [ doap-deps:on "perl 5.014"^^doap-deps:CpanId ], [ doap-deps:on "Devel::Pragma 0"^^doap-deps:CpanId ], [ doap-deps:on "Type::Utils 0.028"^^doap-deps:CpanId ], [
+	doap-deps:runtime-requirement [ doap-deps:on "perl 5.014"^^doap-deps:CpanId ], [ doap-deps:on "Data::Alias"^^doap-deps:CpanId ], [
+		doap-deps:on "Type::Registry 0.028"^^doap-deps:CpanId;
+	], [ doap-deps:on "Type::Utils 0.028"^^doap-deps:CpanId ], [
 		doap-deps:on "Types::Standard 0.028"^^doap-deps:CpanId;
 	], [
 		doap-deps:on "namespace::sweep 0.006"^^doap-deps:CpanId;
-	], [
+	], [ doap-deps:on "Devel::Pragma 0"^^doap-deps:CpanId ], [
 		doap-deps:on "Exporter::Tiny 0.026"^^doap-deps:CpanId;
 	], [ doap-deps:on "Module::Runtime 0"^^doap-deps:CpanId ], [ doap-deps:on "Moo 1.003001"^^doap-deps:CpanId ], [ doap-deps:on "PadWalker 0"^^doap-deps:CpanId ], [
 		doap-deps:on "Parse::Keyword 0.06"^^doap-deps:CpanId;
-	], [ doap-deps:on "Sub::Name 0"^^doap-deps:CpanId ], [ doap-deps:on "Type::Parser 0.028"^^doap-deps:CpanId ], [
-		doap-deps:on "Type::Registry 0.028"^^doap-deps:CpanId;
-	];
+	], [ doap-deps:on "Sub::Name 0"^^doap-deps:CpanId ], [ doap-deps:on "Type::Parser 0.028"^^doap-deps:CpanId ];
 	doap-deps:test-recommendation [ doap-deps:on "Moose 2.0000"^^doap-deps:CpanId ], [ doap-deps:on "Mouse 1.00"^^doap-deps:CpanId ], [ doap-deps:on "Class::Tiny"^^doap-deps:CpanId ], [
 		doap-deps:on "Role::Tiny 1.003000"^^doap-deps:CpanId;
 	], [
@@ -40,7 +40,7 @@
 	doap:maintainer      <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:name            "Kavorka";
 	doap:programming-language "Perl";
-	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_05>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_06>;
+	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_05>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_06>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_07>;
 	doap:repository      [
 		a doap:GitRepository;
 		doap:browse <https://github.com/tobyink/p5-kavorka>;
@@ -182,6 +182,38 @@
 	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_06.tar.gz>;
 	doap:revision        "0.000_06"^^xsd:string.
+
+<http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_07>
+	a                    cpan-uri:DeveloperRelease, doap:Version;
+	dc:identifier        "Kavorka-0.000_07"^^xsd:string;
+	dc:issued            "2013-10-08"^^xsd:date;
+	doap-changeset:changeset [
+		doap-changeset:item [
+			a doap-changeset:Tests;
+			rdfs:label "Add tests for various traits.";
+		], [
+			a doap-changeset:Change;
+			rdfs:label "Implemented the 'alias' trait.";
+		], [
+			a doap-changeset:Change;
+			rdfs:label "Implemented the 'ro' trait.";
+		], [
+			a doap-changeset:Change;
+			rdfs:label "Implemented the 'locked' trait.";
+		], [
+			a doap-changeset:Documentation;
+			rdfs:label "Documented traits better.";
+		], [
+			a doap-changeset:Documentation;
+			rdfs:label "Documented an 'rw' trait which is just a no-op.";
+		], [
+			a doap-changeset:Change;
+			rdfs:label "Long overdue refactoring of the code-generating internals of Kavorka::Signature::Parameter.";
+		];
+	];
+	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
+	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.000_07.tar.gz>;
+	doap:revision        "0.000_07"^^xsd:string.
 
 <http://purl.org/NET/cpan-uri/person/tobyink>
 	a                    foaf:Person;

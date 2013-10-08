@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Signature::Parameter;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.000_06';
+our $VERSION   = '0.000_07';
 
 use Text::Balanced qw( extract_codeblock extract_bracketed );
 use Parse::Keyword {};
@@ -27,15 +27,19 @@ has default_when    => (is => 'ro');
 has ID              => (is => 'rwp');
 has traits          => (is => 'ro', default => sub { +{} });
 
-sub readonly  { +die }
-sub rw        { +die }
-sub copy      { !!shift->traits->{alias} }
+has sigil           => (is => 'lazy', builder => sub { substr(shift->name, 0, 1) });
+has global          => (is => 'lazy', builder => sub { scalar(shift->name =~ /\A[\$\@\%](?:\W|_\z)/) });
+
+sub readonly  { !!shift->traits->{ro} }
+sub ro        { !!shift->traits->{ro} }
+sub rw        {  !shift->traits->{ro} }
+sub alias     { !!shift->traits->{alias} }
+sub copy      {  !shift->traits->{alias} }
 sub slurpy    { !!shift->traits->{slurpy} }
 sub optional  { !!shift->traits->{optional} }
 sub invocant  { !!shift->traits->{invocant} }
 sub coerce    { !!shift->traits->{coerce} }
-
-sub sigil     { substr(shift->name, 0, 1) }
+sub locked    { !!shift->traits->{locked} }
 
 our @PARAMS;
 sub BUILD
@@ -190,21 +194,175 @@ sub sanity_check
 	die if $self->named && $self->slurpy;
 }
 
-### XXX - an "alias" trait
-### XXX - the @_ and %_ special slurpies
-
 sub injection
 {
 	my $self = shift;
 	my ($sig) = @_;
 	
 	my $var = $self->name;
-	my $dummy = 0;
+	my $is_dummy = 0;
 	if (length($var) == 1)
 	{
 		$var .= 'tmp';
-		$dummy = 1;
+		$is_dummy = 1;
 	}
+	
+	my ($val, $condition) = $self->_injection_extract_and_coerce_value($sig);
+	
+	my $code = $self->_injection_assignment($sig, $var, $val)
+		. $self->_injection_conditional_type_check($sig, $condition, $var);
+	
+	$is_dummy ? "{ $code }" : $code;
+}
+
+sub _injection_assignment
+{
+	my $self = shift;
+	my ($sig, $var, $val) = @_;
+	
+	if ($self->alias)
+	{
+		if ($self->global)
+		{
+			(my $glob = $var) =~ s/\A./*/;
+			return sprintf('local %s = \\do { %s };', $glob, $val);
+		}
+		else
+		{
+			require Data::Alias;
+			return sprintf('Data::Alias::alias(my %s = do { %s });', $var, $val);
+		}
+	}
+	
+	my $decl = $self->global ? 'local' : 'my';
+	my $assignment = sprintf('%s %s = %s;', $decl, $var, $val);
+	
+	if ($self->locked)
+	{
+		require Hash::Util;
+		require Types::Standard;
+		
+		state $_FIND_KEYS = sub {
+			return unless $_[0];
+			my ($dict) = grep {
+				$_->is_parameterized
+				and $_->has_parent
+				and $_->parent->strictly_equals(Types::Standard::Dict())
+			} $_[0], $_[0]->parents;
+			return unless $dict;
+			my @keys = sort keys %{ +{ @{ $dict->parameters } } };
+			return unless @keys;
+			\@keys;
+		};
+		
+		my $legal_keys  = $_FIND_KEYS->($self->type);
+		my $quoted_keys = $legal_keys ? join(q[,], q[], map B::perlstring($_), @$legal_keys) : '';
+		my $ref_var     = $self->sigil eq '$' ? $var : "\\$var";
+		
+		$assignment .= "&Hash::Util::unlock_hash($ref_var);";
+		$assignment .= "&Hash::Util::lock_keys($ref_var $quoted_keys);";
+	}
+	
+	if ($self->ro)
+	{
+		$assignment .= sprintf(
+			'&Internals::SvREADONLY(\\%s, 1);',
+			$var,
+		);
+	}
+	
+	return $assignment;
+}
+
+sub _injection_conditional_type_check
+{
+	my $self = shift;
+	my ($sig, $condition, $var) = @_;
+	
+	my $sigil = $self->sigil;
+	my $type =
+		($sigil eq '@') ? sprintf('for (%s) { %s }', $var, $self->_injection_type_check('$_')) :
+		($sigil eq '%') ? sprintf('for (values %s) { %s }', $var, $self->_injection_type_check('$_')) :
+		($condition eq '1')    ? sprintf('%s;', $self->_injection_type_check($var)) :
+		sprintf('if (%s) { %s }', $condition, $self->_injection_type_check($var));
+	
+	return '' if $type =~ /\{  \}\z/;
+	return $type;
+}
+
+sub _injection_extract_and_coerce_value
+{
+	my $self = shift;
+	my ($sig) = @_;
+	
+	$self->coerce
+		or return $self->_injection_extract_value(@_);
+
+	my $type = $self->type
+		or die("Cannot coerce without a type constraint");
+	$type->has_coercion
+		or die("Cannot coerce because type constraint has no coercions defined");
+	
+	my ($val, $condition) = $self->_injection_extract_value(@_);
+	
+	my $coerce_variable = sub {
+		my $variable = shift;
+		if ($type->coercion->can_be_inlined)
+		{
+			$type->coercion->inline_coercion($variable),
+		}
+		else
+		{
+			sprintf(
+				'$%s::PARAMS[%d]->{type}->coerce(%s)',
+				__PACKAGE__,
+				$self->ID,
+				$variable,
+			);
+		}
+	};
+	
+	my $sigil = $self->sigil;
+	
+	if ($sigil eq '@')
+	{
+		$val = sprintf(
+			'(map { %s } %s)',
+			$coerce_variable->('$_'),
+			$val,
+		);
+	}
+	
+	elsif ($sigil eq '%')
+	{
+		$val = sprintf(
+			'do { my %%tmp = %s; for (values %%tmp) { %s }; %%tmp }',
+			$val,
+			$coerce_variable->('$_'),
+		);
+	}
+	
+	elsif ($sigil eq '$' and $type->coercion->can_be_inlined)
+	{
+		$val = sprintf(
+			'do { my $tmp = %s; %s}',
+			$val,
+			$coerce_variable->('$tmp'),
+		);
+	}
+	
+	elsif ($sigil eq '$')
+	{
+		$val = $coerce_variable->($val);
+	}
+	
+	wantarray ? ($val, $condition) : $val;
+}
+
+sub _injection_extract_value
+{
+	my $self = shift;
+	my ($sig) = @_;
 	
 	my $condition;
 	my $val;
@@ -218,15 +376,26 @@ sub injection
 			and $self->type
 			and do { require Types::Standard; $self->type->is_a_type_of(Types::Standard::HashRef()) }))
 		{
-			$val = sprintf(
-				'do { use warnings FATAL => qw(all); my %%tmp = @_[ %d .. $#_ ]; delete $tmp{$_} for (%s); %%tmp ? %%tmp : (%s) }',
-				$sig->last_position + 1,
-				join(
-					q[,],
-					map B::perlstring($_), map(@{$_->named ? $_->named_names : []}, @{$sig->params}),
-				),
-				($default // ''),
-			);
+			my @names = map(@{$_->named ? $_->named_names : []}, @{$sig->params});
+			if (@names)
+			{
+				die "Cannot has aliased slurpy hash for a function with named parameters" if $self->alias;
+				$val = sprintf(
+					'do { use warnings FATAL => qw(all); my %%tmp = @_[ %d .. $#_ ]; delete $tmp{$_} for (%s); %%tmp ? %%tmp : (%s) }',
+					$sig->last_position + 1,
+					join(q[,], map B::perlstring($_), @names),
+					($default // ''),
+				);
+			}
+			else
+			{
+				$val = sprintf(
+					'do { use warnings FATAL => qw(all); my %%tmp = @_[ %d .. $#_ ]; %%tmp ? @_[ %d .. $#_ ] : (%s) }',
+					$sig->last_position + 1,
+					$sig->last_position + 1,
+					($default // ''),
+				);
+			}
 			$condition = 1;
 			$slurpy_style = '%';
 		}
@@ -301,25 +470,10 @@ sub injection
 	
 	$condition = 1 if length $default;
 	
-	my $ass = sprintf(
-		'%s %s = %s;',
-		$var =~ /\A[\$\@\%](\W|_\z)/ ? 'local' : 'my',
-		$var,
-		$val,
-	);
-	
-	my $type =
-		($slurpy_style eq '@') ? sprintf('for (%s) { %s }', $var, $self->_inject_type_check('$_')) :
-		($slurpy_style eq '%') ? sprintf('for (values %s) { %s }', $var, $self->_inject_type_check('$_')) :
-		($condition eq '1')    ? sprintf('%s;', $self->_inject_type_check($var)) :
-		sprintf('if (%s) { %s }', $condition, $self->_inject_type_check($var));
-	
-	$type = '' if $type =~ /\{  \}\z/;
-
-	$dummy ? "{ $ass$type }" : "$ass$type";
+	wantarray ? ($val, $condition) : $val;
 }
 
-sub _inject_type_check
+sub _injection_type_check
 {
 	my $self = shift;
 	my ($var) = @_;
@@ -331,28 +485,6 @@ sub _inject_type_check
 		$INC{'Mouse/Util.pm'}
 		&& Mouse::Util::MOUSE_XS()
 		&& ($type->{_is_core} or $type->is_parameterized && $type->parent->{_is_core});
-	
-	if ($self->coerce and $type->has_coercion)
-	{
-		if ($type->coercion->can_be_inlined)
-		{
-			$check .= sprintf(
-				'%s = %s;',
-				$var,
-				$type->coercion->inline_coercion($var),
-			);
-		}
-		else
-		{
-			$check .= sprintf(
-				'%s = $%s::PARAMS[%d]->{type}->coerce(%s);',
-				$var,
-				__PACKAGE__,
-				$self->ID,
-				$var,
-			);
-		}
-	}
 	
 	if (!$can_xs and $type->can_be_inlined)
 	{

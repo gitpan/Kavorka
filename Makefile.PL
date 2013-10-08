@@ -21,6 +21,7 @@ my $meta = {
                         develop   => { recommends => { "Dist::Inkt" => 0.001 } },
                         runtime   => {
                                        requires => {
+                                         "Data::Alias"      => 0,
                                          "Devel::Pragma"    => 0,
                                          "Exporter::Tiny"   => 0.026,
                                          "Module::Runtime"  => 0,
@@ -48,19 +49,19 @@ my $meta = {
                                      },
                       },
   "provides"       => {
-                        "Kavorka"                       => { file => "lib/Kavorka.pm", version => "0.000_06" },
-                        "Kavorka::MethodModifier"       => { file => "lib/Kavorka/MethodModifier.pm", version => "0.000_06" },
-                        "Kavorka::Signature"            => { file => "lib/Kavorka/Signature.pm", version => "0.000_06" },
-                        "Kavorka::Signature::Parameter" => { file => "lib/Kavorka/Signature/Parameter.pm", version => "0.000_06" },
-                        "Kavorka::Sub"                  => { file => "lib/Kavorka/Sub.pm", version => "0.000_06" },
-                        "Kavorka::Sub::After"           => { file => "lib/Kavorka/Sub/After.pm", version => "0.000_06" },
-                        "Kavorka::Sub::Around"          => { file => "lib/Kavorka/Sub/Around.pm", version => "0.000_06" },
-                        "Kavorka::Sub::Before"          => { file => "lib/Kavorka/Sub/Before.pm", version => "0.000_06" },
-                        "Kavorka::Sub::ClassMethod"     => { file => "lib/Kavorka/Sub/ClassMethod.pm", version => "0.000_06" },
-                        "Kavorka::Sub::Fun"             => { file => "lib/Kavorka/Sub/Fun.pm", version => "0.000_06" },
-                        "Kavorka::Sub::Method"          => { file => "lib/Kavorka/Sub/Method.pm", version => "0.000_06" },
-                        "Kavorka::Sub::ObjectMethod"    => { file => "lib/Kavorka/Sub/ObjectMethod.pm", version => "0.000_06" },
-                        "Parse::KeywordX"               => { file => "lib/Parse/KeywordX.pm", version => "0.000_06" },
+                        "Kavorka"                       => { file => "lib/Kavorka.pm", version => "0.000_07" },
+                        "Kavorka::MethodModifier"       => { file => "lib/Kavorka/MethodModifier.pm", version => "0.000_07" },
+                        "Kavorka::Signature"            => { file => "lib/Kavorka/Signature.pm", version => "0.000_07" },
+                        "Kavorka::Signature::Parameter" => { file => "lib/Kavorka/Signature/Parameter.pm", version => "0.000_07" },
+                        "Kavorka::Sub"                  => { file => "lib/Kavorka/Sub.pm", version => "0.000_07" },
+                        "Kavorka::Sub::After"           => { file => "lib/Kavorka/Sub/After.pm", version => "0.000_07" },
+                        "Kavorka::Sub::Around"          => { file => "lib/Kavorka/Sub/Around.pm", version => "0.000_07" },
+                        "Kavorka::Sub::Before"          => { file => "lib/Kavorka/Sub/Before.pm", version => "0.000_07" },
+                        "Kavorka::Sub::ClassMethod"     => { file => "lib/Kavorka/Sub/ClassMethod.pm", version => "0.000_07" },
+                        "Kavorka::Sub::Fun"             => { file => "lib/Kavorka/Sub/Fun.pm", version => "0.000_07" },
+                        "Kavorka::Sub::Method"          => { file => "lib/Kavorka/Sub/Method.pm", version => "0.000_07" },
+                        "Kavorka::Sub::ObjectMethod"    => { file => "lib/Kavorka/Sub/ObjectMethod.pm", version => "0.000_07" },
+                        "Parse::KeywordX"               => { file => "lib/Parse/KeywordX.pm", version => "0.000_07" },
                       },
   "release_status" => "testing",
   "resources"      => {
@@ -70,7 +71,7 @@ my $meta = {
                         repository   => { type => "git", web => "https://github.com/tobyink/p5-kavorka" },
                         X_identifier => "http://purl.org/NET/cpan-uri/dist/Kavorka/project",
                       },
-  "version"        => "0.000_06",
+  "version"        => "0.000_07",
 };
 
 my %dynamic_config;
