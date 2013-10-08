@@ -6,6 +6,24 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.000_08	2013-10-08
+
+ [ Documentation ]
+ - Documented Kavorka::Signature.
+ - Documented Kavorka::Signature::Parameter.
+ - Documented Kavorka::Sub.
+ - Improve 'Introspection API' section of documentation for Kavorka.pm
+   itself.
+
+ [ Test Suite ]
+ - Add tests for introspection API.
+
+ [ Other ]
+ - Function objects doing the Kavorka::Sub role now keep track of which
+   keyword they were declared with.
+ - Tidy up and improve the Kavorka::Signature API.
+ - Tidy up the Kavorka::Sub API.
+
 0.000_07	2013-10-08
 
  [ Documentation ]

@@ -377,12 +377,14 @@ DESCRIPTION
     `Kavorka->info` method. This returns a blessed object that does the
     Kavorka::Sub role.
 
-       fun foo { }
+       fun foo (:$x, :$y) { }
    
        my $info = Kavorka->info(\&foo);
    
        my $function_name = $info->qualified_name;
-       my @named_params  = grep $_->named, @{$info->signature->params};
+       my @named_params  = $info->signature->named_params;
+   
+       say $named_params[0]->named_names->[0];   # says 'x'
 
     See Kavorka::Sub, Kavorka::Signature and Kavorka::Signature::Parameter for
     further details.

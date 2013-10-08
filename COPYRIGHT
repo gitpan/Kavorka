@@ -6,6 +6,9 @@ Source: https://metacpan.org/release/Kavorka
 Files: README
  examples/benchmarks.pl
  lib/Kavorka.pm
+ lib/Kavorka/Signature.pm
+ lib/Kavorka/Signature/Parameter.pm
+ lib/Kavorka/Sub.pm
  t/01basic.t
  t/02named-functions.t
  t/03anon-functions.t
@@ -24,6 +27,7 @@ Files: README
  t/60alias.t
  t/61ro.t
  t/62locked.t
+ t/70introspection.t
 Copyright: This software is copyright (c) 2013 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
@@ -34,9 +38,6 @@ Files: Changes
  dist.ini
  doap.ttl
  lib/Kavorka/MethodModifier.pm
- lib/Kavorka/Signature.pm
- lib/Kavorka/Signature/Parameter.pm
- lib/Kavorka/Sub.pm
  lib/Kavorka/Sub/After.pm
  lib/Kavorka/Sub/Around.pm
  lib/Kavorka/Sub/Before.pm
