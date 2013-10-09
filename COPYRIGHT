@@ -58,6 +58,7 @@ Files: CONTRIBUTING
  INSTALL
  LICENSE
  TODO
+ examples/meta.pl
 Copyright: Unknown
 License: Unknown
 

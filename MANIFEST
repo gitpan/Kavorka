@@ -14,6 +14,7 @@ TODO
 dist.ini
 doap.ttl
 examples/benchmarks.pl
+examples/meta.pl
 lib/Kavorka.pm
 lib/Kavorka/MethodModifier.pm
 lib/Kavorka/Signature.pm

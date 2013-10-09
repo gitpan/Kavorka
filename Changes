@@ -6,6 +6,20 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.000_11	2013-10-09
+
+ [ Documentation ]
+ - Document Kavorka's exports.
+ - Fix MooseX::KavorkaInfo SYNOPSIS.
+ - Provide an example script using MooseX::KavorkaInfo.
+
+ [ Test Suite ]
+ - Check that it's possible to define a method called `method`.
+
+ [ Other ]
+ - Throw an exception if people use method modifier keywords to define
+   anonymous functions.
+
 0.000_10	2013-10-09
 
  [ Documentation ]

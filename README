@@ -434,6 +434,49 @@ DESCRIPTION
     See Kavorka::Sub, Kavorka::Signature and Kavorka::Signature::Parameter for
     further details.
 
+    If you're using Moose, consider using MooseX::KavorkaInfo to expose
+    Kavorka method signatures via the meta object protocol.
+
+  Exports
+    `-default`
+        Exports `fun` and `method`.
+
+    `-modifiers`
+        Exports `before`, `after`, and `around`.
+
+    `-all`
+        Exports `fun`, `method`, `before`, `after`, `around`, `classmethod`,
+        and `objectmethod`.
+
+    For example:
+
+       # Everything except objectmethod...
+       use Kavorka qw( -default -modifiers classmethod );
+
+    You can rename imported functions (see Exporter::Tiny):
+
+       use Kavorka method => { -as => 'meth' };
+
+    You can provide alternative implementations:
+
+       # use My::Sub::Method instead of Kavorka::Sub::Method
+       use Kavorka method => { implementation => 'My::Sub::Method' };
+
+CAVEATS
+    As noted above, subroutine attributes don't work for anonymous functions.
+
+    If importing Kavorka's method modifiers into Moo/Mouse/Moose classes, pay
+    attention to load order:
+
+       use Moose;
+       use Kavorka -all;   # ok
+
+    If you do it this way, Moose's `before`, `after`, and `around` keywords
+    will stomp on top of Kavorka's...
+
+       use Kavorka -all;
+       use Moose;          # STOMP, STOMP, STOMP!  :-(
+
 BUGS
     Please report any bugs to
     <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>.
