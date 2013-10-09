@@ -26,6 +26,7 @@ lib/Kavorka/Sub/ClassMethod.pm
 lib/Kavorka/Sub/Fun.pm
 lib/Kavorka/Sub/Method.pm
 lib/Kavorka/Sub/ObjectMethod.pm
+lib/MooseX/KavorkaInfo.pm
 lib/Parse/KeywordX.pm
 t/01basic.t
 t/02named-functions.t
@@ -42,9 +43,11 @@ t/22modifiers-mouse.t
 t/23modifiers-tiny.t
 t/50types.t
 t/51coerce.t
+t/52typeexpr.t
 t/60alias.t
 t/61ro.t
 t/62locked.t
 t/70introspection.t
+t/71moosemeta.t
 t/90closures.t
 t/91lvalue.t

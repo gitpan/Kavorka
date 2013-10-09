@@ -213,6 +213,19 @@ DESCRIPTION
        fun foo ( Str %z ) { my $z = \%z; ... }
        fun foo ( slurpy HashRef[Str] $z ) { ... }
 
+    Type constraints may be surrounded with parentheses, in which case,
+    instead of parsing them with `dwim_type`, they'll be evaluated (at compile
+    time) as an expression which is expected to return a blessed Type::Tiny
+    object:
+
+       use Types::Standard qw( LaxNum StrictNum );
+   
+       fun foo ( ($ENV{AUTOMATED_TESTING} ? StrictNum : LaxNum) $x ) {
+          ...;
+       }
+
+    This feature is shared with Function::Parameters.
+
    Value constraints
     Value constraints can be used to further constrain values. Value
     constraints are specified using the `where` keyword followed by a block.
@@ -304,6 +317,8 @@ DESCRIPTION
 
         But please don't use this for parameters with coercions!
 
+        This feature is shared with Method::Signatures.
+
     *   `coerce` - see "Type coercion" below.
 
     *   `locked` - locks hash(ref) keys - see Hash::Util. For references this
@@ -336,6 +351,8 @@ DESCRIPTION
    
            foo(42);   # dies
 
+        This feature is shared with Perl 6 signatures.
+
     *   `rw` - this is the default, so is a no-op, but if you have a mixture
         of read-only and read-write variables, it may aid clarity to
         explicitly add `is rw` to the read-write ones.
@@ -355,6 +372,8 @@ DESCRIPTION
           $file->spew(@lines);
        }
 
+    This feature is shared with Method::Signatures.
+
    The Yada Yada
     Normally passing additional parameters to a function declared with a
     signature will throw an exception:
@@ -373,6 +392,8 @@ DESCRIPTION
        }
    
        foo(1, 2);    # ok
+
+    This feature is shared with Method::Signatures.
 
     See also <http://en.wikipedia.org/wiki/The_Yada_Yada>.
 

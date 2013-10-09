@@ -13,7 +13,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.000_09';
+our $VERSION   = '0.000_10';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -355,6 +355,19 @@ the following are roughly equivalent:
    fun foo ( Str %z ) { my $z = \%z; ... }
    fun foo ( slurpy HashRef[Str] $z ) { ... }
 
+Type constraints may be surrounded with parentheses, in which case,
+instead of parsing them with C<dwim_type>, they'll be evaluated (at
+compile time) as an expression which is expected to return a blessed
+L<Type::Tiny> object:
+
+   use Types::Standard qw( LaxNum StrictNum );
+   
+   fun foo ( ($ENV{AUTOMATED_TESTING} ? StrictNum : LaxNum) $x ) {
+      ...;
+   }
+
+This feature is shared with L<Function::Parameters>.
+
 =head3 Value constraints
 
 Value constraints can be used to further constrain values. Value
@@ -454,6 +467,8 @@ the C<< @_ >> array.
 
 But please don't use this for parameters with coercions!
 
+This feature is shared with L<Method::Signatures>.
+
 =item *
 
 C<coerce> - see L</Type coercion> below.
@@ -495,6 +510,8 @@ C<ro> - makes the parameter a (shallow) read-only variable.
    
    foo(42);   # dies
 
+This feature is shared with Perl 6 signatures.
+
 =item *
 
 C<rw> - this is the default, so is a no-op, but if you have a mixture
@@ -521,6 +538,8 @@ Coercion can be enabled for a parameter using the C<coerce> constraint.
       $file->spew(@lines);
    }
 
+This feature is shared with L<Method::Signatures>.
+
 =head3 The Yada Yada
 
 Normally passing additional parameters to a function declared with a
@@ -540,6 +559,8 @@ function to accept extra trailing parameters:
    }
    
    foo(1, 2);    # ok
+
+This feature is shared with L<Method::Signatures>.
 
 See also L<http://en.wikipedia.org/wiki/The_Yada_Yada>.
 
