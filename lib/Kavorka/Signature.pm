@@ -7,8 +7,10 @@ use Kavorka::Signature::Parameter ();
 package Kavorka::Signature;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.002';
+our $VERSION   = '0.003';
+our @CARP_NOT  = qw( Kavorka::Sub Kavorka );
 
+use Carp qw( croak );
 use Parse::Keyword {};
 use Parse::KeywordX;
 
@@ -42,7 +44,7 @@ sub parse
 			$self->_set_yadayada(1);
 			lex_read(3);
 			lex_read_space;
-			die "After yada-yada, expected right parenthesis" unless lex_peek eq ")";
+			croak("After yada-yada, expected right parenthesis") unless lex_peek eq ")";
 			next;
 		}
 		
@@ -52,7 +54,7 @@ sub parse
 		my $peek = lex_peek;
 		if ($found_colon and $peek eq ':')
 		{
-			die "Cannot have two sets of invocants - unexpected colon!";
+			croak("Cannot have two sets of invocants - unexpected colon!");
 		}
 		elsif ($peek eq ':')
 		{
@@ -70,7 +72,7 @@ sub parse
 		}
 		else
 		{
-			die "Unexpected!! [$peek]"
+			croak("Unexpected characters in signature (${\ lex_peek(8) })");
 		}
 		
 		lex_read_space;
@@ -89,7 +91,7 @@ sub sanity_check
 	my $has_invocants = 0;
 	my $has_slurpy = 0;
 	my $has_named = 0;
-	for my $p (reverse @{ $self->params or die })
+	for my $p (reverse @{ $self->params or croak("Huh?") })
 	{
 		$has_named++ if $p->named;
 		$has_slurpy++ if $p->slurpy;
@@ -107,34 +109,50 @@ sub sanity_check
 	$self->_set_has_named($has_named);
 	$self->_set_has_slurpy($has_slurpy);
 	
-	my $i = 0;
-	for my $p (@{ $self->params })
-	{
-		next if $p->invocant;
-		$p->_set_position($i++);
-	}
+	croak("Cannot have more than one slurpy parameter") if $has_slurpy > 1;
 	
-	my $zone = 'positional';
+	my $i    = 0;
+	my $zone = 'invocant';
+	my %already;
 	for my $p (@{ $self->params })
 	{
-		# Zone transitions
-		if ($zone eq 'positional')
+		my $p_type =
+			$p->invocant ? 'invocant' :
+			$p->named    ? 'named'    :
+			$p->slurpy   ? 'slurpy'   :
+			$p->optional ? 'optional' : 'positional';
+		
+		$p->sanity_check($self);
+		$p->_set_position($i++) unless $p->invocant || $p->slurpy || $p->named;
+		
+		my $name = $p->name;
+		croak("Parameter $name occurs twice in signature")
+			if length($name) > 1 && $already{$name}++;
+		
+		if ($name eq '@_')
 		{
-			($zone = 'named'  && next ) if $p->named;
-			($zone = 'slurpy' && next ) if $p->slurpy;
-		}
-		elsif ($zone eq 'named')
-		{
-			($zone = 'slurpy' && next ) if $p->slurpy;
+			croak("Cannot have slurpy named \@_ after positional parameters") if $self->positional_params;
+			croak("Cannot have slurpy named \@_ after named parameters")      if $self->named_params;
 		}
 		
-		my $p_type = $p->slurpy ? 'slurpy' : $p->named ? 'named' : 'positional';
-		die "Found $p_type parameter after $zone; forbidden" if $p_type ne $zone;
+		next if $p_type eq $zone;
+		
+		# Zone transitions
+		if ($zone eq 'invocant' || $zone eq 'positional'
+		and $p_type eq 'positional' || $p_type eq 'named' || $p_type eq 'slurpy' || $p_type eq 'optional')
+		{
+			$zone = $p_type;
+			next;
+		}
+		elsif ($zone eq 'optional' || $zone eq 'named'
+		and    $p_type eq 'slurpy')
+		{
+			$zone = $p_type;
+			next;
+		}
+		
+		croak("Found $p_type parameter ($name) after $zone; forbidden");
 	}
-	
-	$_->sanity_check($self) for @{ $self->params };
-	
-	#use Data::Dumper; print Dumper($self);
 	
 	();
 }
@@ -353,6 +371,13 @@ signature.
 
 The numeric index of the last positional parameter.
 
+=item C<args_min>, C<args_max>
+
+The minimum/maximum number of arguments expected by the function.
+Invocants are not counted. If there are any named or slurpy arguments,
+of the yada yada operator was used in the signature, then C<args_max>
+will be undef.
+
 =back
 
 =head2 Other Methods
@@ -376,13 +401,6 @@ The string of Perl code to inject for this signature.
 
 Tests that the signature is sane. (For example it would not be sane to
 have a slurpy parameter prior to a positional one.)
-
-=item C<args_min>, C<args_max>
-
-The minimum/maximum number of arguments expected by the function.
-Invocants are not counted. If there are any named or slurpy arguments,
-of the yada yada operator was used in the signature, then C<args_max>
-will be undef.
 
 =back
 

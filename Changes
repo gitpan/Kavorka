@@ -6,6 +6,11 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.003	2013-10-12
+
+ - Allow @_ and %_ to be used in signatures.
+ - Improve sanity checking for signatures.
+
 0.002	2013-10-11
 
  - Added: Kavorka::Signature now provides args_min and args_max methods.

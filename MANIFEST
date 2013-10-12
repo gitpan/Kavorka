@@ -10,7 +10,6 @@ META.yml
 Makefile.PL
 README
 SIGNATURE
-TODO
 dist.ini
 doap.ttl
 examples/benchmarks.pl
@@ -38,6 +37,7 @@ t/10positional.t
 t/11named.t
 t/12invocant.t
 t/13slurpy.t
+t/14underscores.t
 t/20modifiers-moo.t
 t/21modifiers-moose.t
 t/22modifiers-mouse.t

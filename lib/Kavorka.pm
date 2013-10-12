@@ -13,7 +13,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.002';
+our $VERSION   = '0.003';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -82,13 +82,17 @@ sub _exporter_expand_sub
 	);
 	
 	Parse::Keyword::install_keyword_handler(
-		$code => sub {
-			my $subroutine = $implementation->parse(keyword => $name);
-			return (
-				sub { ($subroutine, $args) },
-				!! $subroutine->declared_name,
-			);
-		},
+		$code => Sub::Name::subname(
+			"$me\::parse_$name",
+			sub {
+				local $Carp::CarpLevel = $Carp::CarpLevel + 1;
+				my $subroutine = $implementation->parse(keyword => $name);
+				return (
+					sub { ($subroutine, $args) },
+					!! $subroutine->declared_name,
+				);
+			},
+		),
 	);
 	
 	return ($name => $code);
@@ -335,6 +339,25 @@ hashrefs.
 For slurpy references you should specify a type constraint (see
 L</Type Constraints>) so that Kavorka can create the correct type of
 reference.
+
+The variables C<< @_ >> and C<< %_ >> I<< may >> be used as slurpy
+parameters, I<< but only if their use as a parameter does not interfere
+with their usual meaning >>.
+
+   # ok
+   fun foo ( @_ ) {
+      ...;
+   }
+   
+   # disallowed because the @_ array would usually include $x
+   fun bar ( $x, @_ ) {
+      ...;
+   }
+   
+   # ok because the invocant $x would usually be shifted off @_
+   fun baz ( $x: @_ ) {
+      ...;
+   }
 
 =head3 Type constraints
 
