@@ -15,35 +15,36 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 294505f858f11dd062e9916e3f50d88210a9ef54 CONTRIBUTING
-SHA1 2d417d2478c297a68b9aef98dd748a00131c0071 COPYRIGHT
+SHA1 00dec620332e0d97cf0fc60f28c08ebdd5f2ef9b COPYRIGHT
 SHA1 6bd7b17d81be63d08d4efa6cb80106e72887842c CREDITS
-SHA1 2379ecf5a377af97d95dab6e4c5cb09344a5b5d3 Changes
+SHA1 e492c4285208e2c148cbb0de450a33104b03a9ad Changes
 SHA1 642accba7915d84fd2d6e679492d9e9609cb9870 INSTALL
 SHA1 ec5a7b4f3023f03ebf821b57690758f7e6f3ae2a LICENSE
-SHA1 2c506af3023740648962092337e43848961302ac MANIFEST
-SHA1 9d199c0630bbe04884cd961faaaad5de317e3c98 META.json
-SHA1 114a3fa53b67d6b89c8f4c1be7b3f8ca732070b0 META.yml
-SHA1 6ba0874644d707c1f902a6936351075f9547274b Makefile.PL
+SHA1 19588c7fc5eea2e768791552ede7bc5b0fae9f40 MANIFEST
+SHA1 0f0e8456350cc38916f96b5e76142893c01ba052 META.json
+SHA1 5da4e5b82294d2f1501963b07274a71251fdfa3f META.yml
+SHA1 79b7173c83502e6b8a6d2f68b17827d5204e966a Makefile.PL
 SHA1 de89e99c3fcce255a6d1c7751b229cc5c1a3cf2b README
 SHA1 39bac3db859a6ce7311a36c43c2ac9ef1da35a19 dist.ini
-SHA1 286b91df4c10964ee5f31cf79ecd2f8b4f972493 doap.ttl
+SHA1 3eb3e004d951948f509a4b08d6a4b150d633e79d doap.ttl
 SHA1 09327cde126d26fd216e730a09b9b555c34996cf examples/benchmarks.pl
+SHA1 247a56668598da4dafeae97cfc5d22b6569059db examples/fibonacci.pl
 SHA1 04744decf0dca3a79997b74aa112121651e4d5cd examples/meta.pl
-SHA1 054aa7676b62b329a2fb03d61c192149451786af lib/Kavorka.pm
-SHA1 6c3ef0e8a170c30e65c07c1d5830163cc953bdea lib/Kavorka/MethodModifier.pm
-SHA1 cca2a3a833769d38648edb2daffe315da372f5f6 lib/Kavorka/Multi.pm
-SHA1 2cab846b24b43ba3bf4765218a33670dfd1259c3 lib/Kavorka/Signature.pm
-SHA1 485487d6c10b992d7004801210796e8802865f21 lib/Kavorka/Signature/Parameter.pm
-SHA1 2b6c8a2b993ea4fa82b040b97a31f8a68c07bbe1 lib/Kavorka/Sub.pm
-SHA1 7e6256a66fd08e80a76ac98b3db32ac3716ff09c lib/Kavorka/Sub/After.pm
-SHA1 5adf450817661f7ddf524a39d70f208448a1055d lib/Kavorka/Sub/Around.pm
-SHA1 14019a220f2f650a683a7ae271b06c75842d253c lib/Kavorka/Sub/Before.pm
-SHA1 541ad0e13b349ea32af78a64ff4986806713ea14 lib/Kavorka/Sub/ClassMethod.pm
-SHA1 9f53a376cc9294e7ea0d13d4e67eb0fef11ab00d lib/Kavorka/Sub/Fun.pm
-SHA1 7445d93248cb1092888f37343464adfdf911813e lib/Kavorka/Sub/Method.pm
-SHA1 9e804aae24c22d3415a46162674e8e5d98fddf06 lib/Kavorka/Sub/ObjectMethod.pm
-SHA1 8150499690d1fee8c40818de0f8bdde8f1f1f116 lib/MooseX/KavorkaInfo.pm
-SHA1 3520ec28d63e506fdad2c706e646e050d793dca7 lib/Parse/KeywordX.pm
+SHA1 03be9a9ddd0183801e637dcfd6ea40b5530da30e lib/Kavorka.pm
+SHA1 e786f0ad5cc3cb98093ee9733ee6a61d1dd45a33 lib/Kavorka/MethodModifier.pm
+SHA1 b671d86b64f327f848ef97f0ccffa8865c2bd666 lib/Kavorka/Multi.pm
+SHA1 4804680b65cc09d3bf5b0c6f24286088b1677701 lib/Kavorka/Signature.pm
+SHA1 2a26fcfb81b0b0161df5c3722d890792b2abfb01 lib/Kavorka/Signature/Parameter.pm
+SHA1 190ea40c9f34e90ce02fbdcf199a94b8595d3a3d lib/Kavorka/Sub.pm
+SHA1 acdc1b876d3e02a285f824a60c3c68d116e29409 lib/Kavorka/Sub/After.pm
+SHA1 16970df83c7f978c7ba588e1e98a7dd9c1e5e068 lib/Kavorka/Sub/Around.pm
+SHA1 5fd2a0bd1a8e47bb1144b83cde8d3735465a9ad3 lib/Kavorka/Sub/Before.pm
+SHA1 ac6461ffc9a522a331f58b7a86c065f83a34ebcf lib/Kavorka/Sub/ClassMethod.pm
+SHA1 06f88a6e8232ac696347f19f45f8baca4621ddc7 lib/Kavorka/Sub/Fun.pm
+SHA1 307d49b05a0bc4f5a663753c79bf10d865b809f2 lib/Kavorka/Sub/Method.pm
+SHA1 c4a03779b5996ce90bfdee51caa0255f8dfa1930 lib/Kavorka/Sub/ObjectMethod.pm
+SHA1 f13f8fb0cbac28602a0eb61380a7c8ab30c7ee4c lib/MooseX/KavorkaInfo.pm
+SHA1 23f3ee720165f5db5b6e82455d35a7b07eb6940e lib/Parse/KeywordX.pm
 SHA1 89357f719f10ba9eb399d15e2fbf7503caf08d68 t/01basic.t
 SHA1 ee63c6b95377f0374a953928e6bf3dd33d799b9c t/02named-functions.t
 SHA1 a9d1415067fed45b4c44d5819c05d9e86b59f943 t/03anon-functions.t
@@ -72,7 +73,7 @@ SHA1 ca3777a89b0c74cae0e86720fd2addab4450c96a t/91lvalue.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.12 (GNU/Linux)
 
-iEYEARECAAYFAlJacVwACgkQzr+BKGoqfTkn9wCaA1jfaCPMtXf6oZSZOIj/zi63
-MaAAn2A7F6ehAlkXbIAJd5VlJL5UZAql
-=ZQJF
+iEYEARECAAYFAlJadx8ACgkQzr+BKGoqfTniSQCgkcmYkstxGlKPBCSy0NtMuFxg
+81kAn2OExWWZ2RDLiRhJ5JTBttbvP3TQ
+=8C5A
 -----END PGP SIGNATURE-----

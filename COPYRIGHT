@@ -5,6 +5,7 @@ Source: https://metacpan.org/release/Kavorka
 
 Files: README
  examples/benchmarks.pl
+ examples/fibonacci.pl
  lib/Kavorka.pm
  lib/Kavorka/Signature.pm
  lib/Kavorka/Signature/Parameter.pm

@@ -13,6 +13,7 @@ SIGNATURE
 dist.ini
 doap.ttl
 examples/benchmarks.pl
+examples/fibonacci.pl
 examples/meta.pl
 lib/Kavorka.pm
 lib/Kavorka/MethodModifier.pm
