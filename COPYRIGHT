@@ -24,6 +24,7 @@ Files: README
  t/21modifiers-moose.t
  t/22modifiers-mouse.t
  t/23modifiers-tiny.t
+ t/30multi.t
  t/50types.t
  t/51coerce.t
  t/52typeexpr.t
@@ -43,6 +44,7 @@ Files: Changes
  dist.ini
  doap.ttl
  lib/Kavorka/MethodModifier.pm
+ lib/Kavorka/Multi.pm
  lib/Kavorka/Sub/After.pm
  lib/Kavorka/Sub/Around.pm
  lib/Kavorka/Sub/Before.pm

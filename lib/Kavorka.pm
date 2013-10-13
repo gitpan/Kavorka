@@ -13,7 +13,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.003';
+our $VERSION   = '0.004';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -31,6 +31,7 @@ our %IMPLEMENTATION = (
 	func         => 'Kavorka::Sub::Fun',
 	function     => 'Kavorka::Sub::Fun',
 	method       => 'Kavorka::Sub::Method',
+	multi        => 'Kavorka::Multi',
 	objectmethod => 'Kavorka::Sub::ObjectMethod',
 );
 
@@ -55,6 +56,8 @@ sub _exporter_expand_sub
 	
 	Module::Runtime::use_package_optimistically($implementation)->can('parse')
 		or Carp::croak("No suitable implementation for keyword '$name'");
+	
+	$^H{$me} .= "$name=$implementation ";
 	
 	no warnings 'void';
 	my $code = Sub::Name::subname(
@@ -554,7 +557,7 @@ for a trait.
 
 =head3 Type coercion
 
-Coercion can be enabled for a parameter using the C<coerce> constraint.
+Coercion can be enabled for a parameter using the C<coerce> trait.
 
    use Types::Path::Tiny qw(AbsPath);
    
@@ -613,6 +616,53 @@ write with L<sub|perlsub>, however the lexical variables for parameters
 are pre-declared and pre-populated, and invocants have been shifted
 off C<< @_ >>.
 
+=head2 Multi Methods
+
+Kavorka supports multi methods and multi subs:
+
+   multi method process (ArrayRef $x) { say "here" }
+   multi method process (HashRef $x) { say "there" }
+   
+   __PACKAGE__->process( [] );    # here
+   __PACKAGE__->process( {} );    # there
+
+When dispatching to a C<multi method>, candidates are checked in
+standard L<mro> order; within each package candidates are checked
+in the order in which they were defined. When dispatching to a
+C<multi fun> inheritance is ignored, and only candidates from the
+current package are considered.
+
+This feature is shared with Perl 6 signatures, though Kavorka does
+not support some of Perl 6's more advanced features such as multi
+method prototypes. (Though method modifiers should more or less work
+with multi methods!) Kavorka includes both type constraints and value
+constraints in the dispatch decision, while Perl 6 only uses type
+constraints.
+
+The current implementation is not especially efficient. For example,
+type constraints are checked when deciding which multi method candidate
+to dispatch to, and then re-checked once the dispatch has been done.
+However, there are opportunities for future versions of Kavorka to
+optimize some aspects of the multi method implementation.
+
+It is possible to define alternative "long names" for the candidates
+of a multi method or multi sub using the C<:long> attribute:
+
+   multi fun process (ArrayRef $x) :long(process_array) {
+      say "here";
+   }
+   
+   multi fun process (HashRef $x) :long(process_hash) {
+      say "there";
+   }
+   
+   process($a);          # multi dispatch
+   process_array($b);    # single dispatch
+   process_hash($c);     # single dispatch
+
+Future versions of Kavorka I<might> skip some type constraint checks
+when a candidate is called directly by its long name.
+
 =head2 Introspection API
 
 The coderef for any sub created by Kavorka can be passed to the
@@ -649,7 +699,7 @@ Exports C<before>, C<after>, and C<around>.
 =item C<< -all >>
 
 Exports C<fun>, C<method>, C<before>, C<after>, C<around>,
-C<classmethod>, and C<objectmethod>.
+C<classmethod>, C<objectmethod>, and C<multi>.
 
 =back
 

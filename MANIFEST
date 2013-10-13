@@ -16,6 +16,7 @@ examples/benchmarks.pl
 examples/meta.pl
 lib/Kavorka.pm
 lib/Kavorka/MethodModifier.pm
+lib/Kavorka/Multi.pm
 lib/Kavorka/Signature.pm
 lib/Kavorka/Signature/Parameter.pm
 lib/Kavorka/Sub.pm
@@ -42,6 +43,7 @@ t/20modifiers-moo.t
 t/21modifiers-moose.t
 t/22modifiers-mouse.t
 t/23modifiers-tiny.t
+t/30multi.t
 t/50types.t
 t/51coerce.t
 t/52typeexpr.t

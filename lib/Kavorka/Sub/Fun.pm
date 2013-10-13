@@ -5,10 +5,12 @@ use warnings;
 package Kavorka::Sub::Fun;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.003';
+our $VERSION   = '0.004';
 
 use Moo;
 with 'Kavorka::Sub';
+
+sub invocation_style { 'fun' }
 
 sub forward_declare
 {
