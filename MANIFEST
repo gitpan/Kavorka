@@ -12,6 +12,7 @@ README
 SIGNATURE
 dist.ini
 doap.ttl
+examples/benchmarks-multisub.pl
 examples/benchmarks.pl
 examples/fibonacci.pl
 examples/meta.pl
@@ -45,6 +46,7 @@ t/21modifiers-moose.t
 t/22modifiers-mouse.t
 t/23modifiers-tiny.t
 t/30multi.t
+t/31multimulti.t
 t/50types.t
 t/51coerce.t
 t/52typeexpr.t
