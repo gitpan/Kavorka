@@ -13,7 +13,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.006';
+our $VERSION   = '0.007';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -303,6 +303,17 @@ This feature is shared with Perl 6 signatures.
 Long named parameters will be available in C<< %_ >> under their
 "outside" name, not their "inside" name.
 
+A function can have multiple long names:
+
+   fun xxx ( :foo(:bar(:baz($x))) ) { ... }
+
+This unwieldy syntax is borrowed from Perl 6 signatures.
+
+Kavorka provides an experimental shortcut - you may omit the
+parentheses:
+
+   fun xxx ( :foo :bar :baz $x ) { ... }
+
 =head3 Optional and required parameters
 
 A trailing exclamation mark makes an attribute required. A trailing
@@ -316,6 +327,12 @@ will be optional.
 
 You can not use named parameters and optional positional parameters in
 the same signature.
+
+For long named parameters, the trailing indicator should appear
+after the close parentheses:
+
+   fun xxx ( :foo($x)! ) { ... }
+   fun xxx ( :foo($x!) ) { ... }   # NO!
 
 =head3 Slurpy parameters
 

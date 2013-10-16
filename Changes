@@ -6,6 +6,12 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.007	2013-10-16
+
+ - Allow named parameters to have multiple "outside" names.
+ - Make the parentheses surrounding long named parameters optional.
+ - Refactor Kavorka::Sub.
+
 0.006	2013-10-15
 
  [ Documentation ]
