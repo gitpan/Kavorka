@@ -14,6 +14,8 @@ dist.ini
 doap.ttl
 examples/benchmarks-multisub.pl
 examples/benchmarks.pl
+examples/dancer2/example.pl
+examples/dancer2/lib/KavorkaX/Dancer2.pm
 examples/fibonacci.pl
 examples/meta.pl
 lib/Kavorka.pm

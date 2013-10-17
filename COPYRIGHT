@@ -63,6 +63,8 @@ License: GPL-1.0+ or Artistic-1.0
 Files: CONTRIBUTING
  INSTALL
  LICENSE
+ examples/dancer2/example.pl
+ examples/dancer2/lib/KavorkaX/Dancer2.pm
  examples/meta.pl
 Copyright: Unknown
 License: Unknown

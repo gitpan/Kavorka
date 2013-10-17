@@ -13,7 +13,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.007';
+our $VERSION   = '0.008';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -44,6 +44,12 @@ sub info
 	$INFO{$code};
 }
 
+sub guess_implementation
+{
+	my $me = shift;
+	$IMPLEMENTATION{$_[0]};
+}
+
 sub _exporter_expand_sub
 {
 	my $me = shift;
@@ -51,7 +57,7 @@ sub _exporter_expand_sub
 	
 	my $implementation =
 		$args->{'implementation'}
-		// $IMPLEMENTATION{$name}
+		// $me->guess_implementation($name)
 		// $me;
 	
 	Module::Runtime::use_package_optimistically($implementation)->can('parse')
