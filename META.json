@@ -71,74 +71,74 @@
    "provides" : {
       "Kavorka" : {
          "file" : "lib/Kavorka.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::MethodModifier" : {
          "file" : "lib/Kavorka/MethodModifier.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Multi" : {
          "file" : "lib/Kavorka/Multi.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Signature" : {
          "file" : "lib/Kavorka/Signature.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Signature::Parameter" : {
          "file" : "lib/Kavorka/Signature/Parameter.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Sub" : {
          "file" : "lib/Kavorka/Sub.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Sub::After" : {
          "file" : "lib/Kavorka/Sub/After.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Sub::Around" : {
          "file" : "lib/Kavorka/Sub/Around.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Sub::Before" : {
          "file" : "lib/Kavorka/Sub/Before.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Sub::ClassMethod" : {
          "file" : "lib/Kavorka/Sub/ClassMethod.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Sub::Fun" : {
          "file" : "lib/Kavorka/Sub/Fun.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Sub::Method" : {
          "file" : "lib/Kavorka/Sub/Method.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Kavorka::Sub::ObjectMethod" : {
          "file" : "lib/Kavorka/Sub/ObjectMethod.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "MooseX::KavorkaInfo" : {
          "file" : "lib/MooseX/KavorkaInfo.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "MooseX::KavorkaInfo::DummyInfo" : {
          "file" : "lib/MooseX/KavorkaInfo.pm"
       },
       "MooseX::KavorkaInfo::Trait::Method" : {
          "file" : "lib/MooseX/KavorkaInfo.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "MooseX::KavorkaInfo::Trait::WrappedMethod" : {
          "file" : "lib/MooseX/KavorkaInfo.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       },
       "Parse::KeywordX" : {
          "file" : "lib/Parse/KeywordX.pm",
-         "version" : "0.008"
+         "version" : "0.009"
       }
    },
    "release_status" : "stable",
@@ -156,5 +156,5 @@
          "web" : "https://github.com/tobyink/p5-kavorka"
       }
    },
-   "version" : "0.008"
+   "version" : "0.009"
 }
