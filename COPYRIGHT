@@ -37,6 +37,7 @@ Files: README
  t/70introspection.t
  t/71moosemeta.t
  t/91lvalue.t
+ t/92weirdvars.t
 Copyright: This software is copyright (c) 2013 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 

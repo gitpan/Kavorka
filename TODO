@@ -6,27 +6,13 @@
 	
 	$self->$foo(1234);
 
-2. Would be good to allow:
+2. Maybe attempt to get Perl 6 style attributive parameters working:
 
-	# This would localize the package variable
-	# 
-	method dump ($self: Int $Data::Dumper::MadDepth = 1) {
-		return Data::Dumper::Dumper($self);
+	method foo ($self: $.name) {
+		# $.name is an alias (tied) for $self->name attribute
+		# only works if you have a meta object (i.e. Moose/Mouse)
 	}
 
-3. Also:
+This may be of limited utility.
 
-	# Again, this would localize the package variable
-	# 
-	method bar ($self: Int our $quux = 42) {
-		...;
-	}
-	
-4. And:
-
-	# "my" is the default anyway...
-	# 
-	method baz ($self: Int my $quux = 42) {
-		...;
-	}
-	
+See http://perlcabal.org/syn/S06.html#Attributive_parameters

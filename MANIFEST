@@ -60,3 +60,4 @@ t/70introspection.t
 t/71moosemeta.t
 t/90closures.t
 t/91lvalue.t
+t/92weirdvars.t

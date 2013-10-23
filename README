@@ -168,6 +168,19 @@ DESCRIPTION
 
        fun xxx ( :foo :bar :baz $x ) { ... }
 
+   Global variables
+    The variables established by Kavorka are normally plain old lexicals (`my`
+    variables). However, you can instead make them into localised package
+    variables (`our` variables):
+
+       fun xxx ( Int our $x ) { ... }
+
+    Variables containing "::", the special globals $_, @_, and %_, and
+    variables named like `${^HELLO}` are automatically localized.
+
+    (The other special punctuation variables listed in perlvar are not
+    supported.)
+
    Optional and required parameters
     A trailing exclamation mark makes an attribute required. A trailing
     question mark makes an attribute optional.

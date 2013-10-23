@@ -13,7 +13,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.009';
+our $VERSION   = '0.010';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -115,7 +115,7 @@ __END__
 
 =encoding utf-8
 
-=for stopwords invocant invocants lexicals unintuitive yada
+=for stopwords invocant invocants lexicals unintuitive yada globals
 
 =head1 NAME
 
@@ -319,6 +319,21 @@ Kavorka provides an experimental shortcut - you may omit the
 parentheses:
 
    fun xxx ( :foo :bar :baz $x ) { ... }
+
+=head3 Global variables
+
+The variables established by Kavorka are normally plain old lexicals
+(C<my> variables). However, you can instead make them into localised
+package variables (C<our> variables):
+
+   fun xxx ( Int our $x ) { ... }
+
+Variables containing "::", the special globals C<< $_ >>, C<< @_ >>,
+and C<< %_ >>, and variables named like C<< ${^HELLO} >> are
+automatically localized.
+
+(The other special punctuation variables listed in L<perlvar> are not
+supported.)
 
 =head3 Optional and required parameters
 
