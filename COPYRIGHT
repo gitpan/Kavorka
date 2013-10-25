@@ -8,6 +8,12 @@ Files: README
  examples/benchmarks.pl
  examples/fibonacci.pl
  lib/Kavorka.pm
+ lib/Kavorka/Manual/Functions.pod
+ lib/Kavorka/Manual/MethodModifiers.pod
+ lib/Kavorka/Manual/Methods.pod
+ lib/Kavorka/Manual/MultiSubs.pod
+ lib/Kavorka/Manual/PrototypeAndAttributes.pod
+ lib/Kavorka/Manual/Signatures.pod
  lib/Kavorka/Signature.pm
  lib/Kavorka/Signature/Parameter.pm
  lib/Kavorka/Sub.pm
@@ -26,6 +32,7 @@ Files: README
  t/21modifiers-moose.t
  t/22modifiers-mouse.t
  t/23modifiers-tiny.t
+ t/24multimodifiers.t
  t/30multi.t
  t/31multimulti.t
  t/50types.t
@@ -38,6 +45,7 @@ Files: README
  t/71moosemeta.t
  t/91lvalue.t
  t/92weirdvars.t
+ t/93prototypes.t
 Copyright: This software is copyright (c) 2013 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
