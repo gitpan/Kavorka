@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Multi;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.011';
+our $VERSION   = '0.012';
 
 use Devel::Pragma qw( fqname );
 use Parse::Keyword {};
@@ -40,11 +40,9 @@ around parse => sub
 	return $class->$next(@_, multi_type => $type);
 };
 
-around parse_attributes => sub
+after parse_attributes => sub
 {
-	my $next = shift;
 	my $self = shift;
-	$self->$next(@_);
 	
 	my @attr = @{$self->attributes};
 	
@@ -53,9 +51,14 @@ around parse_attributes => sub
 		? ($self->_set_declared_long_name($_->[1]), $self->_set_qualified_long_name(scalar fqname $_->[1]))
 		: push(@filtered, $_)
 		for @attr;
-	@{$self->attributes} = @filtered;
 	
-	();
+	@{$self->attributes} = @filtered;
+};
+
+after parse_signature => sub
+{
+	my $self = shift;
+	$self->signature->_set_nobble_checks(1);
 };
 
 sub allow_anonymous { 0 }
@@ -87,23 +90,25 @@ sub invocation_style
 our %DISPATCH_TABLE;
 our %DISPATCH_STYLE;
 
-my $DISPATCH = sub
+sub __gather_candidates
+{
+	my ($pkg, $subname, $args) = @_;
+	
+	if ($DISPATCH_STYLE{$pkg}{$subname} eq 'fun')
+	{
+		return @{$DISPATCH_TABLE{$pkg}{$subname}};
+	}
+	
+	require mro;
+	my $invocant = ref($args->[0]) || $args->[0];
+	return map @{$DISPATCH_TABLE{$_}{$subname} || [] }, @{ $invocant->mro::get_linear_isa };
+}
+
+sub __dispatch
 {
 	my ($pkg, $subname) = @{ +shift };
 	
-	my @candidates;
-	if ($DISPATCH_STYLE{$pkg}{$subname} eq 'fun')
-	{
-		@candidates = @{$DISPATCH_TABLE{$pkg}{$subname}};
-	}
-	else
-	{
-		require mro;
-		my $invocant = ref($_[0]) || $_[0];
-		@candidates  = map @{$DISPATCH_TABLE{$_}{$subname} || [] }, @{ $invocant->mro::get_linear_isa };
-	}
-	
-	for my $c (@candidates)
+	for my $c ( __gather_candidates($pkg, $subname, \@_) )
 	{
 		my @copy = @_;
 		next unless $c->signature->check(@copy);
@@ -112,7 +117,49 @@ my $DISPATCH = sub
 	}
 	
 	Carp::croak("Arguments to $pkg\::$subname did not match any known signature for multi sub");
-};
+}
+
+sub __compile
+{
+	my ($pkg, $subname) = @_;
+	
+	my @candidates = __gather_candidates($pkg, $subname, [$pkg]);
+	my @coderefs   = map $_->body, @candidates;
+	
+	my $slowpath = '';
+	if ($DISPATCH_STYLE{$pkg}{$subname} ne 'fun')
+	{
+		$slowpath = sprintf(
+			'if ((ref($_[0]) || $_[0]) ne %s) { unshift @_, [%s, %s]; goto \\&Kavorka::Multi::__dispatch }',
+			B::perlstring($pkg),
+			B::perlstring($pkg),
+			B::perlstring($subname),
+		);
+	}
+	
+	my $compiled = join q[] => (
+		map {
+			my $sig = $candidates[$_]->signature;
+			$sig && $sig->nobble_checks ? sprintf(
+				"\@tmp = \@_; if (%s) { unshift \@_, \$Kavorka::Signature::NOBBLE; goto \$coderefs[%d] }\n",
+				$candidates[$_]->signature->inline_check('@tmp'),
+				$_,
+			) :
+			$sig ? sprintf(
+				"\@tmp = \@_; if (%s) { goto \$coderefs[%d] }\n",
+				$candidates[$_]->signature->inline_check('@tmp'),
+				$_,
+			) : sprintf('goto \$coderefs[%d];', $_);
+		} 0 .. $#candidates,
+	);
+	
+	my $error = "Carp::croak(qq/Arguments to $pkg\::$subname did not match any known signature for multi sub/);";
+	
+	Sub::Name::subname(
+		"$pkg\::$subname",
+		eval("package $pkg; sub { $slowpath; my \@tmp; $compiled; $error }"),
+	);
+}
 
 sub install_sub
 {
@@ -123,18 +170,21 @@ sub install_sub
 	{
 		$DISPATCH_TABLE{$pkg}{$subname} = [];
 		$DISPATCH_STYLE{$pkg}{$subname} = $self->invocation_style;
-		
-		no strict 'refs';
-		*{"$pkg\::$subname"} = Sub::Name::subname(
-			"$pkg\::$subname" => sub {
-				unshift @_, [$pkg, $subname];
-				goto $DISPATCH;
-			},
-		);
 	}
 	
 	$DISPATCH_STYLE{$pkg}{$subname} eq $self->invocation_style
 		or Carp::croak("Two different invocation styles used for $subname");
+	
+	{
+		no strict "refs";
+		no warnings "redefine";
+		*{"$pkg\::$subname"} = Sub::Name::subname(
+			"$pkg\::$subname" => sub {
+				*{"$pkg\::$subname"} = (my $compiled = __compile($pkg, $subname));
+				goto $compiled;
+			},
+		);
+	}
 	
 	my $long = $self->qualified_long_name;
 	if (defined $long)

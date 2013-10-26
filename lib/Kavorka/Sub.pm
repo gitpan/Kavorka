@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.011';
+our $VERSION   = '0.012';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
@@ -444,9 +444,8 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>.
 
 =head1 SEE ALSO
 
-L<http://perlcabal.org/syn/S06.html>,
-L<Kavorka>,
-L<Kavorka::Signature::Parameter>.
+L<Kavorka::Manual::API>,
+L<Kavorka::Signature>.
 
 =head1 AUTHOR
 

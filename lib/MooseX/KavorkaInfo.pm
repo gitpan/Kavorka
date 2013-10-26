@@ -15,7 +15,7 @@ use Sub::Identify ();
 {
 	package MooseX::KavorkaInfo;
 	our $AUTHORITY = 'cpan:TOBYINK';
-	our $VERSION   = '0.011';
+	our $VERSION   = '0.012';
 	
 	sub import
 	{
@@ -36,7 +36,7 @@ use Sub::Identify ();
 {
 	package MooseX::KavorkaInfo::Trait::Method;
 	our $AUTHORITY = 'cpan:TOBYINK';
-	our $VERSION   = '0.011';
+	our $VERSION   = '0.012';
 	
 	use Moose::Role;
 	
@@ -66,7 +66,7 @@ use Sub::Identify ();
 {
 	package MooseX::KavorkaInfo::Trait::WrappedMethod;
 	our $AUTHORITY = 'cpan:TOBYINK';
-	our $VERSION   = '0.011';
+	our $VERSION   = '0.012';
 	
 	use Moose::Role;
 	with 'MooseX::KavorkaInfo::Trait::Method';
@@ -145,7 +145,7 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>.
 
 =head1 SEE ALSO
 
-L<Kavorka>,
+L<Kavorka::Manual::API>,
 L<Moose::Meta::Method>.
 
 =head1 AUTHOR

@@ -28,7 +28,7 @@ DESCRIPTION
     has also been greatly influenced by Method::Signatures and
     Function::Parameters.
 
-    For further information see:
+    For information using the keywords exported by Kavorka:
 
     *   Kavorka::Manual::Functions
 
@@ -54,7 +54,7 @@ DESCRIPTION
        # Everything except objectmethod and multi...
        use Kavorka qw( -default -modifiers classmethod );
 
-    You can rename imported functions (see Exporter::Tiny):
+    You can rename imported functions:
 
        use Kavorka method => { -as => 'meth' };
 
@@ -85,6 +85,9 @@ DESCRIPTION
     If you're using Moose, consider using MooseX::KavorkaInfo to expose
     Kavorka method signatures via the meta object protocol.
 
+    Kavorka::Manual::API provides more details and examples using the
+    introspection API.
+
 CAVEATS
     As noted in Kavorka::Manual::PrototypeAndAttributes, subroutine attributes
     don't work properly for anonymous functions.
@@ -108,10 +111,10 @@ BUGS
     <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>.
 
 SEE ALSO
-    <http://perlcabal.org/syn/S06.html>, Function::Parameters,
-    Method::Signatures.
+    Kavorka::Manual.
 
-    Kavorka::Sub, Kavorka::Signature, Kavorka::Signature::Parameter.
+    Inspirations: <http://perlcabal.org/syn/S06.html>, Function::Parameters,
+    Method::Signatures.
 
     <http://en.wikipedia.org/wiki/The_Conversion_(Seinfeld)>.
 

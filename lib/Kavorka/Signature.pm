@@ -7,7 +7,7 @@ use Kavorka::Signature::Parameter ();
 package Kavorka::Signature;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.011';
+our $VERSION   = '0.012';
 our @CARP_NOT  = qw( Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -29,6 +29,7 @@ has last_position   => (is => 'lazy');
 has args_min        => (is => 'lazy');
 has args_max        => (is => 'lazy');
 has checker         => (is => 'lazy');
+has nobble_checks   => (is => 'rwp', default => sub { 0 });
 
 sub parse
 {
@@ -170,6 +171,7 @@ sub injection
 {
 	my $self = shift;
 	join q[] => (
+		$self->_injection_nobble,
 		$self->_injection_invocants,
 		$self->_injection_parameter_count,
 		$self->_injection_positional_params,
@@ -178,6 +180,15 @@ sub injection
 		$self->_injection_slurpy_param,
 		'();',
 	);
+}
+
+our $NOBBLE = bless(do { my $x = 1; \$x }, 'Kavorka::Signature::NOBBLE');
+sub _injection_nobble
+{
+	my $self = shift;
+	return unless $self->nobble_checks;
+	
+	sprintf('my $____nobble_checks = (ref($_[0]) eq "Kavorka::Signature::NOBBLE") ? ${+shift} : 0;');
 }
 
 sub _injection_parameter_count
@@ -322,6 +333,25 @@ sub _build_checker
 	);
 }
 
+sub inline_check
+{
+	my $self = shift;
+	my ($arr) = @_;
+	
+	my $tmp = $self->nobble_checks;
+	$self->_set_nobble_checks(0);
+	
+	my $inline = sprintf(
+		'do { local @_ = %s; eval { %s; 1 } }',
+		$arr,
+		$self->injection,
+	);
+	
+	$self->_set_nobble_checks($tmp) if $tmp;
+	
+	return $inline;
+}
+
 1;
 
 __END__
@@ -403,6 +433,11 @@ satisfy the signature.
 
 Returns a coderef which acts like C<< check(@args) >>.
 
+=item C<< inline_check($varname) >>
+
+Returns a string of Perl code that acts like an inline check, given the
+name of an array variable, such as C<< '@foo' >>.
+
 =back
 
 =head2 Other Methods
@@ -436,8 +471,8 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>.
 
 =head1 SEE ALSO
 
-L<http://perlcabal.org/syn/S06.html>,
-L<Kavorka>,
+L<Kavorka::Manual::API>,
+L<Kavorka::Sub>,
 L<Kavorka::Signature::Parameter>.
 
 =head1 AUTHOR

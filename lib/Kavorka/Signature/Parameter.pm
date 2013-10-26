@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Signature::Parameter;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.011';
+our $VERSION   = '0.012';
 our @CARP_NOT  = qw( Kavorka::Signature Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -372,6 +372,12 @@ sub _injection_conditional_type_check
 		sprintf('if (%s) { %s }', $condition, $self->_injection_type_check($var));
 	
 	return '' if $type =~ /\{  \}\z/;
+	
+	return sprintf(
+		'unless ($____nobble_checks) { %s };',
+		$type,
+	) if $sig->nobble_checks;
+	
 	return $type;
 }
 
@@ -611,7 +617,6 @@ sub _injection_type_check
 	return $check;
 }
 
-
 1;
 
 
@@ -766,8 +771,7 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>.
 
 =head1 SEE ALSO
 
-L<http://perlcabal.org/syn/S06.html>,
-L<Kavorka>,
+L<Kavorka::Manual::API>,
 L<Kavorka::Signature>.
 
 =head1 AUTHOR

@@ -8,6 +8,8 @@ Files: README
  examples/benchmarks.pl
  examples/fibonacci.pl
  lib/Kavorka.pm
+ lib/Kavorka/Manual.pod
+ lib/Kavorka/Manual/API.pod
  lib/Kavorka/Manual/Functions.pod
  lib/Kavorka/Manual/MethodModifiers.pod
  lib/Kavorka/Manual/Methods.pod

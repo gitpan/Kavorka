@@ -27,58 +27,58 @@ optional_features: {}
 provides:
   Kavorka:
     file: lib/Kavorka.pm
-    version: 0.011
+    version: 0.012
   Kavorka::MethodModifier:
     file: lib/Kavorka/MethodModifier.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Multi:
     file: lib/Kavorka/Multi.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Signature:
     file: lib/Kavorka/Signature.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Signature::Parameter:
     file: lib/Kavorka/Signature/Parameter.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Sub:
     file: lib/Kavorka/Sub.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Sub::After:
     file: lib/Kavorka/Sub/After.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Sub::Around:
     file: lib/Kavorka/Sub/Around.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Sub::Before:
     file: lib/Kavorka/Sub/Before.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Sub::ClassMethod:
     file: lib/Kavorka/Sub/ClassMethod.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Sub::Fun:
     file: lib/Kavorka/Sub/Fun.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Sub::Method:
     file: lib/Kavorka/Sub/Method.pm
-    version: 0.011
+    version: 0.012
   Kavorka::Sub::ObjectMethod:
     file: lib/Kavorka/Sub/ObjectMethod.pm
-    version: 0.011
+    version: 0.012
   MooseX::KavorkaInfo:
     file: lib/MooseX/KavorkaInfo.pm
-    version: 0.011
+    version: 0.012
   MooseX::KavorkaInfo::DummyInfo:
     file: lib/MooseX/KavorkaInfo.pm
     version: 0
   MooseX::KavorkaInfo::Trait::Method:
     file: lib/MooseX/KavorkaInfo.pm
-    version: 0.011
+    version: 0.012
   MooseX::KavorkaInfo::Trait::WrappedMethod:
     file: lib/MooseX/KavorkaInfo.pm
-    version: 0.011
+    version: 0.012
   Parse::KeywordX:
     file: lib/Parse/KeywordX.pm
-    version: 0.011
+    version: 0.012
 requires:
   Data::Alias: 0
   Devel::Pragma: 0
@@ -100,4 +100,4 @@ resources:
   homepage: https://metacpan.org/release/Kavorka
   license: http://dev.perl.org/licenses/
   repository: https://github.com/tobyink/p5-kavorka
-version: 0.011
+version: 0.012

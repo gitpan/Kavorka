@@ -6,6 +6,15 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.012	2013-10-26
+
+ [ Documentation ]
+ - Various documentation improvements.
+
+ [ Other ]
+ - Optimization: avoid double type checks in multi subs.
+ - Optimization: compile dispatchers for multi subs on demand.
+
 0.011	2013-10-25
 
  [ Documentation ]
