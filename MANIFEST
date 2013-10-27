@@ -59,6 +59,8 @@ t/23modifiers-tiny.t
 t/24multimodifiers.t
 t/30multi.t
 t/31multimulti.t
+t/32multiredefine.t
+t/33cacheinvalidationishard.t
 t/50types.t
 t/51coerce.t
 t/52typeexpr.t

@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Multi;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.012';
+our $VERSION   = '0.013';
 
 use Devel::Pragma qw( fqname );
 use Parse::Keyword {};
@@ -89,6 +89,7 @@ sub invocation_style
 
 our %DISPATCH_TABLE;
 our %DISPATCH_STYLE;
+our %INVALIDATION;
 
 sub __gather_candidates
 {
@@ -129,6 +130,9 @@ sub __compile
 	my $slowpath = '';
 	if ($DISPATCH_STYLE{$pkg}{$subname} ne 'fun')
 	{
+		my $this = [$pkg, $subname];
+		push @{ $INVALIDATION{"$_\::$subname"} ||= [] }, $this for @{ $pkg->mro::get_linear_isa };
+		
 		$slowpath = sprintf(
 			'if ((ref($_[0]) || $_[0]) ne %s) { unshift @_, [%s, %s]; goto \\&Kavorka::Multi::__dispatch }',
 			B::perlstring($pkg),
@@ -161,6 +165,19 @@ sub __compile
 	);
 }
 
+sub __defer_compile
+{
+	my ($pkg, $subname) = @_;
+	return Sub::Name::subname(
+		"$pkg\::$subname" => sub {
+			no strict "refs";
+			no warnings "redefine";
+			*{"$pkg\::$subname"} = (my $compiled = __compile($pkg, $subname));
+			goto $compiled;
+		},
+	);
+}
+
 sub install_sub
 {
 	my $self = shift;
@@ -176,14 +193,15 @@ sub install_sub
 		or Carp::croak("Two different invocation styles used for $subname");
 	
 	{
+		# A placeholder dispatcher that will replace itself with a more
+		# efficient optimized (compiled) dispatcher.
 		no strict "refs";
 		no warnings "redefine";
-		*{"$pkg\::$subname"} = Sub::Name::subname(
-			"$pkg\::$subname" => sub {
-				*{"$pkg\::$subname"} = (my $compiled = __compile($pkg, $subname));
-				goto $compiled;
-			},
-		);
+		*{"$pkg\::$subname"} = __defer_compile($pkg, $subname);
+		
+		# Invalidate previously optimized dispatchers in subclasses of $pkg
+		*{join '::', @$_} = __defer_compile(@$_)
+			for @{ delete($INVALIDATION{"$pkg\::$subname"}) || [] };
 	}
 	
 	my $long = $self->qualified_long_name;
