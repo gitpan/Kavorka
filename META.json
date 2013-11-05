@@ -44,11 +44,12 @@
             "Moo" : "1.003001",
             "PadWalker" : "0",
             "Parse::Keyword" : "0.06",
+            "Return::Type" : "0",
             "Sub::Name" : "0",
-            "Type::Parser" : "0.028",
-            "Type::Registry" : "0.028",
-            "Type::Utils" : "0.028",
-            "Types::Standard" : "0.028",
+            "Type::Parser" : "0.032",
+            "Type::Registry" : "0.032",
+            "Type::Utils" : "0.032",
+            "Types::Standard" : "0.032",
             "namespace::sweep" : "0.006",
             "perl" : "5.014"
          }
@@ -71,74 +72,78 @@
    "provides" : {
       "Kavorka" : {
          "file" : "lib/Kavorka.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::MethodModifier" : {
          "file" : "lib/Kavorka/MethodModifier.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Multi" : {
          "file" : "lib/Kavorka/Multi.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Signature" : {
          "file" : "lib/Kavorka/Signature.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Signature::Parameter" : {
          "file" : "lib/Kavorka/Signature/Parameter.pm",
-         "version" : "0.013"
+         "version" : "0.014"
+      },
+      "Kavorka::Signature::ReturnType" : {
+         "file" : "lib/Kavorka/Signature/ReturnType.pm",
+         "version" : "0.014"
       },
       "Kavorka::Sub" : {
          "file" : "lib/Kavorka/Sub.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Sub::After" : {
          "file" : "lib/Kavorka/Sub/After.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Sub::Around" : {
          "file" : "lib/Kavorka/Sub/Around.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Sub::Before" : {
          "file" : "lib/Kavorka/Sub/Before.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Sub::ClassMethod" : {
          "file" : "lib/Kavorka/Sub/ClassMethod.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Sub::Fun" : {
          "file" : "lib/Kavorka/Sub/Fun.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Sub::Method" : {
          "file" : "lib/Kavorka/Sub/Method.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Kavorka::Sub::ObjectMethod" : {
          "file" : "lib/Kavorka/Sub/ObjectMethod.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "MooseX::KavorkaInfo" : {
          "file" : "lib/MooseX/KavorkaInfo.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "MooseX::KavorkaInfo::DummyInfo" : {
          "file" : "lib/MooseX/KavorkaInfo.pm"
       },
       "MooseX::KavorkaInfo::Trait::Method" : {
          "file" : "lib/MooseX/KavorkaInfo.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "MooseX::KavorkaInfo::Trait::WrappedMethod" : {
          "file" : "lib/MooseX/KavorkaInfo.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Parse::KeywordX" : {
          "file" : "lib/Parse/KeywordX.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       }
    },
    "release_status" : "stable",
@@ -156,5 +161,5 @@
          "web" : "https://github.com/tobyink/p5-kavorka"
       }
    },
-   "version" : "0.013"
+   "version" : "0.014"
 }

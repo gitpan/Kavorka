@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Multi;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.013';
+our $VERSION   = '0.014';
 
 use Devel::Pragma qw( fqname );
 use Parse::Keyword {};
@@ -62,6 +62,7 @@ after parse_signature => sub
 };
 
 sub allow_anonymous { 0 }
+sub allow_lexical   { 0 }
 
 sub default_attributes
 {

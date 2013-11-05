@@ -10,7 +10,6 @@ META.yml
 Makefile.PL
 README
 SIGNATURE
-TODO
 dist.ini
 doap.ttl
 examples/benchmarks-multisub.pl
@@ -32,6 +31,7 @@ lib/Kavorka/MethodModifier.pm
 lib/Kavorka/Multi.pm
 lib/Kavorka/Signature.pm
 lib/Kavorka/Signature/Parameter.pm
+lib/Kavorka/Signature/ReturnType.pm
 lib/Kavorka/Sub.pm
 lib/Kavorka/Sub/After.pm
 lib/Kavorka/Sub/Around.pm
@@ -69,6 +69,7 @@ t/61ro.t
 t/62locked.t
 t/70introspection.t
 t/71moosemeta.t
+t/80returntype.t
 t/90closures.t
 t/91lvalue.t
 t/92weirdvars.t

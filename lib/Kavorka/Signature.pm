@@ -1,13 +1,15 @@
 use 5.014;
 use strict;
+use utf8;
 use warnings;
 
 use Kavorka::Signature::Parameter ();
+use Kavorka::Signature::ReturnType ();
 
 package Kavorka::Signature;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.013';
+our $VERSION   = '0.014';
 our @CARP_NOT  = qw( Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -17,19 +19,21 @@ use Parse::KeywordX;
 use Moo;
 use namespace::sweep;
 
-has package         => (is => 'ro');
-has _is_dummy       => (is => 'ro');
-has params          => (is => 'ro',  default => sub { +[] });
-has has_invocants   => (is => 'rwp', default => sub { +undef });
-has has_named       => (is => 'rwp', default => sub { +undef });
-has has_slurpy      => (is => 'rwp', default => sub { +undef });
-has yadayada        => (is => 'rwp', default => sub { 0 });
-has parameter_class => (is => 'ro',  default => sub { 'Kavorka::Signature::Parameter' });
-has last_position   => (is => 'lazy');
-has args_min        => (is => 'lazy');
-has args_max        => (is => 'lazy');
-has checker         => (is => 'lazy');
-has nobble_checks   => (is => 'rwp', default => sub { 0 });
+has package           => (is => 'ro');
+has _is_dummy         => (is => 'ro');
+has params            => (is => 'ro',  default => sub { +[] });
+has return_types      => (is => 'ro',  default => sub { +[] });
+has has_invocants     => (is => 'rwp', default => sub { +undef });
+has has_named         => (is => 'rwp', default => sub { +undef });
+has has_slurpy        => (is => 'rwp', default => sub { +undef });
+has yadayada          => (is => 'rwp', default => sub { 0 });
+has parameter_class   => (is => 'ro',  default => sub { 'Kavorka::Signature::Parameter' });
+has return_type_class => (is => 'ro',  default => sub { 'Kavorka::Signature::ReturnType' });
+has last_position     => (is => 'lazy');
+has args_min          => (is => 'lazy');
+has args_max          => (is => 'lazy');
+has checker           => (is => 'lazy');
+has nobble_checks     => (is => 'rwp', default => sub { 0 });
 
 sub parse
 {
@@ -39,6 +43,18 @@ sub parse
 	lex_read_space;
 	
 	my $found_colon = 0;
+	my $arr    = $self->params;
+	my $_class = 'parameter_class';
+	
+	if (lex_peek(4) =~ /\A(\xE2\x86\x92|-->)/)
+	{
+		lex_read(length $1);
+		$arr    = $self->return_types;
+		$_class = 'return_type_class';
+		lex_read_space;
+	}
+	
+	my $skip = 0;
 	while (lex_peek ne ')')
 	{
 		if (lex_peek(3) eq '...')
@@ -46,11 +62,14 @@ sub parse
 			$self->_set_yadayada(1);
 			lex_read(3);
 			lex_read_space;
+			++$skip && next if lex_peek(4) =~ /\A(\xE2\x86\x92|-->)/;
 			croak("After yada-yada, expected right parenthesis") unless lex_peek eq ")";
 			next;
 		}
 		
-		push @{$self->params}, $self->parameter_class->parse(package => $self->package);
+		$skip
+			? ($skip = 0)
+			: push(@$arr, $self->$_class->parse(package => $self->package));
 		lex_read_space;
 		
 		my $peek = lex_peek;
@@ -68,12 +87,20 @@ sub parse
 		{
 			lex_read(1);
 		}
-		elsif (lex_peek eq ')')
+		elsif ($peek eq ')')
 		{
 			last;
 		}
+		elsif (lex_peek(4) =~ /\A(\xE2\x86\x92|-->)/)
+		{
+			lex_read(length $1);
+			$arr    = $self->return_types;
+			$_class = 'return_type_class';
+		}
 		else
 		{
+			use Data::Dumper;
+			print Dumper($self);
 			croak("Unexpected characters in signature (${\ lex_peek(8) })");
 		}
 		
@@ -155,6 +182,8 @@ sub sanity_check
 		
 		croak("Found $p_type parameter ($name) after $zone; forbidden");
 	}
+	
+	$_->sanity_check for @{ $self->return_types };
 	
 	();
 }
@@ -391,6 +420,10 @@ Returns the package name the parameter was declared in.
 
 Returns an arrayref of parameters.
 
+=item C<return_types>
+
+Returns an arrayref of declared return types.
+
 =item C<has_invocants>, C<invocants>
 
 Returns a boolean/list of invocant parameters.
@@ -452,6 +485,10 @@ within a L<Parse::Keyword> parser.
 =item C<parameter_class>
 
 A class to use for parameters when parsing the signature.
+
+=item C<return_type_class>
+
+A class to use for return types when parsing the signature.
 
 =item C<injection>
 

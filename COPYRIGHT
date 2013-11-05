@@ -47,6 +47,7 @@ Files: README
  t/62locked.t
  t/70introspection.t
  t/71moosemeta.t
+ t/80returntype.t
  t/91lvalue.t
  t/92weirdvars.t
  t/93prototypes.t
@@ -61,6 +62,7 @@ Files: Changes
  doap.ttl
  lib/Kavorka/MethodModifier.pm
  lib/Kavorka/Multi.pm
+ lib/Kavorka/Signature/ReturnType.pm
  lib/Kavorka/Sub/After.pm
  lib/Kavorka/Sub/Around.pm
  lib/Kavorka/Sub/Before.pm
@@ -76,7 +78,6 @@ License: GPL-1.0+ or Artistic-1.0
 Files: CONTRIBUTING
  INSTALL
  LICENSE
- TODO
  examples/dancer2/example.pl
  examples/dancer2/lib/KavorkaX/Dancer2.pm
  examples/meta.pl

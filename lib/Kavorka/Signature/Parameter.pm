@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Signature::Parameter;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.013';
+our $VERSION   = '0.014';
 our @CARP_NOT  = qw( Kavorka::Signature Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -213,7 +213,7 @@ sub parse
 		$traits{"$2"} = 1;
 		lex_read(length($1));
 		lex_read_space;
-		$peek = lex_peek(4);
+		$peek = lex_peek(1000);
 	}
 	
 	if ($peek =~ m{ \A ( (?: [/]{2} | [|]{2} )?= ) }x)
@@ -335,6 +335,7 @@ sub _injection_assignment
 				and $_->parent->strictly_equals(Types::Standard::Dict())
 			} $_[0], $_[0]->parents;
 			return unless $dict;
+			return if ref($dict->parameters->[-1]) eq q(HASH);
 			my @keys = sort keys %{ +{ @{ $dict->parameters } } };
 			return unless @keys;
 			\@keys;

@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.013';
+our $VERSION   = '0.014';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
@@ -28,7 +28,9 @@ has body            => (is => 'rwp');
 has qualified_name  => (is => 'rwp');
 
 sub allow_anonymous      { 1 }
+sub allow_lexical        { 1 }
 sub is_anonymous         { !defined( shift->declared_name ) }
+sub is_lexical           { (shift->declared_name || '') =~ /\A\$/ }
 sub invocation_style     { +undef }
 sub default_attributes   { return; }
 sub default_invocant     { return; }
@@ -39,7 +41,16 @@ sub install_sub
 	my $self = shift;
 	my $code = $self->body;
 	
-	unless ($self->is_anonymous)
+	if ($self->is_anonymous)
+	{
+		# no installation
+	}
+	elsif ($self->is_lexical)
+	{
+		require PadWalker;
+		PadWalker::peek_my(2)->{ $self->declared_name } = \$code;
+	}
+	else
 	{
 		my $name = $self->qualified_name;
 		no strict 'refs';
@@ -70,7 +81,7 @@ sub parse
 	
 	# sub name
 	$self->parse_subname;
-	unless ($self->is_anonymous)
+	unless ($self->is_anonymous or $self->is_lexical)
 	{
 		my $qualified = fqname($self->declared_name);
 		$self->_set_qualified_name($qualified);
@@ -106,14 +117,24 @@ sub parse_subname
 {
 	my $self = shift;
 	
-	my $has_name = (lex_peek(2) =~ /\A(?:\w|::)/);
-	$has_name
-		or $self->allow_anonymous
-		or die "Keyword '${\ $self->keyword }' does not support defining anonymous subs";
-	
-	$self->_set_declared_name(
-		$has_name ? parse_name('subroutine', 1) : undef
-	);
+	my $peek = lex_peek(2);
+	if ($peek =~ /\A(?:\w|::)/)     # normal sub
+	{
+		$self->_set_declared_name(parse_name('subroutine', 1));
+	}
+	elsif ($peek =~ /\A\$[^\W0-9]/) # lexical sub
+	{
+		lex_read(1);
+		$self->_set_declared_name('$' . parse_name('lexical subroutine', 0));
+		
+		die("Keyword '${\ $self->keyword }' does not support defining lexical subs")
+			unless $self->allow_lexical;
+	}
+	else
+	{
+		die("Keyword '${\ $self->keyword }' does not support defining anonymous subs")
+			unless $self->allow_anonymous;
+	}
 	
 	();
 }
@@ -249,13 +270,24 @@ sub parse_body
 	}
 	else
 	{
+		state $i = 0;
+		
+		my $lex = '';
+		if ($self->is_lexical)
+		{
+			$lex = sprintf(
+				'my %s = sub { goto \&Kavorka::Temp::f%d };',
+				$self->declared_name,
+				$i + 1
+			);
+		}
+		
 		# Here instead of parsing the body we'll leave it to plain old
 		# Perl. We'll pick it up later from this name in _post_parse
-		
-		state $i = 0;
 		lex_stuff(
 			sprintf(
-				"sub Kavorka::Temp::f%d %s { %s",
+				"%s sub Kavorka::Temp::f%d %s { %s",
+				$lex,
 				++$i,
 				$self->inject_attributes,
 				$self->inject_prelude,
@@ -274,16 +306,55 @@ sub _post_parse
 	if ($self->{argh})
 	{
 		no strict 'refs';
-		my $code = \&{ delete $self->{argh} };
+		my $code = $self->is_lexical ? \&{$self->{argh}} : \&{ delete $self->{argh} };
 		Sub::Name::subname(
-			$self->is_anonymous ? join('::', $self->package, '__ANON__') : $self->qualified_name,
+			$self->is_anonymous || $self->is_lexical
+				? join('::', $self->package, '__ANON__')
+				: $self->qualified_name,
 			$code,
 		);
 		&Scalar::Util::set_prototype($code, $self->prototype);
 		$self->_set_body($code);
 	}
 	
+	$self->_apply_return_types;
+	
 	();
+}
+
+sub _apply_return_types
+{
+	my $self = shift;
+	
+	my @rt = @{ $self->signature->return_types };
+	
+	if (@rt)
+	{
+		my @scalar = grep !$_->list, @rt;
+		my @list   = grep  $_->list, @rt;
+		
+		my $scalar =
+			(@scalar == 0) ? undef :
+			(@scalar == 1) ? $scalar[0] :
+			croak("Multiple scalar context return types specified for function");
+		
+		my $list =
+			(@list == 0) ? undef :
+			(@list == 1) ? $list[0] :
+			croak("Multiple list context return types specified for function");
+		
+		return if (!$scalar || $scalar->assumed) && (!$list || $list->assumed);
+		
+		require Return::Type;
+		my $wrapped = Return::Type->wrap_sub(
+			$self->body,
+			scalar        => ($scalar ? $scalar->_effective_type   : undef),
+			list          => ($list   ? $list->_effective_type     : undef),
+			coerce_scalar => ($scalar ? $scalar->coerce            : 0),
+			coerce_list   => ($list   ? $list->coerce              : $scalar ? $scalar->coerce : 0),
+		);
+		$self->_set_body($wrapped);
+	}
 }
 
 1;
