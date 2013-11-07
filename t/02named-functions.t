@@ -45,12 +45,22 @@ use Test::Fatal;
 		return { '@_' => \@_, '$x' => \$x, '$y' => \$y };
 	}
 	
-	fun $xyzzy ($x) {
+	fun my $xyzzy ($x) {
 		return { '$x' => \$x };
 	}
 	
 	fun XYZZY ($x) {
 		return $xyzzy->($x);
+	}
+	
+	::ok(
+		::exception { $xyzzy = 42 },
+		'cannot rebind the lexical function'
+	);
+	
+	{
+		fun my $xyzzy () { 42 };
+		::is($xyzzy->(), 42, 'can redefine lexical function in another scope');
 	}
 }
 

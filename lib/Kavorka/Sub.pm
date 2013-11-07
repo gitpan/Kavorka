@@ -7,12 +7,15 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.014';
+our $VERSION   = '0.015';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
 use Parse::KeywordX;
 use Devel::Pragma qw( fqname );
+use Carp;
+
+our @CARP_NOT = qw(Kavorka);
 
 use Moo::Role;
 use namespace::sweep;
@@ -26,6 +29,9 @@ has prototype       => (is => 'rwp');
 has attributes      => (is => 'ro', default => sub { [] });
 has body            => (is => 'rwp');
 has qualified_name  => (is => 'rwp');
+
+has _unwrapped_body => (is => 'rwp');
+has _pads_to_poke   => (is => 'lazy');
 
 sub allow_anonymous      { 1 }
 sub allow_lexical        { 1 }
@@ -106,35 +112,53 @@ sub parse
 	# body
 	$self->parse_body;
 	
-	# clean up
-	$self->_set_signature(undef)
-		if $sig->_is_dummy;
-	
 	$self;
 }
 
 sub parse_subname
 {
 	my $self = shift;
-	
 	my $peek = lex_peek(2);
+	
+	my $saw_my = 0;
+	
 	if ($peek =~ /\A(?:\w|::)/)     # normal sub
 	{
-		$self->_set_declared_name(parse_name('subroutine', 1));
+		my $name = parse_name('subroutine', 1);
+		
+		if ($name eq 'my')
+		{
+			lex_read_space;
+			$saw_my = 1 if lex_peek eq '$';
+		}
+		
+		if ($saw_my)
+		{
+			$peek = lex_peek(2);
+		}
+		else
+		{
+			$self->_set_declared_name($name);
+			return;
+		}
 	}
-	elsif ($peek =~ /\A\$[^\W0-9]/) # lexical sub
+	
+	if ($peek =~ /\A\$[^\W0-9]/) # lexical sub
 	{
+		carp("'${\ $self->keyword }' should be '${\ $self->keyword } my'")
+			unless $saw_my;
+		
 		lex_read(1);
 		$self->_set_declared_name('$' . parse_name('lexical subroutine', 0));
 		
-		die("Keyword '${\ $self->keyword }' does not support defining lexical subs")
+		croak("Keyword '${\ $self->keyword }' does not support defining lexical subs")
 			unless $self->allow_lexical;
+		
+		return;
 	}
-	else
-	{
-		die("Keyword '${\ $self->keyword }' does not support defining anonymous subs")
-			unless $self->allow_anonymous;
-	}
+	
+	croak("Keyword '${\ $self->keyword }' does not support defining anonymous subs")
+		unless $self->allow_anonymous;
 	
 	();
 }
@@ -146,11 +170,15 @@ sub parse_signature
 	
 	# default signature
 	my $dummy = 0;
-	$dummy = 1 && lex_stuff('(...)') if lex_peek ne '(';
+	if (lex_peek ne '(')
+	{
+		$dummy = 1;
+		lex_stuff('(...)');
+	}
 	
 	lex_read(1);
 	my $sig = $self->signature_class->parse(package => $self->package, _is_dummy => $dummy);
-	lex_peek eq ')' or die;
+	lex_peek eq ')' or croak('Expected ")" after signature');
 	lex_read(1);
 	lex_read_space;
 	
@@ -236,7 +264,7 @@ sub parse_body
 	my $self = shift;
 	
 	lex_read_space;
-	lex_peek(1) eq '{' or Carp::croak("expected block!");
+	lex_peek(1) eq '{' or croak("expected block!");
 	lex_read(1);
 	
 	if ($self->is_anonymous)
@@ -276,7 +304,7 @@ sub parse_body
 		if ($self->is_lexical)
 		{
 			$lex = sprintf(
-				'my %s = sub { goto \&Kavorka::Temp::f%d };',
+				'Internals::SvREADONLY(my %s = \&Kavorka::Temp::f%d, 1);',
 				$self->declared_name,
 				$i + 1
 			);
@@ -286,7 +314,7 @@ sub parse_body
 		# Perl. We'll pick it up later from this name in _post_parse
 		lex_stuff(
 			sprintf(
-				"%s sub Kavorka::Temp::f%d %s { %s",
+				"%s sub Kavorka::Temp::f%d %s { no warnings 'closure'; %s",
 				$lex,
 				++$i,
 				$self->inject_attributes,
@@ -319,6 +347,9 @@ sub _post_parse
 	
 	$self->_apply_return_types;
 	
+	$self->_set_signature(undef)
+		if $self->signature && $self->signature->_is_dummy;
+	
 	();
 }
 
@@ -326,7 +357,7 @@ sub _apply_return_types
 {
 	my $self = shift;
 	
-	my @rt = @{ $self->signature->return_types };
+	my @rt = @{ $self->signature ? $self->signature->return_types : [] };
 	
 	if (@rt)
 	{
@@ -353,7 +384,36 @@ sub _apply_return_types
 			coerce_scalar => ($scalar ? $scalar->coerce            : 0),
 			coerce_list   => ($list   ? $list->coerce              : $scalar ? $scalar->coerce : 0),
 		);
+		$self->_set__unwrapped_body($self->body);
 		$self->_set_body($wrapped);
+	}
+}
+
+sub _build__pads_to_poke
+{
+	my $self = shift;
+	
+	my @pads = $self->_unwrapped_body // $self->body;
+	
+	for my $param (@{ $self->signature ? $self->signature->params : [] })
+	{
+		push @pads, $param->default if $param->default;
+		push @pads, @{ $param->constraints };
+	}
+	
+	\@pads;
+}
+
+sub _poke_pads
+{
+	my $self = shift;
+	my ($vars) = @_;
+	
+	for my $code (@{$self->_pads_to_poke})
+	{
+		my $closed_over = PadWalker::closed_over($code);
+		$closed_over->{$_} = $vars->{$_} for keys %$closed_over;
+		PadWalker::set_closed_over($code, $closed_over);
 	}
 }
 

@@ -9,7 +9,7 @@ use Kavorka::Signature::ReturnType ();
 package Kavorka::Signature;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.014';
+our $VERSION   = '0.015';
 our @CARP_NOT  = qw( Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -241,7 +241,7 @@ sub _injection_parameter_count
 		$min,
 		$min==1 ? '' : 's',
 		$min,
-	) if defined $min;
+	) if defined $min && $min > 0;
 	
 	push @lines, sprintf(
 		'Carp::croak("Expected at most %d parameter%s") if @_ > %d;',

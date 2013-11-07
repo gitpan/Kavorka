@@ -48,6 +48,7 @@ Files: README
  t/70introspection.t
  t/71moosemeta.t
  t/80returntype.t
+ t/90closures.t
  t/91lvalue.t
  t/92weirdvars.t
  t/93prototypes.t
@@ -71,7 +72,6 @@ Files: Changes
  lib/Kavorka/Sub/Method.pm
  lib/Kavorka/Sub/ObjectMethod.pm
  lib/Parse/KeywordX.pm
- t/90closures.t
 Copyright: Copyright 2013 Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 

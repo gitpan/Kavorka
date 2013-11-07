@@ -7,7 +7,7 @@ use Exporter::Tiny ();
 package Parse::KeywordX;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.014';
+our $VERSION   = '0.015';
 
 use Parse::Keyword {};
 
@@ -37,12 +37,12 @@ sub parse_name
 {
 	my ($what, $allow_package, $stop_at_single_colon) = @_;
 	my $name = '';
-
+	
 	# XXX this isn't quite right, i think, but probably close enough for now?
 	my $start_rx = qr/^[\p{ID_Start}_]$/;
 	my $cont_rx  = qr/^\p{ID_Continue}$/;
 	my $char_rx = $start_rx;
-
+	
 	while (1)
 	{
 		my $char = lex_peek;
@@ -69,7 +69,7 @@ sub parse_name
 			last;
 		}
 	}
-
+	
 	die("Not a valid $what name: " . read_tokenish) unless length $name;
 	
 	($name =~ /\A::/) ? "main$name" : $name;

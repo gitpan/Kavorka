@@ -89,22 +89,28 @@ DESCRIPTION
     introspection API.
 
 CAVEATS
-    As noted in Kavorka::Manual::PrototypeAndAttributes, subroutine attributes
-    don't work properly for anonymous functions.
+    *   As noted in Kavorka::Manual::PrototypeAndAttributes, subroutine
+        attributes don't work properly for anonymous functions.
 
-    If importing Kavorka's method modifiers into Moo/Mouse/Moose classes, pay
-    attention to load order:
+    *   This module is based on Parse::Keyword, which has a chronically broken
+        implementation of closures. Kavorka uses PadWalker to attempt to work
+        around the problem. This mostly seems to work, but you may experience
+        some problems in edge cases, especially for anonymous functions and
+        methods.
 
-       use Moose;
-       use Kavorka -all;   # ok
+    *   If importing Kavorka's method modifiers into Moo/Mouse/Moose classes,
+        pay attention to load order:
 
-    If you do it this way, Moose's `before`, `after`, and `around` keywords
-    will stomp on top of Kavorka's...
+           use Moose;
+           use Kavorka -all;   # ok
 
-       use Kavorka -all;
-       use Moose;          # STOMP, STOMP, STOMP!  :-(
+        If you do it this way, Moose's `before`, `after`, and `around`
+        keywords will stomp on top of Kavorka's...
 
-    This can lead to delightfully hard to debug errors.
+           use Kavorka -all;
+           use Moose;          # STOMP, STOMP, STOMP!  :-(
+
+        This can lead to delightfully hard to debug errors.
 
 BUGS
     Please report any bugs to

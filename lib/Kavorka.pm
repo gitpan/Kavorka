@@ -14,7 +14,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.014';
+our $VERSION   = '0.015';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -86,6 +86,24 @@ sub _exporter_expand_sub
 			my @r = wantarray
 				? $subroutine->install_sub
 				: scalar($subroutine->install_sub);
+			
+			# Workarounds for closure issues in Parse::Keyword
+			if ($subroutine->is_anonymous)
+			{
+				my $orig = $r[0];
+				my $caller_vars = PadWalker::peek_my(1);
+				@r = Sub::Name::subname($subroutine->package."::__ANON__", sub {
+					$subroutine->_poke_pads($caller_vars);
+					goto $orig;
+				});
+				&Scalar::Util::set_prototype($r[0], $_) for grep defined, prototype($orig);
+				$INFO{ $r[0] } = $subroutine;
+				Scalar::Util::weaken($INFO{ $r[0] });
+			}
+			else
+			{
+				$subroutine->_poke_pads( PadWalker::peek_my(1) );
+			}
 			
 			# Prevents a cycle between %INFO and $subroutine.
 			Scalar::Util::weaken($subroutine->{body})
@@ -244,8 +262,22 @@ introspection API.
 
 =head1 CAVEATS
 
+=over
+
+=item *
+
 As noted in L<Kavorka::Manual::PrototypeAndAttributes>, subroutine
 attributes don't work properly for anonymous functions.
+
+=item *
+
+This module is based on L<Parse::Keyword>, which has a chronically
+broken implementation of closures. Kavorka uses L<PadWalker> to attempt
+to work around the problem. This mostly seems to work, but you may
+experience some problems in edge cases, especially for anonymous
+functions and methods.
+
+=item *
 
 If importing Kavorka's method modifiers into Moo/Mouse/Moose classes,
 pay attention to load order:
@@ -260,6 +292,8 @@ keywords will stomp on top of Kavorka's...
    use Moose;          # STOMP, STOMP, STOMP!  :-(
 
 This can lead to delightfully hard to debug errors.
+
+=back
 
 =head1 BUGS
 
