@@ -6,6 +6,12 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.016	2013-11-07
+
+ [ Bug Fixes ]
+ - Bypass the Internals::SvREADONLY prototype because handling of the ($;$)
+   prototype changed in 5.16.0 and we were relying on the new behaviour.
+
 0.015	2013-11-07
 
  [ BACK COMPAT ]

@@ -43,7 +43,7 @@
 	doap:maintainer      <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:name            "Kavorka";
 	doap:programming-language "Perl";
-	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_05>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_06>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_07>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_08>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_09>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_10>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_11>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-001>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-002>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-003>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-004>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-005>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-006>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-007>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-008>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-009>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-010>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-011>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-012>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-013>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-014>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-015>;
+	doap:release         <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_01>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_02>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_03>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_04>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_05>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_06>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_07>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_08>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_09>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_10>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-000_11>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-001>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-002>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-003>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-004>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-005>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-006>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-007>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-008>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-009>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-010>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-011>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-012>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-013>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-014>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-015>, <http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-016>;
 	doap:repository      [
 		a doap:GitRepository;
 		doap:browse <https://github.com/tobyink/p5-kavorka>;
@@ -614,6 +614,20 @@
 	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
 	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.015.tar.gz>;
 	doap:revision        "0.015"^^xsd:string.
+
+<http://purl.org/NET/cpan-uri/dist/Kavorka/v_0-016>
+	a                    doap:Version;
+	dc:identifier        "Kavorka-0.016"^^xsd:string;
+	dc:issued            "2013-11-07"^^xsd:date;
+	doap-changeset:changeset [
+		doap-changeset:item [
+			a doap-changeset:Bugfix;
+			rdfs:label "Bypass the Internals::SvREADONLY prototype because handling of the ($;$) prototype changed in 5.16.0 and we were relying on the new behaviour.";
+		];
+	];
+	doap-changeset:released-by <http://purl.org/NET/cpan-uri/person/tobyink>;
+	doap:file-release    <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Kavorka-0.016.tar.gz>;
+	doap:revision        "0.016"^^xsd:string.
 
 <http://purl.org/NET/cpan-uri/person/tobyink>
 	a                    foaf:Person;

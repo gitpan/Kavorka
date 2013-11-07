@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.015';
+our $VERSION   = '0.016';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
@@ -304,7 +304,7 @@ sub parse_body
 		if ($self->is_lexical)
 		{
 			$lex = sprintf(
-				'Internals::SvREADONLY(my %s = \&Kavorka::Temp::f%d, 1);',
+				'&Internals::SvREADONLY(\\(my %s = \&Kavorka::Temp::f%d), 1);',
 				$self->declared_name,
 				$i + 1
 			);
