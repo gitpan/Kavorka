@@ -2,13 +2,13 @@ use 5.014;
 use strict;
 use warnings;
 
-use Kavorka::Signature::Parameter ();
+use Kavorka::Parameter ();
 use Types::Standard ();
 
 package Kavorka::Sub::ClassMethod;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.016';
+our $VERSION   = '0.017';
 
 use Moo;
 extends 'Kavorka::Sub::Method';
@@ -17,7 +17,7 @@ sub default_invocant
 {
 	my $self = shift;
 	return (
-		'Kavorka::Signature::Parameter'->new(
+		'Kavorka::Parameter'->new(
 			name      => '$class',
 			traits    => { invocant => 1 },
 			type      => Types::Standard::Str,

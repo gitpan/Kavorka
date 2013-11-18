@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Sub::Around;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.016';
+our $VERSION   = '0.017';
 
 use Moo;
 with 'Kavorka::MethodModifier';
@@ -14,11 +14,11 @@ sub default_invocant
 {
 	my $self = shift;
 	return (
-		'Kavorka::Signature::Parameter'->new(
+		'Kavorka::Parameter'->new(
 			name      => '$next',
 			traits    => { invocant => 1 },
 		),
-		'Kavorka::Signature::Parameter'->new(
+		'Kavorka::Parameter'->new(
 			name      => '$self',
 			traits    => { invocant => 1 },
 		),

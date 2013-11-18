@@ -16,8 +16,8 @@ Files: README
  lib/Kavorka/Manual/MultiSubs.pod
  lib/Kavorka/Manual/PrototypeAndAttributes.pod
  lib/Kavorka/Manual/Signatures.pod
+ lib/Kavorka/Parameter.pm
  lib/Kavorka/Signature.pm
- lib/Kavorka/Signature/Parameter.pm
  lib/Kavorka/Sub.pm
  lib/MooseX/KavorkaInfo.pm
  t/01basic.t
@@ -45,6 +45,7 @@ Files: README
  t/60alias.t
  t/61ro.t
  t/62locked.t
+ t/69traits.t
  t/70introspection.t
  t/71moosemeta.t
  t/80returntype.t
@@ -63,7 +64,7 @@ Files: Changes
  doap.ttl
  lib/Kavorka/MethodModifier.pm
  lib/Kavorka/Multi.pm
- lib/Kavorka/Signature/ReturnType.pm
+ lib/Kavorka/ReturnType.pm
  lib/Kavorka/Sub/After.pm
  lib/Kavorka/Sub/Around.pm
  lib/Kavorka/Sub/Before.pm

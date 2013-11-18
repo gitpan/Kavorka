@@ -2,7 +2,7 @@ use 5.014;
 use strict;
 use warnings;
 
-use Kavorka::Signature::Parameter ();
+use Kavorka::Parameter ();
 use Role::Tiny ();
 
 my $DETECT_OO = do {
@@ -39,7 +39,7 @@ my $DETECT_OO = do {
 package Kavorka::MethodModifier;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.016';
+our $VERSION   = '0.017';
 
 use Devel::Pragma 'fqname';
 use Parse::Keyword {};
@@ -73,7 +73,7 @@ sub default_invocant
 {
 	my $self = shift;
 	return (
-		'Kavorka::Signature::Parameter'->new(
+		'Kavorka::Parameter'->new(
 			name      => '$self',
 			traits    => { invocant => 1 },
 		),

@@ -79,8 +79,8 @@ DESCRIPTION
    
        say $named_params[0]->named_names->[0];   # says 'x'
 
-    See Kavorka::Sub, Kavorka::Signature and Kavorka::Signature::Parameter for
-    further details.
+    See Kavorka::Sub, Kavorka::Signature and Kavorka::Parameter for further
+    details.
 
     If you're using Moose, consider using MooseX::KavorkaInfo to expose
     Kavorka method signatures via the meta object protocol.

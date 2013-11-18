@@ -29,9 +29,9 @@ lib/Kavorka/Manual/PrototypeAndAttributes.pod
 lib/Kavorka/Manual/Signatures.pod
 lib/Kavorka/MethodModifier.pm
 lib/Kavorka/Multi.pm
+lib/Kavorka/Parameter.pm
+lib/Kavorka/ReturnType.pm
 lib/Kavorka/Signature.pm
-lib/Kavorka/Signature/Parameter.pm
-lib/Kavorka/Signature/ReturnType.pm
 lib/Kavorka/Sub.pm
 lib/Kavorka/Sub/After.pm
 lib/Kavorka/Sub/Around.pm
@@ -67,6 +67,7 @@ t/52typeexpr.t
 t/60alias.t
 t/61ro.t
 t/62locked.t
+t/69traits.t
 t/70introspection.t
 t/71moosemeta.t
 t/80returntype.t
