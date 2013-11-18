@@ -6,6 +6,12 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.018	2013-11-18
+
+ - Allow non-Type::Tiny type constraints to be returned by type constraint
+   expressions, provided they can be converted to Type::Tiny objects via
+   Types::TypeTiny::to_TypeTiny.
+
 0.017	2013-11-18
 
  - Extensibility via parameter traits.

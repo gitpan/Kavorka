@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::ReturnType;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.017';
+our $VERSION   = '0.018';
 our @CARP_NOT  = qw( Kavorka::Signature Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -76,13 +76,18 @@ sub parse
 	{
 		lex_read(1);
 		lex_read_space;
-		my $expr = parse_listexpr;
+		my $expr = parse_listexpr
+			or croak('Could not parse type constraint expression as listexpr');
 		lex_read_space;
-		lex_peek eq ')' or croak("Expected ')' after type constraint expression");
+		lex_peek eq ')'
+			or croak("Expected ')' after type constraint expression");
 		lex_read(1);
 		lex_read_space;
-		$type = $expr->();
-		$type->isa('Type::Tiny') or croak("Type constraint expression did not return a blessed type constraint object");
+		
+		require Types::TypeTiny;
+		$type = Types::TypeTiny::to_TypeTiny( scalar $expr->() );
+		$type->isa('Type::Tiny')
+			or croak("Type constraint expression did not return a blessed type constraint object");
 	}
 	else
 	{
