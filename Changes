@@ -6,6 +6,16 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.019	2013-11-23
+
+ - Added: Provide an `augment` keyword which will work in Moose/Mouse, but
+   not Moo.
+ - Added: Provide an `override` keyword which will work in Moose/Mouse, but
+   not Moo.
+ - Allow named parameters to be passed in as a hashref rather than a hash.
+ - Split out some of the Kavorka::Parameter features (aliases, locked
+   hashrefs, read-only parameters) into parameter traits.
+
 0.018	2013-11-18
 
  - Allow non-Type::Tiny type constraints to be returned by type constraint

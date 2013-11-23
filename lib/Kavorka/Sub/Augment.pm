@@ -2,7 +2,7 @@ use 5.014;
 use strict;
 use warnings;
 
-package Kavorka::Sub::After;
+package Kavorka::Sub::Augment;
 
 our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.019';
@@ -10,6 +10,6 @@ our $VERSION   = '0.019';
 use Moo;
 with 'Kavorka::MethodModifier';
 
-sub method_modifier { 'after' }
+sub method_modifier { 'augment' }
 
 1;

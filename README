@@ -45,14 +45,17 @@ DESCRIPTION
     `-modifiers`
         Exports `before`, `after`, and `around`.
 
+    `-allmodifiers`
+        Exports `before`, `after`, `around`, `augment`, and `override`.
+
     `-all`
-        Exports `fun`, `method`, `before`, `after`, `around`, `classmethod`,
-        `objectmethod`, and `multi`.
+        Exports `fun`, `method`, `before`, `after`, `around`, `augment`,
+        `override`, `classmethod`, `objectmethod`, and `multi`.
 
     For example:
 
        # Everything except objectmethod and multi...
-       use Kavorka qw( -default -modifiers classmethod );
+       use Kavorka qw( -default -allmodifiers classmethod );
 
     You can rename imported functions:
 

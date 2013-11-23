@@ -9,7 +9,7 @@ use Kavorka::ReturnType ();
 package Kavorka::Signature;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.018';
+our $VERSION   = '0.019';
 our @CARP_NOT  = qw( Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -277,9 +277,10 @@ sub _injection_hash_underscore
 	or $slurpy && $slurpy->name =~ /\A\$/ && $slurpy->type->is_a_type_of(Types::Standard::HashRef()))
 	{
 		require Data::Alias;
+		my $ix  = 1 + $self->last_position;
 		my $str = sprintf(
-			'local %%_; { use warnings FATAL => qw(all); Data::Alias::alias(%%_ = @_[ %d .. $#_ ]) };',
-			1 + $self->last_position,
+			'local %%_; { use warnings FATAL => qw(all); Data::Alias::alias(%%_ = ($#_==%d && ref($_[%d]) eq q(HASH)) ? %%{$_[%d]} : @_[ %d .. $#_ ]) };',
+			($ix) x 4,
 		);
 		
 		unless ($slurpy or $self->yadayada)

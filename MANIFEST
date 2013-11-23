@@ -13,6 +13,8 @@ SIGNATURE
 dist.ini
 doap.ttl
 examples/benchmarks-multisub.pl
+examples/benchmarks-named.pl
+examples/benchmarks-pos.pl
 examples/benchmarks.pl
 examples/dancer2/example.pl
 examples/dancer2/lib/KavorkaX/Dancer2.pm
@@ -35,11 +37,16 @@ lib/Kavorka/Signature.pm
 lib/Kavorka/Sub.pm
 lib/Kavorka/Sub/After.pm
 lib/Kavorka/Sub/Around.pm
+lib/Kavorka/Sub/Augment.pm
 lib/Kavorka/Sub/Before.pm
 lib/Kavorka/Sub/ClassMethod.pm
 lib/Kavorka/Sub/Fun.pm
 lib/Kavorka/Sub/Method.pm
 lib/Kavorka/Sub/ObjectMethod.pm
+lib/Kavorka/Sub/Override.pm
+lib/Kavorka/TraitFor/Parameter/alias.pm
+lib/Kavorka/TraitFor/Parameter/locked.pm
+lib/Kavorka/TraitFor/Parameter/ro.pm
 lib/MooseX/KavorkaInfo.pm
 lib/Parse/KeywordX.pm
 t/01basic.t
@@ -57,6 +64,8 @@ t/21modifiers-moose.t
 t/22modifiers-mouse.t
 t/23modifiers-tiny.t
 t/24multimodifiers.t
+t/28modifiers-augment.t
+t/29modifiers-override.t
 t/30multi.t
 t/31multimulti.t
 t/32multiredefine.t
