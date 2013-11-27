@@ -10,6 +10,7 @@ Files: README
  lib/Kavorka.pm
  lib/Kavorka/Manual.pod
  lib/Kavorka/Manual/API.pod
+ lib/Kavorka/Manual/ExtendingKavorka.pod
  lib/Kavorka/Manual/Functions.pod
  lib/Kavorka/Manual/MethodModifiers.pod
  lib/Kavorka/Manual/Methods.pod
@@ -78,8 +79,10 @@ Files: Changes
  lib/Kavorka/Sub/ObjectMethod.pm
  lib/Kavorka/Sub/Override.pm
  lib/Kavorka/TraitFor/Parameter/alias.pm
+ lib/Kavorka/TraitFor/Parameter/assumed.pm
  lib/Kavorka/TraitFor/Parameter/locked.pm
  lib/Kavorka/TraitFor/Parameter/ro.pm
+ lib/Kavorka/TraitFor/ReturnType/assumed.pm
  lib/Parse/KeywordX.pm
 Copyright: Copyright 2013 Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0

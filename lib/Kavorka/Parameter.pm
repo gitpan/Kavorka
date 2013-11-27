@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Parameter;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.019';
+our $VERSION   = '0.020';
 our @CARP_NOT  = qw( Kavorka::Signature Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -249,7 +249,7 @@ sub parse
 		lex_read_space;
 	}
 	
-	while (lex_peek(5) =~ m{ \A (is|does) \s }xsm)
+	while (lex_peek(5) =~ m{ \A (is|does|but) \s }xsm)
 	{
 		lex_read(length($1));
 		lex_read_space;

@@ -5,13 +5,12 @@ use warnings;
 package Kavorka::ReturnType;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.019';
+our $VERSION   = '0.020';
 our @CARP_NOT  = qw( Kavorka::Signature Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
 use Parse::Keyword {};
 use Parse::KeywordX qw(parse_trait);
-use Types::Standard qw(Any);
 
 use Moo;
 use namespace::sweep;
@@ -30,7 +29,6 @@ sub BUILD
 	
 	# traits handled natively
 	state $native_traits = {
-		assumed   => 1,
 		coerce    => 1,
 		list      => 1,
 		scalar    => 1,
@@ -96,7 +94,7 @@ sub parse
 	
 	undef($peek);
 	
-	while (lex_peek(5) =~ m{ \A (is|does) \s }xsm)
+	while (lex_peek(5) =~ m{ \A (is|does|but) \s }xsm)
 	{
 		lex_read(length($1));
 		lex_read_space;
@@ -125,7 +123,7 @@ sub sanity_check
 sub _effective_type
 {
 	my $self = shift;
-	$self->assumed ? Any : $self->type;
+	$self->type;
 }
 
 1;

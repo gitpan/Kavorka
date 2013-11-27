@@ -23,6 +23,7 @@ examples/meta.pl
 lib/Kavorka.pm
 lib/Kavorka/Manual.pod
 lib/Kavorka/Manual/API.pod
+lib/Kavorka/Manual/ExtendingKavorka.pod
 lib/Kavorka/Manual/Functions.pod
 lib/Kavorka/Manual/MethodModifiers.pod
 lib/Kavorka/Manual/Methods.pod
@@ -45,8 +46,10 @@ lib/Kavorka/Sub/Method.pm
 lib/Kavorka/Sub/ObjectMethod.pm
 lib/Kavorka/Sub/Override.pm
 lib/Kavorka/TraitFor/Parameter/alias.pm
+lib/Kavorka/TraitFor/Parameter/assumed.pm
 lib/Kavorka/TraitFor/Parameter/locked.pm
 lib/Kavorka/TraitFor/Parameter/ro.pm
+lib/Kavorka/TraitFor/ReturnType/assumed.pm
 lib/MooseX/KavorkaInfo.pm
 lib/Parse/KeywordX.pm
 t/01basic.t
