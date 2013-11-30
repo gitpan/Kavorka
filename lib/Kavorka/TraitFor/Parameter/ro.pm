@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::TraitFor::Parameter::ro;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.020';
+our $VERSION   = '0.021';
 
 use Moo::Role;
 
@@ -23,6 +23,16 @@ around _injection_assignment => sub
 	);
 	
 	return $str;
+};
+
+after sanity_check => sub
+{
+	my $self = shift;
+	
+	my $traits = $self->traits;
+	my $name   = $self->name;
+	
+	croak("Parameter $name cannot be rw and ro") if $traits->{rw};
 };
 
 1;

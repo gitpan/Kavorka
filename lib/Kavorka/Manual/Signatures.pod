@@ -2,7 +2,7 @@
 
 =encoding utf-8
 
-=for stopwords invocant invocants lexicals unintuitive yada globals ro rw boolification rightwards
+=for stopwords invocant invocants lexicals unintuitive yada globals ro rw boolification rightwards scalarref
 
 =head1 NAME
 
@@ -333,44 +333,8 @@ The keywords C<does> and C<but> are also available which are simply
 aliases for C<is>.
 
 Many traits are recognized by Kavorka natively. If you use an
-unrecognized trait, such as C<foo>, Kavorka will attempt to apply a
-role called C<Kavorka::TraitFor::Parameter::foo> or
-C<Kavorka::TraitFor::ReturnType::foo> (as appropriate) to the
-underlying L<Kavorka::Parameter> or
-L<Kavorka::ReturnType> object for this parameter. This
-role can then potentially influence the behaviour of the parameter in
-your sub.
-
-Although none of Kavorka's native traits make use of this syntax,
-traits can be followed by trait parameters in parentheses:
-
-   BEGIN {
-      package Kavorka::TraitFor::Parameter::debug;
-      use Moo::Role;
-      around injection => sub
-      {
-         my $next = shift;
-         my $self = shift;
-         my $code = $self->$next(@_);
-         $code .= sprintf(
-            "printf STDERR %s, %s, %s;",
-            B::perlstring($self->traits->{debug}[0]),
-            B::perlstring($self->name),
-            $self->name,
-         );
-         return $code;
-      };
-   }
-   
-   use Kavorka;
-   
-   fun foo ($x does debug("%s is %s\n")) {
-      ## Injected:
-      ## printf STDERR "%s is %s\n", "\$x", $x;
-      return $x;
-   }
-   
-   foo(42);  # says to STDERR: '$x is 42'
+unrecognized trait, such as C<foo>, Kavorka will attempt to load it
+as a Moo::Role (see L<Kavorka::Manual::ExtendingKavorka>).
 
 The traits Kavorka understands natively are:
 
@@ -404,6 +368,13 @@ constraint is still visible through the introspection API.
 This can be used to switch off slow type constraint checks while
 keeping the original type constraint in the signature to express your
 intent.
+
+This trait cannot be used in multi subs, where the type check is
+instrumental in deciding which candidate sub to dispatch to. It I<can>
+be used in conjunction with the C<coerce> trait, in which case the type
+constraint I<will> be checked to determine whether coercion is
+necessary, but no type check will be performed on the result of the
+coercion.
 
 =head3 coerce
 
@@ -449,6 +420,31 @@ applying this trait.
    fun foo ($x is optional) { ... }            # These two declarations
    fun foo ($x?) { ... }                       # are equivalent.
 
+=head3 ref_alias
+
+The C<ref_alias> trait allows you to pass an arrayref, hashref or
+scalarref to the function, and have it available as a plain array,
+hash or scalar. For example:
+
+   fun get_key_from_hash(%h is ref_alias, $key) {
+      return $h{$key};
+   }
+   
+   my %data = ( foo => 42 );
+   get_key_from_hash(\%data, 'foo');   # returns 42
+
+It's the only useful way to define non-slurpy hash or array parameters
+within a signature.
+
+A backslash before the variable name can be used as a shortcut for
+this trait:
+
+   fun get_key_from_hash(\%h, $key) {
+      return $h{$key};
+   }
+
+This feature is shared with L<Method::Signatures>.
+
 =head3 ro
 
 This makes the parameter a (shallow) read-only variable.
@@ -479,7 +475,7 @@ Coercion can be enabled for a parameter using the C<coerce> trait.
 
    use Types::Path::Tiny qw(AbsPath);
    
-   method print_to_file ( AbsFile $file does coerce, @lines ) {
+   method print_to_file ( AbsFile $file does coerce, Str @lines ) {
       $file->spew(@lines);
    }
 

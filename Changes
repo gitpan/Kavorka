@@ -6,6 +6,18 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.021	2013-11-30
+
+ [ Documentation ]
+ - Rearrange some of the traits documentation.
+
+ [ Other ]
+ - Added: Implement a `ref_alias` trait, inspired by Method::Signatures.
+ - Disallow the `assumed` parameter trait for multi subs.
+ - Split out most of the implementation for the `optional` trait (except
+   for special parsing rules) into Kavorka::TraitFor::ReturnType::optional.
+ - Split out some sanity_check stuff into the trait modules.
+
 0.020	2013-11-27
 
  [ Documentation ]

@@ -48,6 +48,8 @@ lib/Kavorka/Sub/Override.pm
 lib/Kavorka/TraitFor/Parameter/alias.pm
 lib/Kavorka/TraitFor/Parameter/assumed.pm
 lib/Kavorka/TraitFor/Parameter/locked.pm
+lib/Kavorka/TraitFor/Parameter/optional.pm
+lib/Kavorka/TraitFor/Parameter/ref_alias.pm
 lib/Kavorka/TraitFor/Parameter/ro.pm
 lib/Kavorka/TraitFor/ReturnType/assumed.pm
 lib/MooseX/KavorkaInfo.pm

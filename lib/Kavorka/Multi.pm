@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Multi;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.020';
+our $VERSION   = '0.021';
 
 use Devel::Pragma qw( fqname );
 use Parse::Keyword {};
@@ -58,6 +58,14 @@ after parse_attributes => sub
 after parse_signature => sub
 {
 	my $self = shift;
+	my $sig  = $self->signature;
+	
+	for my $param (@{$sig->params})
+	{
+		Carp::croak("Type constraints for parameters cannot be 'assumed' in a multi sub")
+			if $param->traits->{assumed};
+	}
+	
 	$self->signature->_set_nobble_checks(1);
 };
 

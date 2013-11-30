@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::TraitFor::Parameter::alias;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.020';
+our $VERSION   = '0.021';
 
 use Moo::Role;
 
@@ -30,6 +30,18 @@ around _injection_assignment => sub
 		(my $glob = $var) =~ s/\A./*/;
 		return sprintf('local %s = \\do { %s };', $glob, $val);
 	}
+};
+
+after sanity_check => sub
+{
+	my $self = shift;
+	
+	my $traits = $self->traits;
+	my $name   = $self->name;
+	
+	croak("Parameter $name cannot be an alias and coerce") if $traits->{coerce};
+	croak("Parameter $name cannot be an alias and a copy") if $traits->{copy};
+	croak("Parameter $name cannot be an alias and locked") if $traits->{locked};
 };
 
 1;
