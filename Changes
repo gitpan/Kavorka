@@ -6,6 +6,17 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.022	2013-12-16
+
+ [ Documentation ]
+ - Fix typos in Kavorka::Manual::MultiSubs.
+   Grzegorz Rożniecki++
+   <https://github.com/tobyink/p5-kavorka/pull/1>
+
+ [ Other ]
+ - Added: Kavorka::TraitFor::Sub::fresh.
+ - Added: Kavorka::TraitFor::Sub::override.
+
 0.021	2013-11-30
 
  [ Documentation ]

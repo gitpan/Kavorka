@@ -49,6 +49,7 @@ Files: README
  t/60alias.t
  t/61ro.t
  t/62locked.t
+ t/63freshoverride.t
  t/69traits.t
  t/70introspection.t
  t/71moosemeta.t
@@ -85,6 +86,8 @@ Files: Changes
  lib/Kavorka/TraitFor/Parameter/ref_alias.pm
  lib/Kavorka/TraitFor/Parameter/ro.pm
  lib/Kavorka/TraitFor/ReturnType/assumed.pm
+ lib/Kavorka/TraitFor/Sub/fresh.pm
+ lib/Kavorka/TraitFor/Sub/override.pm
  lib/Parse/KeywordX.pm
 Copyright: Copyright 2013 Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0

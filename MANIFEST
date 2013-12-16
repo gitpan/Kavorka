@@ -52,6 +52,8 @@ lib/Kavorka/TraitFor/Parameter/optional.pm
 lib/Kavorka/TraitFor/Parameter/ref_alias.pm
 lib/Kavorka/TraitFor/Parameter/ro.pm
 lib/Kavorka/TraitFor/ReturnType/assumed.pm
+lib/Kavorka/TraitFor/Sub/fresh.pm
+lib/Kavorka/TraitFor/Sub/override.pm
 lib/MooseX/KavorkaInfo.pm
 lib/Parse/KeywordX.pm
 t/01basic.t
@@ -82,6 +84,7 @@ t/53typeexpr-moosextypes.t
 t/60alias.t
 t/61ro.t
 t/62locked.t
+t/63freshoverride.t
 t/69traits.t
 t/70introspection.t
 t/71moosemeta.t
