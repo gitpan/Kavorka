@@ -14,7 +14,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.024';
+our $VERSION   = '0.025';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -54,7 +54,7 @@ sub guess_implementation
 	$IMPLEMENTATION{$_[0]};
 }
 
-sub _exporter_expand_sub
+sub _exporter_fail
 {
 	my $me = shift;
 	my ($name, $args, $globals) = @_;

@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.024';
+our $VERSION   = '0.025';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
@@ -438,7 +438,8 @@ sub _poke_pads
 	for my $code (@{$self->_pads_to_poke})
 	{
 		my $closed_over = PadWalker::closed_over($code);
-		$closed_over->{$_} = $vars->{$_} for keys %$closed_over;
+		ref($vars->{$_}) && ($closed_over->{$_} = $vars->{$_})
+			for keys %$closed_over;
 		PadWalker::set_closed_over($code, $closed_over);
 	}
 }

@@ -46,6 +46,7 @@ Files: README
  t/51coerce.t
  t/52typeexpr.t
  t/53typeexpr-moosextypes.t
+ t/59valueconstraints.t
  t/60alias.t
  t/61ro.t
  t/62locked.t
