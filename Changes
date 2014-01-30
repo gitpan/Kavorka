@@ -6,6 +6,11 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.027	2014-01-30
+
+ - Minor change to the hook allowing keywords to deal with calls that
+   bypass the Perl keyword API.
+
 0.026	2014-01-30
 
  - Allow keywords to detect when the keyword sub has been called in a way

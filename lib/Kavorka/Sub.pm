@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.026';
+our $VERSION   = '0.027';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
@@ -621,8 +621,8 @@ The default implementation of C<bypass_custom_parsing> is to croak,
 but this can be overridden in cases where it may be possible to do
 something useful. (L<Kavorka::MethodModifier> does this.)
 
-It is passed the name of the keyword, an arrayref representing
-C<< caller(0) >>, and an arrayref representing C<< @_ >>.
+It is passed the name of the keyword, the name of the package that
+the keyword was installed into, and an arrayref representing C<< @_ >>.
 
 =back
 

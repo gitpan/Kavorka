@@ -89,7 +89,7 @@ my $INSTALL_MM = sub {
 package Kavorka::MethodModifier;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.026';
+our $VERSION   = '0.027';
 
 use Devel::Pragma 'fqname';
 use Parse::Keyword {};
@@ -115,7 +115,7 @@ sub bypass_custom_parsing
 		or croak('Not a valid coderef');
 	
 	my @qnames =
-		map { /::/ ? $_ : sprintf('%s::%s', $caller->[0], $_) }
+		map { /::/ ? $_ : sprintf('%s::%s', $caller, $_) }
 		map { !ref($_) ? $_ : reftype($_) eq reftype([]) ? @$_ : croak("Not an array or string: $_") }
 		@$args;
 	

@@ -15,18 +15,18 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 294505f858f11dd062e9916e3f50d88210a9ef54 CONTRIBUTING
-SHA1 0a3fe14fba509d0ea49056a750a23437cd0e41fa COPYRIGHT
+SHA1 c124a29f4469308a2862f251cd21348fd97dc545 COPYRIGHT
 SHA1 953f8d616a1ef49fcf036de8d891a480d507dba3 CREDITS
-SHA1 c86402bf5caf7d2e45e7c7bcc58fcfea9836022c Changes
+SHA1 81f5775a5e1734ded21dc2cd7c470c49485e4f5f Changes
 SHA1 642accba7915d84fd2d6e679492d9e9609cb9870 INSTALL
 SHA1 47870123f373f5185d6893cb98bf06a8a05510aa LICENSE
 SHA1 9d4650facda3f90327034ed2f3ffa97ba18a012d MANIFEST
-SHA1 c7bb683fabc30a301fc6d3ca389e79488c26c58f META.json
-SHA1 d3946ef420705233e1a5dfada95589488011e658 META.yml
-SHA1 7edee7fffc1cc622085cf53e6c54801b3ceeeefc Makefile.PL
+SHA1 51adfa5018fa4714d86f1016a6c80da03d08c55f META.json
+SHA1 54cbd8079108855252331b7b4eaf34e57892a4c7 META.yml
+SHA1 14d8eb2940f0d24725e1be7b65c3ac2cc6b1798b Makefile.PL
 SHA1 becc91be38a222cbff3f4c9dc8641d9a3041c908 README
 SHA1 39bac3db859a6ce7311a36c43c2ac9ef1da35a19 dist.ini
-SHA1 b389319dcee3fb2929f34e3ef0c64e67e976f37e doap.ttl
+SHA1 27c863aadea07918416da992f08eeaf0ff40e752 doap.ttl
 SHA1 8a04c0bf233591124933988c7d82d61b9ef24e35 examples/benchmarks-multisub.pl
 SHA1 ef645e46d5cc9a0124089e52128f17a93c8f305e examples/benchmarks-named.pl
 SHA1 d1981a947dac97ebd164f8d3e88aee14302ad7a1 examples/benchmarks-pos.pl
@@ -35,7 +35,7 @@ SHA1 a62688f2ed57d1170857be37beb7ef5aa7b1c751 examples/dancer2/example.pl
 SHA1 1b2bd5b733386f4737dde750d994d838e2e9c2cd examples/dancer2/lib/KavorkaX/Dancer2.pm
 SHA1 247a56668598da4dafeae97cfc5d22b6569059db examples/fibonacci.pl
 SHA1 04744decf0dca3a79997b74aa112121651e4d5cd examples/meta.pl
-SHA1 6d51b0dc4bc2fa622491a5cf535cbee7c011fd1b lib/Kavorka.pm
+SHA1 1f497e97e7fc6181bfd27b53007f525000309337 lib/Kavorka.pm
 SHA1 4bc7c24f9fc80025faeb309ebfc8c281583fe361 lib/Kavorka/Manual.pod
 SHA1 555b4079a27ab1c91d6af040c486f602046d8690 lib/Kavorka/Manual/API.pod
 SHA1 e5f93c20b3818f049d72393bb010b86a3110e1d9 lib/Kavorka/Manual/ExtendingKavorka.pod
@@ -45,32 +45,32 @@ SHA1 657ccc96d42dee4c14eff585104628f0eec07d2f lib/Kavorka/Manual/Methods.pod
 SHA1 6fd53376bb3177fd2f4189bf0947a501ff3ba564 lib/Kavorka/Manual/MultiSubs.pod
 SHA1 7f2c093963cf32649507df6e8f8aab08b68c3466 lib/Kavorka/Manual/PrototypeAndAttributes.pod
 SHA1 ef95a6a4a438abe0eb607c39e85007bc477fd59e lib/Kavorka/Manual/Signatures.pod
-SHA1 14be588212705d2852ad68448025050bd2b1adea lib/Kavorka/MethodModifier.pm
-SHA1 cc245205750ccf4b43ad81e63bc02c338596f813 lib/Kavorka/Multi.pm
-SHA1 50b3811cafd89837f97bc18293b68c3c702f5012 lib/Kavorka/Parameter.pm
-SHA1 5e3be8c677f70283d7fb46d52d115eb5e59c9e18 lib/Kavorka/ReturnType.pm
-SHA1 4d935233a610164a263ea31986495c08f55a3677 lib/Kavorka/Signature.pm
-SHA1 88b531a86f695e2f747918964286ddbfabf4900c lib/Kavorka/Sub.pm
-SHA1 83d542f9d252a4a45e1f20edc2d12aa11365df70 lib/Kavorka/Sub/After.pm
-SHA1 c190da202dddba61680c969125801be8db142505 lib/Kavorka/Sub/Around.pm
-SHA1 72a5418d89f8f720d474fb8f6f4ddc071a5f908a lib/Kavorka/Sub/Augment.pm
-SHA1 5670dcfbb118c13b14223b0c09c3e11712a33deb lib/Kavorka/Sub/Before.pm
-SHA1 64f3c3074d35905f6676b9a6f64fc668bf3d5386 lib/Kavorka/Sub/ClassMethod.pm
-SHA1 1fe13ca34ebe5756d851b21a33a38852352378dd lib/Kavorka/Sub/Fun.pm
-SHA1 e3de9863f3d9e74be5202ec1c3dd9e34fc314743 lib/Kavorka/Sub/Method.pm
-SHA1 ed58ada25be3cd0d1b48ceef50d7632f6cc8d788 lib/Kavorka/Sub/ObjectMethod.pm
-SHA1 a06d004fa7a94dad3ee174f998d773c11303d4b0 lib/Kavorka/Sub/Override.pm
-SHA1 c9cbd8b734d14800688e58fd657adce6526fb2f0 lib/Kavorka/TraitFor/Parameter/alias.pm
-SHA1 4e28ed18a54eae12d7a3f738d1eb93515f2e9bdd lib/Kavorka/TraitFor/Parameter/assumed.pm
-SHA1 18a841f376710e65be4f038082691f329fc27d24 lib/Kavorka/TraitFor/Parameter/locked.pm
-SHA1 0490880a0d99c97ec91131a8cd52321b72329ab8 lib/Kavorka/TraitFor/Parameter/optional.pm
-SHA1 c215b78cd8d6f70dbd5bdb330c3a68a081f7d756 lib/Kavorka/TraitFor/Parameter/ref_alias.pm
-SHA1 4636e560ec7f8232516fde3ac4e64094db47d6ab lib/Kavorka/TraitFor/Parameter/ro.pm
-SHA1 8565f5c7416cc6207c72bce08de9358d1ae009b6 lib/Kavorka/TraitFor/ReturnType/assumed.pm
-SHA1 bdb9f9511667469d866ea23247e0eb4b4c178e6f lib/Kavorka/TraitFor/Sub/fresh.pm
-SHA1 17e3efad4049808a7d16ac239b7b3cb90671bb43 lib/Kavorka/TraitFor/Sub/override.pm
-SHA1 f69eac31864850465592d916ebb7d1c9d096b5f1 lib/MooseX/KavorkaInfo.pm
-SHA1 93649b482531456c2ead4e2fca78b65afc9bebe8 lib/Parse/KeywordX.pm
+SHA1 7ba3e8ceac8caed0882972d10e5354d44ffbe7a4 lib/Kavorka/MethodModifier.pm
+SHA1 0c7c8bea3cc290643ca5e731a9f789106ac1a32d lib/Kavorka/Multi.pm
+SHA1 23413d9bcfdb19948cd1776648bfc7b05cd957fb lib/Kavorka/Parameter.pm
+SHA1 e96b911fa617f5aa522b146aeb80c3b3819b10bd lib/Kavorka/ReturnType.pm
+SHA1 e883bbe6232da6f3477ecc5568800db045d2705f lib/Kavorka/Signature.pm
+SHA1 859f18760d1bbf8a373620d940d3fc77f36f6629 lib/Kavorka/Sub.pm
+SHA1 e360bdb42a707f07ceaa8d17501a01f7fdd78c8e lib/Kavorka/Sub/After.pm
+SHA1 d62992cceffe416a1e9138d1fa8a5198ec1db51e lib/Kavorka/Sub/Around.pm
+SHA1 dffdd5e9e63d174cc9c7224db08ad7f5a25f0e68 lib/Kavorka/Sub/Augment.pm
+SHA1 37ddc2c9e1612c32f68d9b99fadf3c23e4e9e432 lib/Kavorka/Sub/Before.pm
+SHA1 2a8d16c0eb9079ebdc1bae46060b8806fdf94979 lib/Kavorka/Sub/ClassMethod.pm
+SHA1 003199b8db2587ae3ec8d18a60161112abdec3c5 lib/Kavorka/Sub/Fun.pm
+SHA1 392d6faf7d776caaa799932814d5cd42657ed728 lib/Kavorka/Sub/Method.pm
+SHA1 66d67b9c84336fa570c12b4c23bee551fdbb2af7 lib/Kavorka/Sub/ObjectMethod.pm
+SHA1 6639f41f9e0da940e835f7bb3f843a838c2b873d lib/Kavorka/Sub/Override.pm
+SHA1 c25536c0a663565cb7285cda439739653cf2bf86 lib/Kavorka/TraitFor/Parameter/alias.pm
+SHA1 488ea7e5507424d0fcb4fbd6c7521b5331a2c308 lib/Kavorka/TraitFor/Parameter/assumed.pm
+SHA1 daab57b3f9b9ced62dcb0d52c426db4ddd70c5cc lib/Kavorka/TraitFor/Parameter/locked.pm
+SHA1 6617d65cce7e68a5cf7b54181bb6d318d9d2185a lib/Kavorka/TraitFor/Parameter/optional.pm
+SHA1 cfd8d9d71a3f89507148256eb39cc7b21cde269c lib/Kavorka/TraitFor/Parameter/ref_alias.pm
+SHA1 f988894641ad07a50e50202f2c589cb810f25afe lib/Kavorka/TraitFor/Parameter/ro.pm
+SHA1 427a9c477215dce03c3df1976584d13e88045264 lib/Kavorka/TraitFor/ReturnType/assumed.pm
+SHA1 108d8b3c86fb75d107a1ecab441f5c33a4842ffc lib/Kavorka/TraitFor/Sub/fresh.pm
+SHA1 d0a8c12aaec788f1f35ba292913a7d4801e6d6ef lib/Kavorka/TraitFor/Sub/override.pm
+SHA1 118001accf83f5f660f3593578845d884def7d43 lib/MooseX/KavorkaInfo.pm
+SHA1 b5eeb0f96691f71f60df17a44a981a7d854e43b3 lib/Parse/KeywordX.pm
 SHA1 b05e50b57a91fea179abb88586d6fc3b526302d6 t/01basic.t
 SHA1 bb5e6708f5dd581cbe1b8471bd3b351acfff8a94 t/02named-functions.t
 SHA1 e5fb41ad13b8af3c243beb5cc06e4b0396013832 t/03anon-functions.t
@@ -113,7 +113,7 @@ SHA1 29b1025f56932250f1ff6deb95c791ff9f3eda1c t/94bypassparsing.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.14 (GNU/Linux)
 
-iEYEARECAAYFAlLqVh4ACgkQzr+BKGoqfTlBBACfS4vu6NcijjGqNm2pfIC9CETb
-CaIAn0fwhUAGeYJtu1POTeDTfSLsrjpM
-=C9jp
+iEYEARECAAYFAlLqW+gACgkQzr+BKGoqfTnD+ACfcd5cMl2STFVRy1qdAt3wZ9xs
+F3AAn3ApiB5hTioq0ektHB9D+09gg7p3
+=avED
 -----END PGP SIGNATURE-----
