@@ -14,7 +14,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.025';
+our $VERSION   = '0.026';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -76,9 +76,14 @@ sub _exporter_fail
 	my $code = Sub::Name::subname(
 		"$me\::$name",
 		sub {
+			unless (Scalar::Util::blessed($_[0]) and $_[0]->DOES('Kavorka::Sub'))
+			{
+				my @caller = caller(0);
+				return $implementation->bypass_custom_parsing($name, \@caller, \@_);
+			}
+
 			my $subroutine = shift;
-			$name; # close over name to prevent optimization
-			
+						
 			# Post-parse clean-up
 			$subroutine->_post_parse();
 			
@@ -308,6 +313,11 @@ This can lead to delightfully hard to debug errors.
 Please report any bugs to
 L<http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>.
 
+=head1 SUPPORT
+
+B<< IRC: >> support is available through in the I<< #moops >> channel
+on L<irc.perl.org|http://www.irc.perl.org/channels.html>.
+
 =head1 SEE ALSO
 
 L<Kavorka::Manual>.
@@ -325,7 +335,7 @@ Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
 
 =head1 COPYRIGHT AND LICENCE
 
-This software is copyright (c) 2013 by Toby Inkster.
+This software is copyright (c) 2013-2014 by Toby Inkster.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

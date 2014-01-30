@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.025';
+our $VERSION   = '0.026';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
@@ -42,6 +42,13 @@ sub invocation_style     { +undef }
 sub default_attributes   { return; }
 sub default_invocant     { return; }
 sub forward_declare_sub  { return; }
+
+sub bypass_custom_parsing
+{
+	my $class = shift;
+	my ($keyword, $caller, $args) = @_;
+	croak("Attempt to call keyword '$keyword' bypassing prototype not supported");
+}
 
 sub install_sub
 {
@@ -598,6 +605,25 @@ attributes. (Only used for named subs.)
 
 Returns a string of Perl code to inject into the body of the sub.
 
+=item C<bypass_custom_parsing>
+
+A I<class method> that is called when people attempt to use the
+keyword while bypassing the Perl keyword API's custom parsing.
+Examples of how they can do that are:
+
+   use Kavorka 'method';
+   
+   &method(...);
+   
+   __PACKAGE__->can("method")->(...);
+
+The default implementation of C<bypass_custom_parsing> is to croak,
+but this can be overridden in cases where it may be possible to do
+something useful. (L<Kavorka::MethodModifier> does this.)
+
+It is passed the name of the keyword, an arrayref representing
+C<< caller(0) >>, and an arrayref representing C<< @_ >>.
+
 =back
 
 =head1 BUGS
@@ -616,7 +642,7 @@ Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
 
 =head1 COPYRIGHT AND LICENCE
 
-This software is copyright (c) 2013 by Toby Inkster.
+This software is copyright (c) 2013-2014 by Toby Inkster.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

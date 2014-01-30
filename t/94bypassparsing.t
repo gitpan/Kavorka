@@ -4,7 +4,8 @@
 
 =head1 PURPOSE
 
-Test method modifiers in L<Moo>.
+Checks that it's possible to bypass Kavorka's use of the Perl keyword
+API.
 
 =head1 AUTHOR
 
@@ -12,7 +13,7 @@ Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
 
 =head1 COPYRIGHT AND LICENCE
 
-This software is copyright (c) 2013-2014 by Toby Inkster.
+This software is copyright (c) 2014 by Toby Inkster.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
@@ -35,9 +36,9 @@ package Parent {
 package Sibling {
 	use Moo::Role;
 	use Kavorka qw( -default -modifiers );
-	after process ( ScalarRef $n ) {
-		$$n += 2;
-	}
+	&after(process => sub {
+		${$_[1]} += 2;
+	});
 };
 
 package Child {
@@ -45,9 +46,9 @@ package Child {
 	use Kavorka qw( -default -modifiers );
 	extends qw( Parent );
 	with qw( Sibling );
-	before process ( ScalarRef[Num] $n ) {
-		$$n += 5;
-	}
+	&before(process => sub {
+		${$_[1]} += 5;
+	});
 };
 
 my $thing_one = Child->new;
@@ -60,12 +61,13 @@ package Grandchild {
 	use Moo;
 	use Kavorka qw( -default -modifiers );
 	extends qw( Child );
-	around process ( ScalarRef $n ) {
-		my ($int, $rest) = split /\./, $$n;
+	&around(process => sub {
+		my $orig = shift;
+		my ($int, $rest) = split /\./, ${$_[1]};
 		$rest ||= 0;
-		$self->${^NEXT}(\$int);
-		$$n = "$int\.$rest";
-	}
+		$_[0]->$orig(\$int);
+		${$_[1]} = "$int\.$rest";
+	});
 };
 
 my $thing_two = Grandchild->new;

@@ -4,9 +4,6 @@ Upstream-Contact: Toby Inkster (TOBYINK) <tobyink@cpan.org>
 Source: https://metacpan.org/release/Kavorka
 
 Files: README
- examples/benchmarks-multisub.pl
- examples/benchmarks.pl
- examples/fibonacci.pl
  lib/Kavorka.pm
  lib/Kavorka/Manual.pod
  lib/Kavorka/Manual/API.pod
@@ -59,14 +56,12 @@ Files: README
  t/91lvalue.t
  t/92weirdvars.t
  t/93prototypes.t
-Copyright: This software is copyright (c) 2013 by Toby Inkster.
+Copyright: This software is copyright (c) 2013-2014 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
 Files: Changes
  META.json
  META.yml
- Makefile.PL
- dist.ini
  doap.ttl
  lib/Kavorka/MethodModifier.pm
  lib/Kavorka/Multi.pm
@@ -90,7 +85,7 @@ Files: Changes
  lib/Kavorka/TraitFor/Sub/fresh.pm
  lib/Kavorka/TraitFor/Sub/override.pm
  lib/Parse/KeywordX.pm
-Copyright: Copyright 2013 Toby Inkster.
+Copyright: Copyright 2014 Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
 Files: CONTRIBUTING
@@ -110,15 +105,30 @@ Files: COPYRIGHT
 Copyright: None
 License: public-domain
 
+Files: examples/benchmarks-multisub.pl
+ examples/benchmarks.pl
+ examples/fibonacci.pl
+Copyright: This software is copyright (c) 2013 by Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
+
+Files: Makefile.PL
+ dist.ini
+Copyright: Copyright 2013 Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
+
+Files: t/94bypassparsing.t
+Copyright: This software is copyright (c) 2014 by Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
+
 License: Artistic-1.0
- This software is Copyright (c) 2013 by the copyright holder(s).
+ This software is Copyright (c) 2014 by the copyright holder(s).
  
  This is free software, licensed under:
  
    The Artistic License 1.0
 
 License: GPL-1.0
- This software is Copyright (c) 2013 by the copyright holder(s).
+ This software is Copyright (c) 2014 by the copyright holder(s).
  
  This is free software, licensed under:
  
