@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.027';
+our $VERSION   = '0.028';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
@@ -19,6 +19,14 @@ our @CARP_NOT = qw(Kavorka);
 
 use Moo::Role;
 use namespace::sweep;
+
+use overload (
+	q[&{}]   => sub { shift->body },
+	q[bool]  => sub { 1 },
+	q[""]    => sub { shift->qualified_name // '__ANON__' },
+	q[0+]    => sub { 1 },
+	fallback => 1,
+);
 
 has keyword         => (is => 'ro');
 has signature_class => (is => 'ro', default => sub { 'Kavorka::Signature' });
@@ -101,6 +109,13 @@ sub parse
 		$self->_set_qualified_name($qualified);
 		$self->forward_declare_sub;
 	}
+	
+	# Thanks to Perl 5.20 subs, we have to allow attributes before
+	# the signature too.
+	lex_read_space;
+	$self->parse_attributes
+		if lex_peek    eq ':'
+		&& lex_peek(2) ne ':(';
 	
 	# signature
 	$self->parse_signature;
@@ -265,8 +280,7 @@ sub parse_attributes
 		return;
 	}
 	
-	my $peek = lex_peek(1000);
-	while ($peek =~ /\A([^\W0-9]\w+)/)
+	while (lex_peek(4) =~ /\A([^\W0-9]\w+)/)
 	{
 		my $parsed = [parse_trait];
 		lex_read_space;
@@ -285,10 +299,8 @@ sub parse_attributes
 			lex_read(1);
 			lex_read_space;
 		}
-		
-		$peek = lex_peek(1000);
 	}
-	
+
 	();
 }
 
@@ -420,6 +432,8 @@ sub _apply_return_types
 		$self->_set__unwrapped_body($self->body);
 		$self->_set_body($wrapped);
 	}
+	
+	();
 }
 
 sub _build__pads_to_poke
@@ -449,6 +463,8 @@ sub _poke_pads
 			for keys %$closed_over;
 		PadWalker::set_closed_over($code, $closed_over);
 	}
+	
+	();
 }
 
 1;

@@ -6,6 +6,16 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.028	2014-02-21	The 'perlsub-compat' Release
+
+ [ Test Suite ]
+ - Add test cases covering bare @ and % sigils.
+
+ [ Other ]
+ - Allow attributes to *precede* signatures.
+ - Make parsing of parameter defaults laxer so that an equals sign followed
+   by no expression is allowed.
+
 0.027	2014-01-30
 
  - Minor change to the hook allowing keywords to deal with calls that

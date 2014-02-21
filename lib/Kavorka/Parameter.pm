@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Parameter;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.027';
+our $VERSION   = '0.028';
 our @CARP_NOT  = qw( Kavorka::Signature Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -274,7 +274,9 @@ sub parse
 		$default_when = $1;
 		lex_read(length($1));
 		lex_read_space;
-		$default = parse_arithexpr;
+		$default = lex_peek(5) =~ m{ \A (?: when\b | [,)] ) }x
+			? sub { (); }
+			: parse_arithexpr;
 		lex_read_space;
 		$traits{_optional} = 1;
 	}

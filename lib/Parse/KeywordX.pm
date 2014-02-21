@@ -7,7 +7,7 @@ use Exporter::Tiny ();
 package Parse::KeywordX;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.027';
+our $VERSION   = '0.028';
 
 use Text::Balanced qw( extract_bracketed );
 use PadWalker qw( closed_over set_closed_over peek_my );
@@ -117,7 +117,7 @@ sub parse_variable
 sub parse_trait
 {
 	my $name = parse_name('trait', 0);
-	lex_read_space;
+	#lex_read_space;
 	
 	my $extracted;
 	if (lex_peek eq '(')

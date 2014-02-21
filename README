@@ -66,6 +66,10 @@ DESCRIPTION
        # use My::Sub::Method instead of Kavorka::Sub::Method
        use Kavorka method => { implementation => 'My::Sub::Method' };
 
+    Or add traits to the default implementation:
+
+       use Kavorka method => { traits => ['My::Sub::Role::Foo'] };
+
     See Exporter::Tiny for more tips.
 
   Function Introspection API
