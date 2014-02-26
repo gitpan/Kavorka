@@ -82,6 +82,7 @@ Files: Changes
  lib/Kavorka/TraitFor/Parameter/ref_alias.pm
  lib/Kavorka/TraitFor/Parameter/ro.pm
  lib/Kavorka/TraitFor/ReturnType/assumed.pm
+ lib/Kavorka/TraitFor/Sub/begin.pm
  lib/Kavorka/TraitFor/Sub/fresh.pm
  lib/Kavorka/TraitFor/Sub/override.pm
  lib/Parse/KeywordX.pm
@@ -100,25 +101,26 @@ Files: CONTRIBUTING
 Copyright: Unknown
 License: Unknown
 
-Files: COPYRIGHT
- CREDITS
- SIGNATURE
-Copyright: None
-License: public-domain
-
 Files: examples/benchmarks-multisub.pl
  examples/benchmarks.pl
  examples/fibonacci.pl
 Copyright: This software is copyright (c) 2013 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
+Files: COPYRIGHT
+ CREDITS
+ SIGNATURE
+Copyright: None
+License: public-domain
+
+Files: t/94bypassparsing.t
+ t/95rolesatisfaction.t
+Copyright: This software is copyright (c) 2014 by Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
+
 Files: Makefile.PL
  dist.ini
 Copyright: Copyright 2013 Toby Inkster.
-License: GPL-1.0+ or Artistic-1.0
-
-Files: t/94bypassparsing.t
-Copyright: This software is copyright (c) 2014 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
 License: Artistic-1.0

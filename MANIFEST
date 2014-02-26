@@ -53,6 +53,7 @@ lib/Kavorka/TraitFor/Parameter/optional.pm
 lib/Kavorka/TraitFor/Parameter/ref_alias.pm
 lib/Kavorka/TraitFor/Parameter/ro.pm
 lib/Kavorka/TraitFor/ReturnType/assumed.pm
+lib/Kavorka/TraitFor/Sub/begin.pm
 lib/Kavorka/TraitFor/Sub/fresh.pm
 lib/Kavorka/TraitFor/Sub/override.pm
 lib/MooseX/KavorkaInfo.pm
@@ -96,3 +97,4 @@ t/91lvalue.t
 t/92weirdvars.t
 t/93prototypes.t
 t/94bypassparsing.t
+t/95rolesatisfaction.t
