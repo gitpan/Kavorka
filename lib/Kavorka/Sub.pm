@@ -7,12 +7,11 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.029';
+our $VERSION   = '0.030';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
 use Parse::KeywordX;
-use Devel::Pragma qw( fqname );
 use Carp;
 
 our @CARP_NOT = qw(Kavorka);
@@ -106,7 +105,7 @@ sub parse
 	$self->parse_subname;
 	unless ($self->is_anonymous or $self->is_lexical)
 	{
-		my $qualified = fqname($self->declared_name);
+		my $qualified = Kavorka::_fqname($self->declared_name);
 		$self->_set_qualified_name($qualified);
 		$self->forward_declare_sub;
 	}

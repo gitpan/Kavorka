@@ -6,6 +6,23 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.030	2014-03-20
+
+ [ Bug Fixes ]
+ - Eliminate dependency on Devel::Pragma, which fixes Kavorka on threaded
+   Perls.
+   Fixes RT#94015.
+   Piers Cawley++
+   <https://rt.cpan.org/Ticket/Display.html?id=94015>
+
+ [ Test Suite ]
+ - Add test using Kavorka on threaded Perls.
+   Aaron James Trevena++
+   <http://purl.org/NET/cpan-uri/rt/ticket/94015>
+
+ [ Other ]
+ - Added: Introduce `f` as an alternative to `fun`.
+
 0.029	2014-02-26
 
  - Added: Kavorka::TraitFor::Sub::begin.

@@ -89,9 +89,8 @@ my $INSTALL_MM = sub {
 package Kavorka::MethodModifier;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.029';
+our $VERSION   = '0.030';
 
-use Devel::Pragma 'fqname';
 use Parse::Keyword {};
 use Parse::KeywordX;
 use Scalar::Util qw(reftype);
@@ -134,7 +133,7 @@ after parse_subname => sub
 	{
 		lex_read(1);
 		lex_read_space;
-		push @{$self->more_names}, scalar fqname(parse_name('method', 1));
+		push @{$self->more_names}, scalar Kavorka::_fqname(parse_name('method', 1));
 		lex_read_space;
 	}
 };

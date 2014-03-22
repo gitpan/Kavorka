@@ -14,7 +14,7 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.029';
+our $VERSION   = '0.030';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -30,6 +30,7 @@ our %IMPLEMENTATION = (
 	augment      => 'Kavorka::Sub::Augment',
 	before       => 'Kavorka::Sub::Before',
 	classmethod  => 'Kavorka::Sub::ClassMethod',
+	f            => 'Kavorka::Sub::Fun',
 	fun          => 'Kavorka::Sub::Fun',
 	func         => 'Kavorka::Sub::Fun',
 	function     => 'Kavorka::Sub::Fun',
@@ -59,6 +60,32 @@ sub compose_implementation
 	shift;
 	require Moo::Role;
 	Moo::Role->create_class_with_roles(@_);
+}
+
+sub _exporter_validate_opts
+{
+	my $class = shift;
+	$^H{'Kavorka/package'} = $_[0]->{into};
+}
+
+sub _fqname ($;$)
+{
+	my $name = shift;
+	my ($package, $subname);
+	
+	$name =~ s{'}{::}g;
+	
+	if ($name =~ /::/)
+	{
+		($package, $subname) = $name =~ m{^(.+)::(\w+)$};
+	}
+	else
+	{
+		my $caller = @_ ? shift : $^H{'Kavorka/package'};
+		($package, $subname) = ($caller, $name);
+	}
+	
+	return wantarray ? ($package, $subname) : "$package\::$subname";
 }
 
 
