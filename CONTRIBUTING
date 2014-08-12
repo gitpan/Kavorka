@@ -27,7 +27,7 @@ DESCRIPTION
         The file META.yml should contain a link to the source repository. If
         not, then try <https://github.com/tobyink> or submit a bug report.
         (As far as I'm concerned the lack of a link is a bug.) Many of my
-        distributions are also mirrored at <http://bitbucket.org/tobyink>.
+        distributions are also mirrored at <https://bitbucket.org/tobyink>.
 
         To submit the patch, do a pull request on GitHub or Bitbucket, or
         attach a diff file to a bug report. Unless otherwise stated, I'll
@@ -67,10 +67,17 @@ AUTHOR
     Toby Inkster <tobyink@cpan.org>.
 
 COPYRIGHT AND LICENCE
-    Copyright (c) 2012-2013 by Toby Inkster.
+    Copyright (c) 2012-2014 by Toby Inkster.
 
-    CONTRIBUTING.pod is licensed under the Creative Commons
-    Attribution-ShareAlike 2.0 UK: England & Wales License. To view a copy
-    of this license, visit
+    CONTRIBUTING is available under three different licences permitting its
+    redistribution: the CC-BY-SA_UK-2.0 licence, plus the same licences as
+    Perl itself, which is distributed under the GNU General Public Licence
+    version 1, and the Artistic Licence.
+
+    This file is licensed under the Creative Commons Attribution-ShareAlike
+    2.0 UK: England & Wales License. To view a copy of this license, visit
     <http://creativecommons.org/licenses/by-sa/2.0/uk/>.
+
+    This file is free software; you can redistribute it and/or modify it
+    under the same terms as the Perl 5 programming language system itself.
 

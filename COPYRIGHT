@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: Kavorka
-Upstream-Contact: Toby Inkster (TOBYINK) <tobyink@cpan.org>
+Upstream-Contact:  and Toby Inkster (TOBYINK) <tobyink@cpan.org>
 Source: https://metacpan.org/release/Kavorka
 
 Files: README
@@ -86,7 +86,6 @@ Files: Changes
  lib/Kavorka/TraitFor/Sub/fresh.pm
  lib/Kavorka/TraitFor/Sub/override.pm
  lib/Parse/KeywordX.pm
- t/99threads.t
 Copyright: Copyright 2014 Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
@@ -102,10 +101,10 @@ Files: CONTRIBUTING
 Copyright: Unknown
 License: Unknown
 
-Files: examples/benchmarks-multisub.pl
- examples/benchmarks.pl
- examples/fibonacci.pl
-Copyright: This software is copyright (c) 2013 by Toby Inkster.
+Files: examples/benchmarks.pl
+ t/94bypassparsing.t
+ t/95rolesatisfaction.t
+Copyright: This software is copyright (c) 2014 by Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
 Files: COPYRIGHT
@@ -114,14 +113,18 @@ Files: COPYRIGHT
 Copyright: None
 License: public-domain
 
-Files: t/94bypassparsing.t
- t/95rolesatisfaction.t
-Copyright: This software is copyright (c) 2014 by Toby Inkster.
-License: GPL-1.0+ or Artistic-1.0
-
 Files: Makefile.PL
  dist.ini
 Copyright: Copyright 2013 Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
+
+Files: examples/benchmarks-multisub.pl
+ examples/fibonacci.pl
+Copyright: This software is copyright (c) 2013 by Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
+
+Files: t/99threads.t
+Copyright: This software is copyright (c) 2014 by Aaron James Trevena.
 License: GPL-1.0+ or Artistic-1.0
 
 License: Artistic-1.0

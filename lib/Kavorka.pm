@@ -14,11 +14,11 @@ use Sub::Name ();
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.030';
+our $VERSION   = '0.031';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
-our @EXPORT_OK   = qw( fun method after around before override augment classmethod objectmethod );
+our @EXPORT_OK   = qw( fun method after around before override augment classmethod objectmethod multi );
 our %EXPORT_TAGS = (
 	modifiers    => [qw( after around before )],
 	allmodifiers => [qw( after around before override augment )],
@@ -65,7 +65,8 @@ sub compose_implementation
 sub _exporter_validate_opts
 {
 	my $class = shift;
-	$^H{'Kavorka/package'} = $_[0]->{into};
+	$^H{'Kavorka/package'} = $_[0]{into};
+	$_[0]{replace} = 1 unless exists $_[0]{replace};
 }
 
 sub _fqname ($;$)

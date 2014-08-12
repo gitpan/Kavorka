@@ -6,6 +6,24 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.031	2014-08-13
+
+ [ Bug Fixes ]
+ - Add `multi` to @EXPORT_OK.
+   Thibaut Le Page++
+ - Fix link to Kavorka::Manual::Signatures.
+   Thibaut Le Page++
+
+ [ Documentation ]
+ - Update benchmarks given that Type::Tiny::XS is hellishly fast.
+
+ [ Packaging ]
+ - Recommend Type::Tiny::XS.
+
+ [ Other ]
+ - Updated: Bump required version of Return::Type.
+ - Updated: Cope with changes to Exporter::Tiny; avoid triggering warnings.
+
 0.030	2014-03-20
 
  [ Bug Fixes ]
