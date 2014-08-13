@@ -7,7 +7,7 @@ use Kavorka::Signature ();
 package Kavorka::Sub;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.031';
+our $VERSION   = '0.032';
 
 use Text::Balanced qw( extract_bracketed );
 use Parse::Keyword {};
@@ -28,13 +28,13 @@ use overload (
 );
 
 has keyword         => (is => 'ro');
-has signature_class => (is => 'ro', default => sub { 'Kavorka::Signature' });
+has signature_class => (is => 'lazy', default => sub { 'Kavorka::Signature' });
 has package         => (is => 'ro');
 has declared_name   => (is => 'rwp');
 has signature       => (is => 'rwp');
-has traits          => (is => 'ro', default => sub { +{} });
+has traits          => (is => 'lazy', default => sub { +{} });
 has prototype       => (is => 'rwp');
-has attributes      => (is => 'ro', default => sub { [] });
+has attributes      => (is => 'lazy', default => sub { [] });
 has body            => (is => 'rwp');
 has qualified_name  => (is => 'rwp');
 
@@ -85,6 +85,7 @@ sub install_sub
 sub inject_attributes
 {
 	my $self = shift;
+	no warnings; # Perl 5.21+ sprintf emits warnings for redundant arguments
 	join(' ', map sprintf($_->[1] ? ':%s(%s)' : ':%s', @$_), @{ $self->attributes }),
 }
 

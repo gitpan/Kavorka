@@ -6,6 +6,15 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.032	2014-08-13
+
+ [ Bug Fixes ]
+ - Work around a bug in Moo(?) or maybe the Perl keyword API(?) by
+   undeferring Moo's deferred subs.
+   Fixes RT#95786.
+   Jonathan Cast++
+   <https://rt.cpan.org/Ticket/Display.html?id=95786>
+
 0.031	2014-08-13
 
  [ Bug Fixes ]
