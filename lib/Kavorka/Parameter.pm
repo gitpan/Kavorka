@@ -5,7 +5,7 @@ use warnings;
 package Kavorka::Parameter;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.032';
+our $VERSION   = '0.033';
 our @CARP_NOT  = qw( Kavorka::Signature Kavorka::Sub Kavorka );
 
 use Carp qw( croak );
@@ -127,7 +127,7 @@ sub parse
 			require Type::Utils;
 			my $tmp = 'Type::Registry::DWIM'->new;
 			$tmp->{'~~chained'} = $args{package};
-			$tmp->{'~~assume'}  = 'Type::Tiny::Class';
+			$tmp->{'~~assume'}  = 'make_class_type';
 			$tmp;
 		};
 		

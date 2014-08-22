@@ -6,6 +6,14 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.033	2014-08-22
+
+ [ Bug Fixes ]
+ - Type::Registry::DWIM changed its API. (Kavorka probably shouldn't be
+   using it anyway because it's an undocumented internal part of
+   Type::Utils.)
+   SpiceMan++
+
 0.032	2014-08-13
 
  [ Bug Fixes ]
