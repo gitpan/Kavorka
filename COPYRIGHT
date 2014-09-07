@@ -102,17 +102,17 @@ Files: CONTRIBUTING
 Copyright: Unknown
 License: Unknown
 
-Files: examples/benchmarks.pl
- t/94bypassparsing.t
- t/95rolesatisfaction.t
-Copyright: This software is copyright (c) 2014 by Toby Inkster.
-License: GPL-1.0+ or Artistic-1.0
-
 Files: COPYRIGHT
  CREDITS
  SIGNATURE
 Copyright: None
 License: public-domain
+
+Files: examples/benchmarks.pl
+ t/94bypassparsing.t
+ t/95rolesatisfaction.t
+Copyright: This software is copyright (c) 2014 by Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
 
 Files: Makefile.PL
  dist.ini

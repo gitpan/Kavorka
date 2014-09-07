@@ -9,12 +9,12 @@ use PadWalker ();
 use Parse::Keyword ();
 use Module::Runtime ();
 use Scalar::Util ();
-use Sub::Name ();
+use Sub::Util ();
 
 package Kavorka;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.033';
+our $VERSION   = '0.034';
 
 our @ISA         = qw( Exporter::Tiny );
 our @EXPORT      = qw( fun method );
@@ -115,8 +115,13 @@ sub _exporter_fail
 	
 	# Workaround for RT#95786 which might be caused by a bug in the Perl
 	# interpreter.
+	# Also RT#98666 is why we can't just call undefer_all.
 	require Sub::Defer;
-	Sub::Defer::undefer_all();
+	for (keys %Sub::Defer::DEFERRED) {
+		no warnings;
+		Sub::Defer::undefer_sub($_)
+			if $Sub::Defer::DEFERRED{$_}[0] =~ /^Kavorka\b/;
+	}
 	
 	# Kavorka::Multi (for example) needs to know what Kavorka keywords are
 	# currently in scope.
@@ -124,7 +129,7 @@ sub _exporter_fail
 	
 	# This is the code that gets called at run-time.
 	#
-	my $code = Sub::Name::subname(
+	my $code = Sub::Util::set_subname(
 		"$me\::$name",
 		sub {
 			unless (Scalar::Util::blessed($_[0]) and $_[0]->DOES('Kavorka::Sub'))
@@ -150,7 +155,7 @@ sub _exporter_fail
 			{
 				my $orig = $r[0];
 				my $caller_vars = PadWalker::peek_my(1);
-				@r = Sub::Name::subname($subroutine->package."::__ANON__", sub {
+				@r = Sub::Util::set_subname($subroutine->package."::__ANON__", sub {
 					$subroutine->_poke_pads($caller_vars);
 					goto $orig;
 				});
@@ -175,7 +180,7 @@ sub _exporter_fail
 	# Parse::Keyword
 	#
 	Parse::Keyword::install_keyword_handler(
-		$code => Sub::Name::subname(
+		$code => Sub::Util::set_subname(
 			"$me\::parse_$name",
 			sub {
 				local $Carp::CarpLevel = $Carp::CarpLevel + 1;

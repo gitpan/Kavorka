@@ -6,6 +6,11 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.034	2014-09-07
+
+ - Avoid triggering RT#98666.
+ - Updated: Switch from Sub::Name+Sub::Identify to the shiny new Sub::Util.
+
 0.033	2014-08-22
 
  [ Bug Fixes ]
