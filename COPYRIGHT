@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: Kavorka
-Upstream-Contact:  and Toby Inkster (TOBYINK) <tobyink@cpan.org>
+Upstream-Contact: Toby Inkster (TOBYINK) <tobyink@cpan.org>
 Source: https://metacpan.org/release/Kavorka
 
 Files: README
@@ -87,6 +87,7 @@ Files: Changes
  lib/Kavorka/TraitFor/Sub/fresh.pm
  lib/Kavorka/TraitFor/Sub/override.pm
  lib/Parse/KeywordX.pm
+ t/lib/Local/Bad.pm
 Copyright: Copyright 2014 Toby Inkster.
 License: GPL-1.0+ or Artistic-1.0
 
@@ -102,17 +103,18 @@ Files: CONTRIBUTING
 Copyright: Unknown
 License: Unknown
 
+Files: examples/benchmarks.pl
+ t/94bypassparsing.t
+ t/95rolesatisfaction.t
+ t/98undefer.t
+Copyright: This software is copyright (c) 2014 by Toby Inkster.
+License: GPL-1.0+ or Artistic-1.0
+
 Files: COPYRIGHT
  CREDITS
  SIGNATURE
 Copyright: None
 License: public-domain
-
-Files: examples/benchmarks.pl
- t/94bypassparsing.t
- t/95rolesatisfaction.t
-Copyright: This software is copyright (c) 2014 by Toby Inkster.
-License: GPL-1.0+ or Artistic-1.0
 
 Files: Makefile.PL
  dist.ini

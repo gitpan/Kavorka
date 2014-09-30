@@ -99,4 +99,6 @@ t/92weirdvars.t
 t/93prototypes.t
 t/94bypassparsing.t
 t/95rolesatisfaction.t
+t/98undefer.t
 t/99threads.t
+t/lib/Local/Bad.pm
