@@ -6,6 +6,13 @@ Home page:    <https://metacpan.org/release/Kavorka>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Kavorka>
 Maintainer:   Toby Inkster (TOBYINK) <tobyink@cpan.org>
 
+0.036	2014-11-01
+
+ [ Bug Fixes ]
+ - Avoid inadvertantly autovivifying things in Sub::Defer's big hash of
+   deferred subs.
+   Chris Tijerina++
+
 0.035	2014-09-30
 
  [ Test Suite ]
